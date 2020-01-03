@@ -1,7 +1,36 @@
 <?php
-Route::get('/', function() {
-    return redirect(route('admin.dashboard'));
-});
+Route::get('/patient','PatientController@show')->name('patient');
+Route::get('/','PatientController@show');
+Route::get('/study/{mrn}','StudyController@show')->name('study');
+Route::post('/study','StudyController@study_post');
+Route::post('/studyv2','StudyController@study_postv2');
+
+Route::get('/diagnosis/{mrn}','StudyController@diagnosis');
+Route::post('/diagnosis','StudyController@diagnosis_post');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////tak guna////////////
 
 Route::get('home', function() {
     return redirect(route('admin.dashboard'));
