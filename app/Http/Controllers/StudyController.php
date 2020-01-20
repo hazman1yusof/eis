@@ -12,18 +12,18 @@ class StudyController extends Controller
     public function show($mrn,Request $request)
     {	
     	$pat_mast = DB::table('hisdb.pat_mast')->where('MRN','=',$mrn)->first();
-        $diagnosis_all = DB::table('nursing.gkcdiag')->get();
+        $diagnosis_all = DB::table('gkc.gkcdiag')->get();
 
     	if(!empty($request->diagcode)){
 
-    		$gkcasses = DB::table('nursing.gkcasses')
+    		$gkcasses = DB::table('gkc.gkcasses')
     							->where('diagcode','=',$request->diagcode)->get();
 
-            $patgkcasses = DB::table('nursing.patgkcasses')
+            $patgkcasses = DB::table('gkc.patgkcasses')
                                 ->where('MRN','=',$mrn)
                                 ->where('diagcode','=',$request->diagcode)->get();
 
-            $diagnosis = DB::table('nursing.gkcdiag')->where('diagcode','=',$request->diagcode)->first();
+            $diagnosis = DB::table('gkc.gkcdiag')->where('diagcode','=',$request->diagcode)->first();
 
     		$asses_cat_array = [];
     		$asses_cat = [];
@@ -37,6 +37,7 @@ class StudyController extends Controller
     				array_push($asses_cat, $responce);
     			}
     		}
+            // dd($asses_cat);
 
     		// foreach ($asses_cat as $key_que => $obj_que) {
     		// 	foreach ($patgkcasses as $key => $obj) {
@@ -51,16 +52,9 @@ class StudyController extends Controller
         return view('study.study',compact('pat_mast','diagnosis_all'));
     }
 
-    public function diagnosis($mrn){
-
-    	$pat_mast = DB::table('hisdb.pat_mast')->where('MRN','=',$mrn)->first();
-    	$diagnosis = DB::table('nursing.gkcdiag')->get();
-        return view('study.diagnosis',compact('pat_mast','diagnosis'));
-    }
-
     public function diagnosis_post(Request $request){
 
-    	$patgkcasses_obj = DB::table('nursing.patgkcasses')
+    	$patgkcasses_obj = DB::table('gkc.patgkcasses')
     							->where('mrn','=',$request->mrn)
     							->where('compcode','=','9A')
     							->where('diagcode','=',$request->diagcode);
@@ -69,10 +63,10 @@ class StudyController extends Controller
         	return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
     	}
 
-    	$gkcasses = DB::table('nursing.gkcasses')->where('diagcode','=',$request->diagcode)->get();
+    	$gkcasses = DB::table('gkc.gkcasses')->where('diagcode','=',$request->diagcode)->get();
 
     	foreach ($gkcasses as $key => $obj) {
-    		DB::table('nursing.patgkcasses')->insert([
+    		DB::table('gkc.patgkcasses')->insert([
 	    		'compcode' => '9A',
 	    		'mrn' => $request->mrn,
 	    		'description' => $obj->description,
@@ -113,7 +107,7 @@ class StudyController extends Controller
 
     public function study_post(Request $request){
 
-        $gkcasses = DB::table('nursing.gkcasses')
+        $gkcasses = DB::table('gkc.gkcasses')
             ->where('diagcode','=',$request->diagcode)
             ->where('description','=',$request->description)->get();
 
@@ -161,7 +155,7 @@ class StudyController extends Controller
     public function save_cb(Request $request){//, $value
 
         if(!empty($request->value)){
-            DB::table('nursing.patgkcasses')
+            DB::table('gkc.patgkcasses')
                 ->where('mrn','=', $request->mrn)
                 ->where('diagcode','=',$request->diagcode)
                 ->where('description','=',$request->description)
@@ -172,7 +166,7 @@ class StudyController extends Controller
                 ]);
         }
 
-        // DB::table('nursing.patgkcasses')
+        // DB::table('gkc.patgkcasses')
         //     ->where('mrn','=', $request->mrn)
         //     ->where('diagcode','=',$request->diagcode)
         //     ->where('description','=',$request->description)
@@ -187,7 +181,7 @@ class StudyController extends Controller
     public function save_op(Request $request){//, $value
         if(!empty($request->value)){//$request[str_replace(' ', '_', $value->questionnaire)]
 
-            DB::table('nursing.patgkcasses')
+            DB::table('gkc.patgkcasses')
                 ->where('mrn','=', $request->mrn)
                 ->where('diagcode','=',$request->diagcode)
                 ->where('description','=',$request->description)
@@ -206,7 +200,7 @@ class StudyController extends Controller
                     'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
                 ]);
 
-            DB::table('nursing.patgkcasses')
+            DB::table('gkc.patgkcasses')
                 ->where('mrn','=', $request->mrn)
                 ->where('diagcode','=',$request->diagcode)
                 ->where('description','=',$request->description)
@@ -223,7 +217,7 @@ class StudyController extends Controller
 
     public function save_tf(Request $request){//, $value
         if(!empty($request->value)){//$request[str_replace(' ', '_', $value->questionnaire)]
-            DB::table('nursing.patgkcasses')
+            DB::table('gkc.patgkcasses')
                 ->where('mrn','=', $request->mrn)
                 ->where('diagcode','=',$request->diagcode)
                 ->where('description','=',$request->description)
@@ -240,7 +234,7 @@ class StudyController extends Controller
 
     public function save_ta(Request $request){//, $value
         if(!empty($request->value)){//$request[str_replace(' ', '_', $value->questionnaire)]
-            DB::table('nursing.patgkcasses')
+            DB::table('gkc.patgkcasses')
                 ->where('mrn','=', $request->mrn)
                 ->where('diagcode','=',$request->diagcode)
                 ->where('description','=',$request->description)
@@ -258,7 +252,7 @@ class StudyController extends Controller
     public function save_dd(Request $request, $value){
         if(!empty($request[str_replace(' ', '_', $value->questionnaire)])){
 
-            DB::table('nursing.patgkcasses')
+            DB::table('gkc.patgkcasses')
                 ->where('mrn','=', $request->mrn)
                 ->where('diagcode','=',$request->diagcode)
                 ->where('description','=',$request->description)
@@ -272,7 +266,7 @@ class StudyController extends Controller
                     'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
                 ]);
 
-            DB::table('nursing.patgkcasses')
+            DB::table('gkc.patgkcasses')
                 ->where('mrn','=', $request->mrn)
                 ->where('diagcode','=',$request->diagcode)
                 ->where('description','=',$request->description)

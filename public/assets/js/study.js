@@ -64,7 +64,9 @@ $(document).ready(function() {
 			checked:checked
 		}
 		
-		$.post( '/studyv2', rowdata, function( data ) {
+
+		let formlink = $('#formlink').data('formlink');
+		$.post( formlink, rowdata, function( data ) {
 			iziToast.success({
 			    title: 'Saved',
 			    message: 'Question '+rowdata.name+' saved'

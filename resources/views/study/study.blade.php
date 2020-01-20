@@ -43,14 +43,16 @@ Study
 
   </div>
 
+  <div id="formlink" data-formlink="{{url('/studyv2')}}">
+
   <div class="section-body">
     <!-- <a id="newdiagnosis" href="/diagnosis/{{$pat_mast->MRN}}" class="btn btn-primary float-right">Select  Diagnosis</a> -->
-    <h2 class="section-title col-8">
+    <h2 class="section-title">
       {{$pat_mast->Name}} - MRN {{str_pad($pat_mast->MRN,7,"0",STR_PAD_LEFT)}}
     </h2>
            
     <div class="row">
-      <div class="col-3">
+      <div class="col-md-3 col-lg-3 col-sm-12">
         <div class="card">
           <div id="baseline" class="card-header card-custom selected_card">
             <h4>Baseline</h4>
@@ -147,14 +149,14 @@ Study
       </div>
 
 
-      <div class="col-9 div_normal  @if(!empty($gkcasses)){{'_hidediv'}}@endif" data-description="diagnosis_select" id="div_diagnosis_select">
+      <div class="col-md-9 col-lg-9 col-sm-12 div_normal  @if(!empty($gkcasses)){{'_hidediv'}}@endif" data-description="diagnosis_select" id="div_diagnosis_select">
         <div class="card">
           <div class="card-header">
             <h4>Select Diagnosis</h4>
           </div>
 
           <div class="card-body">
-            <form method="POST" action="/diagnosis">
+            <form method="POST" action="{{url('/diagnosis')}}">
               {!! csrf_field() !!}
               <div class="form-group">
                 <label>MRN</label>
@@ -183,7 +185,7 @@ Study
         </div>
       </div>
 
-      <div class="col-9 div_normal _hidediv" data-description="biodata" id="div_biodata">
+      <div class="col-md-9 col-lg-9 col-sm-12 div_normal _hidediv" data-description="biodata" id="div_biodata">
         <div class="card">
           <div class="card-header">
             <h4>Patient Biodata</h4>
@@ -248,7 +250,7 @@ Study
       @if (!empty($gkcasses))
         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
         @foreach ($asses_cat as $key => $gkc_cat)
-            <div class="col-9 div_normal  @if($desc_get!=$gkc_cat->description){{'_hidediv'}}@endif" data-description="{{$gkc_cat->description}}" id="div_{{$gkc_cat->description}}">
+            <div class="col-md-9 col-lg-9 col-sm-12 div_normal  @if($desc_get!=$gkc_cat->description){{'_hidediv'}}@endif" data-description="{{$gkc_cat->description}}" id="div_{{$gkc_cat->description}}">
 
               <div class="card">
                 <div class="card-header">

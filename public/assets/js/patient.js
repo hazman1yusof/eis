@@ -1,26 +1,66 @@
 $(document).ready(function() {
 
 	var table = $('#example').DataTable( {
-	} );
+		"processing": true,
+        "serverSide": true,
+        "ajax": {
+        	"url": "./patient_ajax",
+        	"data": function ( d ) {
+        		if(cur_page==null){
+        			d.page = 1;
+        		}else{
+        			d.page = cur_page+1;
+        		}
+        		
+		        d.where = $('#search-select').val();
+		    }
+        },
+        "columns": [
+            { "data": "MRN" },
+            { "data": "Name" },
+            { "data": "Newic" },
+            { "data": "telhp" },
+            { "data": "telh" },
+            { "data": "Episno" },
+            { 'data' : "button"}
+        ]
+	} ).on( 'init.dt', function () {
+        $('#example_filter').prepend( `Search By &nbsp;<label>
+        	<select class="custom-select custom-select-sm form-control form-control-sm" id="search-select">
+			    <option value="MRN">MRN</option>
+			    <option value="Name" selected>Name</option>
+			    <option value="Newic">New IC</option>
+			</select></label>&nbsp;` );
+    } );
 
-	// $('#example tbody').on( 'click', 'tr', function () {
-	// 	// $('#pathref').attr('href','/')
+	var cur_page=null;
+	$('#example').on( 'page.dt', function () {
+		var info = table.page.info();
+		cur_page = info.page;
+	});
 
- //        if ( $(this).hasClass('selected') ) {
- //            $(this).removeClass('selected');
- //        } else {
- //            table.$('tr.selected').removeClass('selected');
- //            $(this).addClass('selected');
- //        }
 
- //    	var oData = table.rows('.selected').data();
- //    	$('#pathref').attr('href','./study/'+oData[0][0]);
- //    } );
 
- //    $('#pathref').click( function () {
+
+
+	$('#example tbody').on( 'click', 'tr', function () {
+		// $('#pathref').attr('href','/')
+
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+
+    	// var oData = table.rows('.selected').data();
+    	// $('#pathref').attr('href','./study/'+oData[0][0]);
+    } );
+
+    $('#pathref').click( function () {
 
     	
- //    } );
+    } );
 
 
 });

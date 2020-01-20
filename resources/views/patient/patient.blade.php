@@ -4,6 +4,18 @@
 Patients
 @endsection
 
+@section('css')
+
+  table.dataTable tbody tr.selected a, table.dataTable tbody th.selected a, table.dataTable tbody td.selected a{
+    color: #ffffff;
+  }
+
+  table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected{
+    background-color: #9cc6ea;
+  }
+
+@endsection
+
 @section('content')
 <section class="section">
   <div class="section-header">
@@ -26,7 +38,7 @@ Patients
                       <th>Action</th>
                   </tr>
               </thead>
-              <tbody>
+              <!-- <tbody>
               	@foreach ($pat_mast as $user)
               	<tr>
                       <td>{{$user->MRN}}</td>
@@ -38,7 +50,7 @@ Patients
                       <td><a href="./study/{{$user->MRN}}" class="btn btn-sm btn-primary">Study</a></td>
                   </tr>
       			    @endforeach
-              </tbody>
+              </tbody> -->
               <tfoot>
                   <tr>
                       <th>Name</th>
