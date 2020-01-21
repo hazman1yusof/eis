@@ -23,6 +23,7 @@
                 class="form-control" 
                 style="height: 80px;"
               >
+                @if($rowdata[0]->ta1 != '') {{$rowdata[0]->ta1}}  @endif
               </textarea>
             </div>
           </div>
