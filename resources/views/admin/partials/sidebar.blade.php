@@ -1,9 +1,9 @@
 <aside id="sidebar-wrapper">
   <div class="sidebar-brand">
-    <a href="{{ route('patient') }}">MEDICSOFT</a>
+    <a href="{{ route('patient') }}">GKC Study</a>
   </div>
   <div class="sidebar-brand sidebar-brand-sm">
-    <a>MS</a>
+    <a>GKC</a>
   </div>
   <ul class="sidebar-menu">
       <li class="{{ Request::route()->getName() == 'patient' ? ' active' : '' }}"><a class="nav-link" href="{{ url('patient') }}"><i class="fa fa-users"></i> <span>Patient</span></a></li>

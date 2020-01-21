@@ -1,13 +1,15 @@
-<div data-description="Assessment_TN" id="div_Assessment_TN" class="col-md-9 col-lg-9 col-sm-12 div_normal">
+<div data-description="Assessment_TN" id="div_Assessment_TN_{{$key}}" class="col-md-9 col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif">
     <div class="card">
         <div class="card-header">
-            <h4>Assessment_TN</h4>
+            <h4>Assessment Trigeminal Neuralgia {{$key+1}} 
+                <div class="font-weight-600 text-muted text-small"><b>Visit Date:</b> {{$visit->regdate}}</div>
+                <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div></h4>
         </div> 
         <div class="card-body">
             <div id="form_Assessment_TN" action="/study" method="POST">
-                <input type="hidden" name="mrn" value="{{$mrn}}">
-                <input type="hidden" name="diagcode" value="TN">
-                <input type="hidden" name="description" value="Assessment_TN">
+                <input type="hidden" name_="mrn" value="{{$mrn}}">
+                <input type="hidden" name_="diagcode" value="TN">
+                <input type="hidden" name_="description" value="Assessment_TN">
                 <div class="row">
 
                     <div class="col-form-label col-4">Distribution of Pain</div>
@@ -15,7 +17,8 @@
                     <div class="col-8">
                         <div class="form-check">
                             <input type="checkbox" 
-                                name="Distribution of Pain" 
+                                name_="Distribution of Pain" 
+                                ques_num='0'
                                 id="Assessment_TN_Distribution of Pain_0" 
                                 value="cb1" 
                                 data-format="cb" 
@@ -24,7 +27,7 @@
                                 data-description="Assessment_TN" 
                                 data-question="Distribution of Pain" 
                                 class="form-check-input"
-                                @if($use_ans_array[0] == 'true') checked  @endif
+                                @if($rowdata[0]->cb1 == 'true') checked  @endif
                             > 
 
                             <label for="Assessment_TN_Distribution of Pain_0" class="form-check-label">
@@ -34,7 +37,8 @@
 
                         <div class="form-check">
                             <input type="checkbox" 
-                                name="Distribution of Pain" 
+                                name_="Distribution of Pain" 
+                                ques_num='0'
                                 id="Assessment_TN_Distribution of Pain_1" 
                                 value="cb2" 
                                 data-format="cb" 
@@ -43,7 +47,7 @@
                                 data-description="Assessment_TN" 
                                 data-question="Distribution of Pain" 
                                 class="form-check-input"
-                                @if($use_ans_array[1] == 'true') checked  @endif
+                                @if($rowdata[0]->cb2 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_Distribution of Pain_1" class="form-check-label">
                                 V2
@@ -52,7 +56,8 @@
 
                         <div class="form-check">
                             <input type="checkbox" 
-                                name="Distribution of Pain" 
+                                name_="Distribution of Pain" 
+                                ques_num='0'
                                 id="Assessment_TN_Distribution of Pain_2" 
                                 value="cb3" 
                                 data-format="cb" 
@@ -61,7 +66,7 @@
                                 data-description="Assessment_TN" 
                                 data-question="Distribution of Pain" 
                                 class="form-check-input"
-                                @if($use_ans_array[2] == 'true') checked  @endif
+                                @if($rowdata[0]->cb3 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_Distribution of Pain_2" class="form-check-label">
                                 V3
@@ -78,7 +83,8 @@
                     <div class="col-8">
                         <div class="form-check">
                             <input type="radio" 
-                                name="TN Side" 
+                                name_="TN_Side" 
+                                ques_num='1'
                                 id="Assessment_TN_TN Side_0" 
                                 value="op1" 
                                 data-format="op" 
@@ -86,7 +92,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
-                                @if($use_ans_array[0] == 'true') checked  @endif
+                                @if($rowdata[1]->op1 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_TN Side_0" class="form-check-label">
                                 Unilateral
@@ -94,7 +100,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="TN Side" 
+                                name_="TN_Side" 
+                                ques_num='1'
                                 id="Assessment_TN_TN Side_1" 
                                 value="op2" 
                                 data-format="op" 
@@ -102,7 +109,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
-                                @if($use_ans_array[1] == 'true') checked  @endif
+                                @if($rowdata[1]->op2 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_TN Side_1" class="form-check-label">
                                 Bilateral
@@ -119,7 +126,8 @@
                     <div class="col-8">
                         <div class="form-check">
                             <input type="radio" 
-                                name="Typical" 
+                                name_="Typical" 
+                                ques_num='2'
                                 id="Assessment_TN_Typical_0" 
                                 value="op1" 
                                 data-format="op" 
@@ -127,13 +135,14 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
-                                @if($use_ans_array[1] == 'true') checked  @endif
+                                @if($rowdata[2]->op1 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_Typical_0" class="form-check-label">Typical</label>
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="Typical" 
+                                name_="Typical" 
+                                ques_num='2'
                                 id="Assessment_TN_Typical_1" 
                                 value="op2" 
                                 data-format="op" 
@@ -141,6 +150,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[2]->op2 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_Typical_1" class="form-check-label">Atypical</label>
                         </div>
@@ -154,14 +164,16 @@
                     <div class="col-8">
                         <div class="form-group">
                             <input type="text" 
-                                name="Etiology" 
+                                name_="Etiology" 
+                                ques_num='3'
                                 id="Assessment_TN_Etiology_0" 
-                                value="" 
+                                value="@if($rowdata[3]->tf1 != '') {{$rowdata[3]->tf1}}  @endif" 
                                 data-format="tf" 
                                 data-mrn="{{$mrn}}" 
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-control"
+                                
                             >
                         </div>
                     </div>
@@ -174,7 +186,8 @@
                     <div class="col-8">
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Pain" 
+                                name_="BNI Pain" 
+                                ques_num='4'
                                 id="Assessment_TN_BNI Pain_0" 
                                 value="op1" 
                                 data-format="op" 
@@ -182,6 +195,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[4]->op1 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Pain_0" class="form-check-label">
                                     1 - No Pain, No Medication
@@ -189,7 +203,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Pain" 
+                                name_="BNI Pain"  
+                                ques_num='4'
                                 id="Assessment_TN_BNI Pain_1" 
                                 value="op2" 
                                 data-format="op" 
@@ -197,6 +212,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[4]->op2 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Pain_1" class="form-check-label">
                                 2- Occasional Pain, Not Requiring Medication
@@ -204,7 +220,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Pain" 
+                                name_="BNI Pain"  
+                                ques_num='4'
                                 id="Assessment_TN_BNI Pain_2" 
                                 value="op3" 
                                 data-format="op" 
@@ -212,6 +229,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[4]->op3 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Pain_2" class="form-check-label">
                                 Some Pain, Adequately control by Medicine
@@ -219,7 +237,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Pain" 
+                                name_="BNI Pain"  
+                                ques_num='4'
                                 id="Assessment_TN_BNI Pain_3" 
                                 value="op4" 
                                 data-format="op" 
@@ -227,6 +246,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[4]->op4 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Pain_3" class="form-check-label">
                                 4- Some Pain, Not Adequately control by Medicine
@@ -234,7 +254,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Pain" 
+                                name_="BNI Pain"  
+                                ques_num='4'
                                 id="Assessment_TN_BNI Pain_4" 
                                 value="op5" 
                                 data-format="op" 
@@ -242,6 +263,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[4]->op5 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Pain_4" class="form-check-label">
                                 5- Severe Pain / No Pain Relief
@@ -257,7 +279,8 @@
                     <div class="col-8">
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Numb" 
+                                name_="BNI Numb"  
+                                ques_num='5'
                                 id="Assessment_TN_BNI Numb_0" 
                                 value="op1" 
                                 data-format="op" 
@@ -265,6 +288,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[5]->op1 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Numb_0" class="form-check-label">
                                 1- No Facial Numbness
@@ -272,7 +296,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Numb" 
+                                name_="BNI Numb" 
+                                ques_num='5'
                                 id="Assessment_TN_BNI Numb_1" 
                                 value="op2" 
                                 data-format="op" 
@@ -280,6 +305,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[5]->op2 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Numb_1" class="form-check-label">
                                 2- Mild Facial Numbness, not bothersome
@@ -287,7 +313,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Numb" 
+                                name_="BNI Numb" 
+                                ques_num='5'
                                 id="Assessment_TN_BNI Numb_2" 
                                 value="op3" 
                                 data-format="op" 
@@ -295,6 +322,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[5]->op3 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Numb_2" class="form-check-label">
                                 3- Facial Numbness, somewhat bothersome
@@ -302,7 +330,8 @@
                         </div> 
                         <div class="form-check">
                             <input type="radio" 
-                                name="BNI Numb" 
+                                name_="BNI Numb" 
+                                ques_num='5'
                                 id="Assessment_TN_BNI Numb_3" 
                                 value="op4" 
                                 data-format="op" 
@@ -310,6 +339,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 class="form-check-input"
+                                @if($rowdata[5]->op4 == 'true') checked  @endif
                             > 
                             <label for="Assessment_TN_BNI Numb_3" class="form-check-label">
                                 4- Facial Numbness, very bothersome
@@ -334,9 +364,10 @@
                     <div class="col-8">
                         <div class="form-group">
                             <input type="text" 
-                                name="Any Pain Killer Prescribed?" 
+                                name_="Any Pain Killer Prescribed?" 
+                                ques_num='7'
                                 id="Assessment_TN_Any Pain Killer Prescribed?_0" 
-                                value="" 
+                                value="@if($rowdata[7]->tf1 != '') {{$rowdata[7]->tf1}}  @endif" 
                                 data-format="tf" 
                                 data-mrn="{{$mrn}}" 
                                 data-diagcode="TN" 

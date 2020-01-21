@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 	$("div[action='/study'] input").on('change',function(){
 
-		let name = $(this).first().attr('name');
+		let name = $(this).first().attr('name_');
 		let value = $(this).first().val();
 		let mrn = $(this).first().data('mrn');
 		let diagcode = $(this).first().data('diagcode');

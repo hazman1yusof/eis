@@ -13,72 +13,127 @@ class StudyController extends Controller
     {	
     	$pat_mast = DB::table('hisdb.pat_mast')->where('MRN','=',$mrn)->first();
         $diagnosis_all = DB::table('gkc.gkcdiag')->get();
+        $badge = new stdClass;
+        $badge->baseline = $badge->month_1st = $badge->month_3rd = $badge->month_6th = $badge->year_1 = $badge->year_2 = $badge->year_3 = $badge->year_4 = null;
 
     	if(!empty($request->diagcode)){
 
     		$gkcasses = DB::table('gkc.gkcasses')
     							->where('diagcode','=',$request->diagcode)->get();
 
-            $patgkcasses = DB::table('gkc.patgkcasses')
-                                ->where('MRN','=',$mrn)
-                                ->where('diagcode','=',$request->diagcode)->get();
+            $patvisit = DB::table('gkc.patvisit')
+                                ->where('mrn','=',$mrn)->get();
 
             $diagnosis = DB::table('gkc.gkcdiag')->where('diagcode','=',$request->diagcode)->first();
 
-    		$asses_cat_array = [];
-    		$asses_cat = [];
-    		foreach ($gkcasses as $key => $obj) {
-    			if(!in_array($obj->description, $asses_cat_array)){
-    				$responce = new stdClass();
-    				$responce->description = $obj->description;
-    				$responce->progress = $obj->progress;
+    		$asses_by_visit = []; // berapa bnyak diagnosis dia
 
-    				array_push($asses_cat_array, $obj->description);
-    				array_push($asses_cat, $responce);
-    			}
+    		foreach ($patvisit as $key => $visit) {
+
+
+                $patgkcasses_first = DB::table('gkc.patgkcasses')
+                            ->where('MRN','=',$visit->mrn)
+                            ->where('regdate','=',$visit->regdate)
+                            ->where('diagcode','=',$request->diagcode)
+                            ->first();
+
+    			$patgkcasses = DB::table('gkc.patgkcasses')
+                                ->where('MRN','=',$visit->mrn)
+                                ->where('regdate','=',$visit->regdate)
+                                ->where('diagcode','=',$request->diagcode)
+                                ->get();
+
+                $badge = $this->badge_counter($badge,$patgkcasses_first);
+
+                $responce = new stdClass;
+                $responce->mrn = $patgkcasses_first->mrn;
+                $responce->regdate = Carbon::createFromFormat('Y-m-d',$patgkcasses_first->regdate)->toFormattedDateString();
+                $responce->description = $patgkcasses_first->description;
+                $responce->diagcode = $patgkcasses_first->diagcode;
+                $responce->questionnaire = $patgkcasses_first->questionnaire;
+                $responce->progress = $patgkcasses_first->progress;
+                $responce->rowdata = $patgkcasses->toArray();
+
+                array_push($asses_by_visit, $responce);
+
     		}
-            // dd($asses_cat);
 
-    		// foreach ($asses_cat as $key_que => $obj_que) {
-    		// 	foreach ($patgkcasses as $key => $obj) {
-    		// 		$arrayname[indexname] = $value;
-    		// 		array_push($asses_que, $obj->description);
-    		// 	}
-    		// }
-
-        	return view('study.study',compact('pat_mast','diagnosis','diagnosis_all','asses_cat','gkcasses','patgkcasses'));
+        	return view('study.study',compact('pat_mast','diagnosis','diagnosis_all','asses_by_visit','gkcasses','badge'));
     	}
 
-        return view('study.study',compact('pat_mast','diagnosis_all'));
+        return view('study.study',compact('pat_mast','diagnosis_all','badge'));
     }
 
     public function diagnosis_post(Request $request){
 
-    	$patgkcasses_obj = DB::table('gkc.patgkcasses')
-    							->where('mrn','=',$request->mrn)
-    							->where('compcode','=','9A')
-    							->where('diagcode','=',$request->diagcode);
+        DB::beginTransaction();
 
-    	if($patgkcasses_obj->exists()){
-        	return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
-    	}
+        try {
 
-    	$gkcasses = DB::table('gkc.gkcasses')->where('diagcode','=',$request->diagcode)->get();
+            $patgkcasses_obj = DB::table('gkc.patgkcasses')
+                                ->where('compcode','=','9A')
+                                ->where('mrn','=',$request->mrn)
+                                ->whereDate('regdate', $request->regdate)
+                                ->where('diagcode','=',$request->diagcode);
 
-    	foreach ($gkcasses as $key => $obj) {
-    		DB::table('gkc.patgkcasses')->insert([
-	    		'compcode' => '9A',
-	    		'mrn' => $request->mrn,
-	    		'description' => $obj->description,
-	    		'diagcode' => $obj->diagcode,
-	    		'questionnaire' => $obj->questionnaire,
-	    		'progress' => $obj->progress,
-	    		'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-	    		'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-	    	]);
-    	}
+            if($patgkcasses_obj->exists()){
+                return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
+            }
 
-        return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
+            $gkcasses = DB::table('gkc.gkcasses')->where('diagcode','=',$request->diagcode)->get();
+            $patvisit = DB::table('gkc.patvisit')
+                        ->where('mrn','=',$request->mrn)
+                        ->where('compcode','=','9A')->get();
+
+            $baseline_date = Carbon::createFromFormat('Y-m-d',$patvisit[0]->regdate);
+
+            foreach ($patvisit as $key_visit => $visit) {
+
+                $visit_date = Carbon::createFromFormat('Y-m-d',$visit->regdate);
+                if($visit_date->equalTo($baseline_date)){
+                    $progress = 'Baseline';
+                }else if($visit_date->diffInMonths($baseline_date) <= 1){
+                    $progress = '1st Month';
+                }else if($visit_date->diffInMonths($baseline_date) <= 3){
+                    $progress = '3rd Month';
+                }else if($visit_date->diffInMonths($baseline_date) <= 6){
+                    $progress = '6th Month';
+                }else if($visit_date->diffInYears($baseline_date) <= 1){
+                    $progress = '1st Year';
+                }else if($visit_date->diffInYears($baseline_date) <= 2){
+                    $progress = '2nd Year';
+                }else if($visit_date->diffInYears($baseline_date) <= 3){
+                    $progress = '3rd Year';
+                }else if($visit_date->diffInYears($baseline_date) >= 4){
+                    $progress = '4th Year';
+                }else{
+                    $progress = 'Error';
+                }
+                
+                foreach ($gkcasses as $key_gkc => $gkc) {
+                    DB::table('gkc.patgkcasses')->insert([
+                        'compcode' => $visit->compcode,
+                        'mrn' => $visit->mrn,
+                        'description' => $gkc->description,
+                        'diagcode' => $gkc->diagcode,
+                        'questionnaire' => $gkc->questionnaire,
+                        'progress' => $progress,
+                        'regdate' => $visit->regdate,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+                }
+            }
+
+
+            DB::commit();
+
+            return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
+        }
+
     }
 
     public function study_postv2(Request $request){
@@ -152,130 +207,209 @@ class StudyController extends Controller
         return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode.'&description='.$request->description);
     }
 
-    public function save_cb(Request $request){//, $value
+    public function save_cb(Request $request){
 
-        if(!empty($request->value)){
-            DB::table('gkc.patgkcasses')
-                ->where('mrn','=', $request->mrn)
-                ->where('diagcode','=',$request->diagcode)
-                ->where('description','=',$request->description)
-                ->where('questionnaire','=',$request->name)
-                ->update([
-                    $request->value => $request->checked ,
-                    'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                ]);
+        DB::beginTransaction();
+
+        try {
+
+            if(!empty($request->value)){
+                DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$request->name)
+                    ->update([
+                        $request->value => $request->checked ,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
         }
 
-        // DB::table('gkc.patgkcasses')
-        //     ->where('mrn','=', $request->mrn)
-        //     ->where('diagcode','=',$request->diagcode)
-        //     ->where('description','=',$request->description)
-        //     ->where('questionnaire','=',$request->name)
-        //     ->update([
-        //         $request->value => $request->checked ,
-        //         'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-        //         'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-        //     ]);
     }
 
-    public function save_op(Request $request){//, $value
-        if(!empty($request->value)){//$request[str_replace(' ', '_', $value->questionnaire)]
+    public function save_op(Request $request){
 
-            DB::table('gkc.patgkcasses')
-                ->where('mrn','=', $request->mrn)
-                ->where('diagcode','=',$request->diagcode)
-                ->where('description','=',$request->description)
-                ->where('questionnaire','=',$request->name)
-                // ->where('questionnaire','=',$value->questionnaire)
-                ->update([
-                    'op1' => null ,
-                    'op2' => null ,
-                    'op3' => null ,
-                    'op4' => null ,
-                    'op5' => null ,
-                    'op6' => null ,
-                    'op7' => null ,
-                    'op8' => null ,
-                    'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                ]);
+        DB::beginTransaction();
 
-            DB::table('gkc.patgkcasses')
-                ->where('mrn','=', $request->mrn)
-                ->where('diagcode','=',$request->diagcode)
-                ->where('description','=',$request->description)
-                ->where('questionnaire','=',$request->name)
-                // ->where('questionnaire','=',$value->questionnaire)
-                ->update([
-                    //$request[str_replace(' ', '_', $value->questionnaire)
-                    $request->value => 'true' ,
-                    'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                ]);
-        }
-    }
+        try {
+            if(!empty($request->value)){
 
-    public function save_tf(Request $request){//, $value
-        if(!empty($request->value)){//$request[str_replace(' ', '_', $value->questionnaire)]
-            DB::table('gkc.patgkcasses')
-                ->where('mrn','=', $request->mrn)
-                ->where('diagcode','=',$request->diagcode)
-                ->where('description','=',$request->description)
-                ->where('questionnaire','=',$request->name)
-                // ->where('questionnaire','=',$value->questionnaire)
-                ->update([
-                    // 'tf1' => $request[str_replace(' ', '_', $value->questionnaire)] ,
-                    'tf1' => $request->value ,
-                    'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                ]);
+                DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$request->name)
+                    ->update([
+                        'op1' => null ,
+                        'op2' => null ,
+                        'op3' => null ,
+                        'op4' => null ,
+                        'op5' => null ,
+                        'op6' => null ,
+                        'op7' => null ,
+                        'op8' => null ,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+
+                DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$request->name)
+                    ->update([
+                        $request->value => 'true' ,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
         }
     }
 
-    public function save_ta(Request $request){//, $value
-        if(!empty($request->value)){//$request[str_replace(' ', '_', $value->questionnaire)]
-            DB::table('gkc.patgkcasses')
-                ->where('mrn','=', $request->mrn)
-                ->where('diagcode','=',$request->diagcode)
-                ->where('description','=',$request->description)
-                ->where('questionnaire','=',$request->name)
-                // ->where('questionnaire','=',$value->questionnaire)
-                ->update([
-                    'ta1' => $request->value ,
-                    // 'ta1' => $request[str_replace(' ', '_', $value->questionnaire)] ,
-                    'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                ]);
+    public function save_tf(Request $request){
+
+        DB::beginTransaction();
+
+        try {
+
+            if(!empty($request->value)){
+                DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$request->name)
+                    ->update([
+                        'tf1' => $request->value ,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+            }
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
+        }
+
+    }
+
+    public function save_ta(Request $request){
+
+        DB::beginTransaction();
+
+        try {
+            if(!empty($request->value)){
+                DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$request->name)
+                    ->update([
+                        'ta1' => $request->value ,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
         }
     }
 
     public function save_dd(Request $request, $value){
-        if(!empty($request[str_replace(' ', '_', $value->questionnaire)])){
 
-            DB::table('gkc.patgkcasses')
-                ->where('mrn','=', $request->mrn)
-                ->where('diagcode','=',$request->diagcode)
-                ->where('description','=',$request->description)
-                ->where('questionnaire','=',$value->questionnaire)
-                ->update([
-                    'dd1' => null ,
-                    'dd2' => null ,
-                    'dd3' => null ,
-                    'dd4' => null ,
-                    'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                ]);
+        DB::beginTransaction();
 
-            DB::table('gkc.patgkcasses')
-                ->where('mrn','=', $request->mrn)
-                ->where('diagcode','=',$request->diagcode)
-                ->where('description','=',$request->description)
-                ->where('questionnaire','=',$value->questionnaire)
-                ->update([
-                    $request[str_replace(' ', '_', $value->questionnaire)] => 'true' ,
-                    'regdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'transdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                ]);
+        try {
+
+            if(!empty($request[str_replace(' ', '_', $value->questionnaire)])){
+
+                DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$value->questionnaire)
+                    ->update([
+                        'dd1' => null ,
+                        'dd2' => null ,
+                        'dd3' => null ,
+                        'dd4' => null ,
+                        'upddate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+
+                DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$value->questionnaire)
+                    ->update([
+                        $request[str_replace(' ', '_', $value->questionnaire)] => 'true' ,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+            }
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
         }
+
+    }
+
+    public function badge_counter($badge,$patgkcasses_first){
+        switch ($patgkcasses_first->progress) {
+            case 'Baseline':
+                if($badge->baseline==null)$badge->baseline = 0;
+                $badge->baseline = $badge->baseline +1;
+                break;
+            case '1st Month':
+                if($badge->month_1st==null)$badge->month_1st = 0;
+                $badge->month_1st = $badge->month_1st+1;
+                break;
+            case '3rd Month':
+                if($badge->month_3rd==null)$badge->month_3rd = 0;
+                $badge->month_3rd = $badge->month_3rd+1;
+                break;
+            case '6th Month':
+                if($badge->month_6th==null)$badge->month_6th = 0;
+                $badge->month_6th = $badge->month_6th+1;
+                break;
+            case '1st Year':
+                if($badge->year_1==null)$badge->year_1 = 0;
+                $badge->year_1 = $badge->year_1+1;
+                break;
+            case '2nd Year':
+                if($badge->year_2==null)$badge->year_2 = 0;
+                $badge->year_2 = $badge->year_2+1;
+                break;
+            case '3rd Year':
+                if($badge->year_3==null)$badge->year_3 = 0;
+                $badge->year_3 = $badge->year_3+1;
+                break;
+            case '4th Year':
+                if($badge->year_4==null)$badge->year_4 = 0;
+                $badge->year_4 = $badge->year_4+1;
+                break;
+            default:
+                break;
+        }
+        return $badge;
     }
 }
