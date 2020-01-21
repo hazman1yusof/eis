@@ -6,7 +6,7 @@
     <div class="card-body">
       <div id="form_Assessment_Gliomas" action="/study" method="POST">
         <input type="hidden" name="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
-        <input type="hidden" name="mrn" value="1"> <input type="hidden" name="diagcode" value="Gliomas"> 
+        <input type="hidden" name="mrn" value="{{$mrn}}"> <input type="hidden" name="diagcode" value="Gliomas"> 
         <input type="hidden" name="description" value="Assessment_Gliomas"> 
         <div class="row">
         
@@ -17,7 +17,7 @@
               <textarea name="Sign and Symptoms" 
                 id="Assessment_Gliomas_Sign and Symptoms_0" 
                 data-format="ta" 
-                data-mrn="1" 
+                data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 class="form-control" 
@@ -42,7 +42,7 @@
                 id="Assessment_Gliomas_Size of Tumour_0" 
                 value="" 
                 data-format="tf" 
-                data-mrn="1" 
+                data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 class="form-control"
@@ -65,7 +65,7 @@
                 id="Assessment_Gliomas_Location of Tumour_0" 
                 value="" 
                 data-format="tf" 
-                data-mrn="1" 
+                data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 class="form-control"
@@ -88,7 +88,7 @@
                 id="Assessment_Gliomas_Previous Treatment_0" 
                 value="cb1" 
                 data-format="cb" 
-                data-mrn="1" 
+                data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-question="Previous Treatment" 
@@ -106,7 +106,7 @@
                 id="Assessment_Gliomas_Previous Treatment_1" 
                 value="cb2" 
                 data-format="cb" 
-                data-mrn="1" 
+                data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-question="Previous Treatment" 
@@ -124,7 +124,7 @@
                 id="Assessment_Gliomas_Previous Treatment_2" 
                 value="cb3" 
                 data-format="cb" 
-                data-mrn="1" 
+                data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-question="Previous Treatment" 
@@ -142,7 +142,7 @@
                 id="Assessment_Gliomas_Previous Treatment_3" 
                 value="cb4" 
                 data-format="cb" 
-                data-mrn="1" 
+                data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-question="Previous Treatment" 
@@ -170,7 +170,7 @@
               id="Assessment_Gliomas_Date of Pre Treatment_0" 
               value="" 
               data-format="tf" 
-              data-mrn="1" 
+              data-mrn="{{$mrn}}" 
               data-diagcode="Gliomas" 
               data-description="Assessment_Gliomas" 
               class="form-control"
