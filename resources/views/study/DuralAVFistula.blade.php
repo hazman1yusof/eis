@@ -1,14 +1,17 @@
-<div data-description="Assessment_Dural_AV_Fistula" id="div_Assessment_Dural_AV_Fistula" class="col-md-9 col-lg-9 col-sm-12 div_normal  ">
+<div data-description="Assessment_Dural_AV_Fistula" id="div_Assessment_Dural_AV_Fistula_{{$key}}" class="col-md-9 col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
   <div class="card">
     <div class="card-header">
-      <h4>Assessment_Dural_AV_Fistula</h4>
+      <h4>Assessment Dural AV Fistula {{$key+1}
+        <div class="font-weight-600 text-muted text-small"><b>Visit Date:</b> {{$visit->regdate}}</div>
+        <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
+      </h4>
     </div> 
     <div class="card-body">
       <div id="form_Assessment_Dural_AV_Fistula" action="/study" method="POST">
-        <input type="hidden" name="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
-        <input type="hidden" name="mrn" value="{{$mrn}}"> 
-        <input type="hidden" name="diagcode" value="Dural AV Fistula"> 
-        <input type="hidden" name="description" value="Assessment_Dural_AV_Fistula"> 
+        <input type="hidden" name_="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
+        <input type="hidden" name_="mrn" value="{{$mrn}}"> 
+        <input type="hidden" name_="diagcode" value="Dural AV Fistula"> 
+        <input type="hidden" name_="description" value="Assessment_Dural_AV_Fistula"> 
         <div class="row">
         
           <div class="col-form-label col-4"> Location of Fistula </div> 
@@ -16,9 +19,10 @@
           <div class="col-8">
             <div class="form-group">
               <input type="text" 
-                name="Location of Fistula" 
+                name_="Location of Fistula" 
+                ques_num='0'
                 id="Assessment_Dural_AV_Fistula_Location of Fistula_0" 
-                value="" 
+                value="@if($rowdata[0]->tf1 != '') {{$rowdata[0]->tf1}}  @endif" 
                 data-format="tf" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Dural AV Fistula" 
@@ -39,9 +43,10 @@
           <div class="col-8">
             <div class="form-group">
               <input type="text" 
-                name="Arterial Feeder" 
+                name_="Arterial Feeder" 
+                ques_num='1'
                 id="Assessment_Dural_AV_Fistula_Arterial Feeder_0" 
-                value="" 
+                value="@if($rowdata[1]->tf2 != '') {{$rowdata[1]->tf2}}  @endif"
                 data-format="tf" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Dural AV Fistula" 
@@ -62,7 +67,8 @@
           <div class="col-8">
             <div class="form-check">
               <input type="radio" 
-                name="Borden Angiographic Grade" 
+                name_="Borden Angiographic Grade" 
+                ques_num='2'
                 id="Assessment_Dural_AV_Fistula_Borden Angiographic Grade_0" 
                 value="op1" 
                 data-format="op" 
@@ -70,6 +76,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[2]->op1 == 'true') checked  @endif
               > 
               
               <label for="Assessment_Dural_AV_Fistula_Borden Angiographic Grade_0" class="form-check-label">
@@ -79,7 +86,8 @@
             
             <div class="form-check">
               <input type="radio" 
-                name="Borden Angiographic Grade" 
+                name_="Borden Angiographic Grade" 
+                ques_num='2'
                 id="Assessment_Dural_AV_Fistula_Borden Angiographic Grade_1" 
                 value="op2" 
                 data-format="op" 
@@ -87,6 +95,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[2]->op2 == 'true') checked  @endif
               > 
 
               <label for="Assessment_Dural_AV_Fistula_Borden Angiographic Grade_1" class="form-check-label">
@@ -96,7 +105,8 @@
             
             <div class="form-check">
               <input type="radio" 
-                name="Borden Angiographic Grade" 
+                name_="Borden Angiographic Grade" 
+                ques_num='2'
                 id="Assessment_Dural_AV_Fistula_Borden Angiographic Grade_2" 
                 value="op3" 
                 data-format="op" 
@@ -104,6 +114,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[2]->op3 == 'true') checked  @endif
               > 
 
               <label for="Assessment_Dural_AV_Fistula_Borden Angiographic Grade_2" class="form-check-label">
@@ -122,7 +133,8 @@
           
           <div class="col-8">
             <div class="form-group">
-              <select name="Barrow Classification" 
+              <select name_="Barrow Classification" 
+                ques_num='3'
                 id="Assessment_Dural_AV_Fistula_Barrow Classification" 
                 data-format="dd" 
                 data-mrn="{{$mrn}}" 
@@ -150,7 +162,8 @@
           <div class="col-8">
             <div class="form-check">
               <input type="radio" 
-                name="Corticovenus Drainage" 
+                ques_num='4'
+                name_="Corticovenus Drainage" 
                 id="Assessment_Dural_AV_Fistula_Corticovenus Drainage_0" 
                 value="op1" 
                 data-format="op" 
@@ -158,6 +171,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[4]->op1 == 'true') checked  @endif
               > 
 
               <label for="Assessment_Dural_AV_Fistula_Corticovenus Drainage_0" class="form-check-label">
@@ -167,7 +181,8 @@
             
             <div class="form-check">
               <input type="radio" 
-                name="Corticovenus Drainage" 
+                ques_num='4'
+                name_="Corticovenus Drainage" 
                 id="Assessment_Dural_AV_Fistula_Corticovenus Drainage_1" 
                 value="op2" 
                 data-format="op" 
@@ -175,6 +190,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[4]->op2 == 'true') checked  @endif
               > 
 
               <label for="Assessment_Dural_AV_Fistula_Corticovenus Drainage_1" class="form-check-label">
@@ -185,7 +201,7 @@
 
         </div> 
         
-        <hr> 
+          <hr> 
         
         <div class="row">
         
@@ -194,7 +210,8 @@
           <div class="col-8">
             <div class="form-check">
               <input type="radio" 
-                name="Anatomy of Fistula" 
+                ques_num='5'
+                name_="Anatomy of Fistula" 
                 id="Assessment_Dural_AV_Fistula_Anatomy of Fistula_0" 
                 value="op1" 
                 data-format="op" 
@@ -202,6 +219,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[5]->op1 == 'true') checked  @endif
               > 
 
               <label for="Assessment_Dural_AV_Fistula_Anatomy of Fistula_0" class="form-check-label">
@@ -211,7 +229,8 @@
             
             <div class="form-check">
               <input type="radio" 
-                name="Anatomy of Fistula" 
+                ques_num='5'
+                name_="Anatomy of Fistula" 
                 id="Assessment_Dural_AV_Fistula_Anatomy of Fistula_1" 
                 value="op2" 
                 data-format="op" 
@@ -219,6 +238,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[5]->op2 == 'true') checked  @endif
               > 
               
               <label for="Assessment_Dural_AV_Fistula_Anatomy of Fistula_1" class="form-check-label">
@@ -238,7 +258,8 @@
           <div class="col-8">
             <div class="form-check">
               <input type="radio" 
-                name="Pretreatment (Embolization/Surgery) Done" 
+                ques_num='6'
+                name_="Pretreatment (Embolization/Surgery) Done" 
                 id="Assessment_Dural_AV_Fistula_Pretreatment (Embolization/Surgery) Done_0" 
                 value="op1" 
                 data-format="op" 
@@ -246,6 +267,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[6]->op1 == 'true') checked  @endif
               > 
 
               <label for="Assessment_Dural_AV_Fistula_Pretreatment (Embolization/Surgery) Done_0" class="form-check-label">
@@ -254,8 +276,9 @@
             </div> 
             
             <div class="form-check">
-              <input type="radio" 
-                name="Pretreatment (Embolization/Surgery) Done" 
+              <input type="radio"  
+                ques_num='6'
+                name_="Pretreatment (Embolization/Surgery) Done" 
                 id="Assessment_Dural_AV_Fistula_Pretreatment (Embolization/Surgery) Done_1" 
                 value="op2" 
                 data-format="op" 
@@ -263,6 +286,7 @@
                 data-diagcode="Dural AV Fistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 class="form-check-input"
+                @if($rowdata[6]->op2 == 'true') checked  @endif
               > 
 
               <label for="Assessment_Dural_AV_Fistula_Pretreatment (Embolization/Surgery) Done_1" class="form-check-label">

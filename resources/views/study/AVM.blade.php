@@ -135,7 +135,8 @@
           
           <div class="col-8">
             <div class="form-check">
-              <input type="radio" 
+              <input type="radio"  
+                ques_num='3'
                 name_="Spetzler Martin Grading Scale - Venous Drainage" 
                 id="Assesment_AVM_Spetzler Martin Grading Scale - Venous Drainage_0" 
                 value="op1" 
@@ -144,6 +145,7 @@
                 data-diagcode="AVM" 
                 data-description="Assesment_AVM" 
                 class="form-check-input"
+                @if($rowdata[3]->op1 == 'true') checked  @endif
               > 
               
               <label for="Assesment_AVM_Spetzler Martin Grading Scale - Venous Drainage_0" class="form-check-label">
@@ -152,7 +154,8 @@
             </div> 
             
             <div class="form-check">
-              <input type="radio" 
+              <input type="radio"  
+                ques_num='3'
                 name_="Spetzler Martin Grading Scale - Venous Drainage" 
                 id="Assesment_AVM_Spetzler Martin Grading Scale - Venous Drainage_1" 
                 value="op2" 
@@ -161,6 +164,7 @@
                 data-diagcode="AVM" 
                 data-description="Assesment_AVM" 
                 class="form-check-input"
+                @if($rowdata[3]->op2 == 'true') checked  @endif
               >
 
               <label for="Assesment_AVM_Spetzler Martin Grading Scale - Venous Drainage_1" class="form-check-label">
@@ -179,7 +183,8 @@
           
           <div class="col-8">
             <div class="form-check">
-              <input type="radio" 
+              <input type="radio"  
+                ques_num='4'
                 name_="Spetzler Martin Grading Scale - Eloquence" 
                 id="Assesment_AVM_Spetzler Martin Grading Scale - Eloquence_0" 
                 value="op1" 
@@ -188,6 +193,7 @@
                 data-diagcode="AVM" 
                 data-description="Assesment_AVM" 
                 class="form-check-input"
+                @if($rowdata[4]->op1 == 'true') checked  @endif
               >
 
               <label for="Assesment_AVM_Spetzler Martin Grading Scale - Eloquence_0" class="form-check-label">
@@ -196,7 +202,8 @@
             </div> 
             
             <div class="form-check">
-              <input type="radio" 
+              <input type="radio"  
+                ques_num='4'
                 name_="Spetzler Martin Grading Scale - Eloquence" 
                 id="Assesment_AVM_Spetzler Martin Grading Scale - Eloquence_1" 
                 value="op2" 
@@ -205,6 +212,7 @@
                 data-diagcode="AVM" 
                 data-description="Assesment_AVM" 
                 class="form-check-input"
+                @if($rowdata[4]->op2 == 'true') checked  @endif
               > 
               
               <label for="Assesment_AVM_Spetzler Martin Grading Scale - Eloquence_1" class="form-check-label">
@@ -325,9 +333,10 @@
           <div class="col-8">
             <div class="form-group">
               <input type="text" 
-                name_="Date of Previous Treatment" 
+                name_="Date of Previous Treatment"  
+                ques_num='7'
                 id="Assesment_AVM_Date of Previous Treatment_0" 
-                value="" 
+                value="@if($rowdata[7]->tf2 != '') {{$rowdata[7]->tf2}}  @endif"
                 data-format="tf" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="AVM" 
@@ -349,8 +358,9 @@
             <div class="form-group">
               <input type="text" 
                 name_="Anatomical Location of AVM" 
+                ques_num='8'
                 id="Assesment_AVM_Anatomical Location of AVM_0" 
-                value="" 
+                value="@if($rowdata[8]->tf3 != '') {{$rowdata[8]->tf3}}  @endif"
                 data-format="tf" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="AVM" 
@@ -372,8 +382,9 @@
             <div class="form-group">
               <input type="text" 
                 name_="Dosage" 
+                ques_num='9'
                 id="Assesment_AVM_Dosage_0" 
-                value="" 
+                value="@if($rowdata[9]->tf4 != '') {{$rowdata[9]->tf4}}  @endif" 
                 data-format="tf" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="AVM" 
