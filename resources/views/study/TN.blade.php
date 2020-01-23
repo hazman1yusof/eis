@@ -2,8 +2,8 @@
     <div class="card">
         <div class="card-header">
             <h4>Assessment Trigeminal Neuralgia {{$key+1}} 
-                <div class="font-weight-600 text-muted text-small"><b>Visit Date:</b> {{$visit->regdate}}</div>
-                <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div></h4>
+            <div class="font-weight-600 text-muted text-small"><b>Visit Date:</b> {{$visit->regdate}}</div>
+            <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div></h4>
         </div> 
         <div class="card-body">
             <div id="form_Assessment_TN" action="/study" method="POST">
