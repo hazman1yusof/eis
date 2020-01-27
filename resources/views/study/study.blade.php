@@ -47,7 +47,6 @@ Study
 <section class="section">
   <div class="section-header">
     <h1>Patient Study @if (!empty($diagnosis)) - {{$diagnosis->Description}} @endif</h1>
-
   </div>
 
   <div id="formlink" data-formlink="{{url('/studyv2')}}">
@@ -56,8 +55,8 @@ Study
     <!-- <a id="newdiagnosis" href="/diagnosis/{{$pat_mast->MRN}}" class="btn btn-primary float-right">Select  Diagnosis</a> -->
     <h2 class="section-title">
       {{$pat_mast->Name}} - MRN {{str_pad($pat_mast->MRN,7,"0",STR_PAD_LEFT)}}
+      <button class="btn btn-icon btn-success" style="float: right;" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Add New Assessment"><i class="fas fa-plus"></i></button>
     </h2>
-
     <div class="row">
       <div class="col-md-3 col-lg-3 col-sm-12">
         <div class="card">
@@ -301,13 +300,18 @@ Study
       </div>
 
       @if (!empty($gkcasses))
+      
       <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
         @foreach ($asses_by_visit as $key => $visit)
 
-          @component('study.TN', ['pat_mast' => $pat_mast, 'mrn' => $pat_mast->MRN, 'key' => $key,'visit' => $visit, 'rowdata' => $visit->rowdata])
+          @component('study.'.$diagnosis->diagcode, ['pat_mast' => $pat_mast, 'mrn' => $pat_mast->MRN, 'key' => $key ,'visit' => $visit, 'rowdata' => $visit->rowdata])
           @endcomponent
 
         @endforeach
+
+        <script type="text/javascript">
+          var gkcasses_count = {{$key}}; 
+        </script>
       @endif
 
     </div>
@@ -318,8 +322,18 @@ Study
 @section('scripts')
 <script src="{{ asset('assets/js/study.js') }}"></script>
 <script src="{{ asset('assets/node_modules/izitoast/dist/js/iziToast.min.js') }}" type="text/javascript"></script>
-@endsection
 
+@if (!empty($diagnosis))
+  @if($diagnosis->diagcode == 'AVM')
+    <script src="{{ asset('assets/js/AVM.js') }}"></script>
+  @elseif ($diagnosis->diagcode == 'AcousticNeuroma')
+    <script src="{{ asset('assets/js/AcousticNeuroma.js') }}"></script>
+  @elseif ($diagnosis->diagcode == 'TN')
+    <script src="{{ asset('assets/js/TN.js') }}"></script>
+  @endif
+@endif
+
+@endsection
 
 @section('stylesheet')
 <link rel="stylesheet" href="{{ asset('assets/node_modules/izitoast/dist/css/iziToast.min.css') }}">

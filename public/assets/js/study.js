@@ -34,23 +34,25 @@ $(document).ready(function() {
 
 	var current_input;
 
-	$("div[action='/study'] input").on('change',function(){
+	$("div[action='/study'] input, div[action='/study'] textarea").on('change',saveonchange);
 
-		let name = $(this).first().attr('name_');
-		let value = $(this).first().val();
-		let mrn = $(this).first().data('mrn');
-		let diagcode = $(this).first().data('diagcode');
-		let description = $(this).first().data('description');
+	function saveonchange(event){
+		let name = $(event.currentTarget).first().attr('name_');
+		let value = $(event.currentTarget).first().val();
+		let mrn = $(event.currentTarget).first().data('mrn');
+		let diagcode = $(event.currentTarget).first().data('diagcode');
+		let description = $(event.currentTarget).first().data('description');
 		let _token = $('#_token').first().val();
-		let questionnaire = $(this).first().data('questionnaire');
-		let format = $(this).first().data('format');
+		let questionnaire = $(event.currentTarget).first().data('questionnaire');
+		let regdate = $(event.currentTarget).first().data('regdate');
+		let format = $(event.currentTarget).first().data('format');
+		let tf_key = $(event.currentTarget).first().data('tf_key');
+		let ta_key = $(event.currentTarget).first().data('ta_key');
 		let checked = 'none';
 		if(format == 'cb'){
-			checked = $(this).first().is(":checked");
+			checked = $(event.currentTarget).first().is(":checked");
 		}
 
-
-		// console.log($(this).first().attr('name'));
 
 		let rowdata={
 			name:name,
@@ -58,37 +60,35 @@ $(document).ready(function() {
 			mrn:mrn,
 			diagcode:diagcode,
 			description:description,
+			regdate:regdate,
 			_token:_token,
 			questionnaire:questionnaire,
 			format:format,
+			tf_key:tf_key,
+			ta_key:ta_key,
 			checked:checked
 		}
 		
 
 		let formlink = $('#formlink').data('formlink');
 		$.post( formlink, rowdata, function( data ) {
+			if(name == 'Total Score' || name == 'Total BNI Score' ){
+				return true;
+			}
+
 			iziToast.success({
-			    title: 'Saved',
+			    title: 'Saved',timeout: 1000,
 			    message: 'Question '+rowdata.name+' saved'
 			});
+			
 		}).fail(function(data) {
 			iziToast.error({
-			    title: 'Error',
+			    title: 'Error',timeout: 1000,
 			    message: 'Question '+rowdata.name+' failed to saved',
 			});
 		})
 
 		
-
-	});
-
-	var delay = (function(){
-		var timer = 0;
-		return function(callback, ms){
-			clearTimeout (timer);
-			timer = setTimeout(callback, ms);
-		};
-	})();
-
+	}
 
 });

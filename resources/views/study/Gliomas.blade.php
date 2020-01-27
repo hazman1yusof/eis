@@ -1,13 +1,13 @@
-<div data-description="Assessment_Gliomas" id="div_Assessment_Gliomas_{{$key}}" class="col-md-9 col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
+<div data-description="Assessment_Gliomas" id="div_Assessment_Gliomas_{{$key}}" class="col-md-9 col-lg-9 col-sm-1 @if($key != 0) _hidediv  @endif  ">
   <div class="card">
     <div class="card-header">
-      <h4>Assessment Gliomas {{$key+1}
+      <h4>Assessment Gliomas {{$key+1}}
         <div class="font-weight-600 text-muted text-small"><b>Visit Date:</b> {{$visit->regdate}}</div>
         <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
       </h4>
     </div> 
     <div class="card-body">
-      <div id="form_Assessment_Gliomas" action="/study" method="POST">
+      <div id="form_Assessment_Gliomas" action="/study" method="POST}">
         <input type="hidden" name_="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
         <input type="hidden" name_="mrn" value="{{$mrn}}"> <input type="hidden" name_="diagcode" value="Gliomas"> 
         <input type="hidden" name_="description" value="Assessment_Gliomas"> 
@@ -19,15 +19,18 @@
             <div class="form-group">
               <textarea name_="Sign and Symptoms" 
                 ques_num='0'
-                id="Assessment_Gliomas_Sign and Symptoms_0" 
-                data-format="ta" 
+                id="Assessment_Gliomas_Sign and Symptoms_0_{{$key}}" 
+                data-key="{{$key}}"
+                data-format="ta"
+                data-ta_key="ta1" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
                 class="form-control" 
                 style="height: 80px;"
               >
-                @if($rowdata[0]->ta1 != '') {{$rowdata[0]->ta1}}  @endif
+                @if($rowdata[0]->ta1 != ''){!!$rowdata[0]->ta1!!}@endif
               </textarea>
             </div>
           </div>
@@ -45,12 +48,15 @@
               <input type="text" 
                 name_="Size of Tumour" 
                 ques_num='1'
-                id="Assessment_Gliomas_Size of Tumour_0" 
-                value="@if($rowdata[1]->tf1 != '') {{$rowdata[1]->tf1}}  @endif" 
+                id="Assessment_Gliomas_Size of Tumour_0_{{$key}}" 
+                data-key="{{$key}}"
+                value="@if($rowdata[1]->tf1 != ''){{$rowdata[1]->tf1}}@endif" 
                 data-format="tf" 
+                data-tf_key="tf1"
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
                 class="form-control"
               >
             </div>
@@ -69,12 +75,15 @@
               <input type="text" 
                 name_="Location of Tumour" 
                 ques_num='2'
-                id="Assessment_Gliomas_Location of Tumour_0" 
-                value="@if($rowdata[2]->tf2 != '') {{$rowdata[2]->tf2}}  @endif" 
-                data-format="tf" 
+                id="Assessment_Gliomas_Location of Tumour_0_{{$key}}" 
+                data-key="{{$key}}"
+                value="@if($rowdata[2]->tf1 != ''){{$rowdata[2]->tf1}}@endif" 
+                data-format="tf"
+                data-tf_key="tf1" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
                 class="form-control"
               >
             </div>
@@ -93,18 +102,20 @@
               <input type="checkbox" 
                 name_="Previous Treatment" 
                 ques_num='3'
-                id="Assessment_Gliomas_Previous Treatment_0" 
+                id="Assessment_Gliomas_Previous Treatment_0_{{$key}}" 
+                data-key="{{$key}}"
                 value="cb1" 
                 data-format="cb" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb1 == 'true') checked  @endif
               > 
               
-              <label for="Assessment_Gliomas_Previous Treatment_0" class="form-check-label">
+              <label for="Assessment_Gliomas_Previous Treatment_0_{{$key}}" class="form-check-label">
                 None
               </label>
             </div> 
@@ -113,18 +124,20 @@
               <input type="checkbox" 
                 name_="Previous Treatment" 
                 ques_num='3'
-                id="Assessment_Gliomas_Previous Treatment_1" 
+                id="Assessment_Gliomas_Previous Treatment_1_{{$key}}" 
+                data-key="{{$key}}"
                 value="cb2" 
                 data-format="cb" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb2 == 'true') checked  @endif
               > 
 
-              <label for="Assessment_Gliomas_Previous Treatment_1" class="form-check-label">
+              <label for="Assessment_Gliomas_Previous Treatment_1_{{$key}}" class="form-check-label">
                 Whole Brain Radiotherapy
               </label>
             </div> 
@@ -133,18 +146,20 @@
               <input type="checkbox" 
                 name_="Previous Treatment" 
                 ques_num='3'
-                id="Assessment_Gliomas_Previous Treatment_2" 
+                id="Assessment_Gliomas_Previous Treatment_2_{{$key}}" 
+                data-key="{{$key}}"
                 value="cb3" 
                 data-format="cb" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb3 == 'true') checked  @endif
               > 
 
-              <label for="Assessment_Gliomas_Previous Treatment_2" class="form-check-label">
+              <label for="Assessment_Gliomas_Previous Treatment_2_{{$key}}" class="form-check-label">
                 Surgery
               </label>
             </div> 
@@ -153,18 +168,20 @@
               <input type="checkbox" 
                 name_="Previous Treatment"  
                 ques_num='3'
-                id="Assessment_Gliomas_Previous Treatment_3" 
+                id="Assessment_Gliomas_Previous Treatment_3_{{$key}}" 
+                data-key="{{$key}}"
                 value="cb4" 
                 data-format="cb" 
                 data-mrn="{{$mrn}}" 
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb4 == 'true') checked  @endif
               > 
 
-              <label for="Assessment_Gliomas_Previous Treatment_3" class="form-check-label">
+              <label for="Assessment_Gliomas_Previous Treatment_3_{{$key}}" class="form-check-label">
                 Chemotherapy
               </label>
             </div>
@@ -180,15 +197,18 @@
           
           <div class="col-8">
             <div class="form-group">
-              <input type="text" 
+              <input type="date" 
               name_="Date of Pre Treatment" 
               ques_num='4'
-              id="Assessment_Gliomas_Date of Pre Treatment_0" 
-              value="@if($rowdata[4]->tf3 != '') {{$rowdata[4]->tf3}}  @endif" 
-              data-format="tf" 
+              id="Assessment_Gliomas_Date of Pre Treatment_0_{{$key}}" 
+              data-key="{{$key}}"
+              value="@if($rowdata[4]->tf1 != ''){{$rowdata[4]->tf1}}@endif" 
+              data-format="tf"
+              data-tf_key="tf1" 
               data-mrn="{{$mrn}}" 
               data-diagcode="Gliomas" 
               data-description="Assessment_Gliomas" 
+              data-regdate="{{$visit->regdate2}}"
               class="form-control"
               >
             </div>
@@ -196,6 +216,31 @@
 
         </div> 
         
+          <hr>
+
+        <div class="row">
+          <div class="col-form-label col-4"> Note </div> 
+          <div class="col-8">
+            <div class="form-group">
+              <textarea 
+                ques_num='5'                
+                name_="Note" 
+                id="Assessment_Gliomas_Note_0_{{$key}}" 
+                data-key="{{$key}}"
+                data-format="ta" 
+                data-ta_key="ta1"
+                data-mrn="{{$mrn}}" 
+                data-diagcode="Gliomas" 
+                data-description="Assessment_Gliomas" 
+                data-regdate="{{$visit->regdate2}}"
+                class="form-control" 
+                style="height: 80px;"
+              >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif
+              </textarea>
+            </div>
+          </div>
+        </div>
+
           <hr>
           
       </div>

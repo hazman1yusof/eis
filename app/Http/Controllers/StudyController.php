@@ -48,6 +48,7 @@ class StudyController extends Controller
                 $responce = new stdClass;
                 $responce->mrn = $patgkcasses_first->mrn;
                 $responce->regdate = Carbon::createFromFormat('Y-m-d',$patgkcasses_first->regdate)->toFormattedDateString();
+                $responce->regdate2 = $patgkcasses_first->regdate;
                 $responce->description = $patgkcasses_first->description;
                 $responce->diagcode = $patgkcasses_first->diagcode;
                 $responce->questionnaire = $patgkcasses_first->questionnaire;
@@ -57,7 +58,7 @@ class StudyController extends Controller
                 array_push($asses_by_visit, $responce);
 
     		}
-
+            
         	return view('study.study',compact('pat_mast','diagnosis','diagnosis_all','asses_by_visit','gkcasses','badge'));
     	}
 
@@ -73,7 +74,6 @@ class StudyController extends Controller
             $patgkcasses_obj = DB::table('gkc.patgkcasses')
                                 ->where('compcode','=','9A')
                                 ->where('mrn','=',$request->mrn)
-                                ->whereDate('regdate', $request->regdate)
                                 ->where('diagcode','=',$request->diagcode);
 
             if($patgkcasses_obj->exists()){
@@ -84,6 +84,8 @@ class StudyController extends Controller
             $patvisit = DB::table('gkc.patvisit')
                         ->where('mrn','=',$request->mrn)
                         ->where('compcode','=','9A')->get();
+
+            //ni salah betulkan balik nanti
 
             $baseline_date = Carbon::createFromFormat('Y-m-d',$patvisit[0]->regdate);
 
@@ -155,7 +157,7 @@ class StudyController extends Controller
                 break;
 
             case 'ta':
-                $this->save_ta($request,$value);
+                $this->save_ta($request);
                 break;
         }
     }
@@ -208,21 +210,23 @@ class StudyController extends Controller
     }
 
     public function save_cb(Request $request){
-
         DB::beginTransaction();
 
         try {
 
             if(!empty($request->value)){
-                DB::table('gkc.patgkcasses')
+                $table = DB::table('gkc.patgkcasses')
                     ->where('mrn','=', $request->mrn)
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
-                    ->update([
+                    ->whereDate('regdate','=',$request->regdate);
+
+                $table->update([
                         $request->value => $request->checked ,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
+
             }
 
             DB::commit();
@@ -236,18 +240,21 @@ class StudyController extends Controller
     }
 
     public function save_op(Request $request){
-
         DB::beginTransaction();
+        DB::enableQueryLog();
 
         try {
             if(!empty($request->value)){
-
-                DB::table('gkc.patgkcasses')
+                $table= DB::table('gkc.patgkcasses')
                     ->where('mrn','=', $request->mrn)
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
-                    ->update([
+                    ->whereDate('regdate','=',$request->regdate);
+                    // ->get();
+
+                
+                $table->update([
                         'op1' => null ,
                         'op2' => null ,
                         'op3' => null ,
@@ -256,20 +263,19 @@ class StudyController extends Controller
                         'op6' => null ,
                         'op7' => null ,
                         'op8' => null ,
-                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'op9' => null ,
                     ]);
 
-                DB::table('gkc.patgkcasses')
-                    ->where('mrn','=', $request->mrn)
-                    ->where('diagcode','=',$request->diagcode)
-                    ->where('description','=',$request->description)
-                    ->where('questionnaire','=',$request->name)
+                $table
                     ->update([
                         $request->value => 'true' ,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
-            }
 
+            }
+            $queries = DB::getQueryLog();
+
+            // dd($table);
             DB::commit();
 
         } catch (\Exception $e) {
@@ -280,19 +286,21 @@ class StudyController extends Controller
     }
 
     public function save_tf(Request $request){
-
         DB::beginTransaction();
 
         try {
 
             if(!empty($request->value)){
-                DB::table('gkc.patgkcasses')
+                $table = DB::table('gkc.patgkcasses')
                     ->where('mrn','=', $request->mrn)
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
-                    ->update([
-                        'tf1' => $request->value ,
+                    ->whereDate('regdate','=',$request->regdate);
+
+
+                $table->update([
+                        $request->tf_key => $request->value ,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
             }
@@ -307,7 +315,6 @@ class StudyController extends Controller
     }
 
     public function save_ta(Request $request){
-
         DB::beginTransaction();
 
         try {
@@ -317,8 +324,9 @@ class StudyController extends Controller
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
+                    ->whereDate('regdate','=',$request->regdate)
                     ->update([
-                        'ta1' => $request->value ,
+                        $request->ta_key => $request->value ,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
             }
@@ -333,7 +341,6 @@ class StudyController extends Controller
     }
 
     public function save_dd(Request $request, $value){
-
         DB::beginTransaction();
 
         try {
@@ -345,6 +352,7 @@ class StudyController extends Controller
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$value->questionnaire)
+                    ->whereDate('regdate','=',$request->regdate)
                     ->update([
                         'dd1' => null ,
                         'dd2' => null ,
@@ -358,6 +366,7 @@ class StudyController extends Controller
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$value->questionnaire)
+                    ->whereDate('regdate','=',$request->regdate)
                     ->update([
                         $request[str_replace(' ', '_', $value->questionnaire)] => 'true' ,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),

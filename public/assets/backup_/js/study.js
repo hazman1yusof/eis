@@ -12,19 +12,6 @@ $(document).ready(function() {
 		$('#'+current_div).toggleClass( "_hidediv" );
 		current_div = 'div_'+description;
 
-		// input_tag.length = 0;
-		// $('#form_'+description).trigger('reset');
 	});
 
-	// $('input[type="checkbox"]').change(function(){
-	// 	if($(this).is(":checked")){
-	// 		input_tag.push($(this).data('question'));
-	// 	}else{
-	// 		if(input_tag.includes($(this).data('question'))){
-	// 			var index = input_tag.indexOf($(this).data('question'));
-	// 			input_tag.splice(index, 1);
-	// 		}
-	// 	}
-	// 	console.log(input_tag);
-	// });
 });
