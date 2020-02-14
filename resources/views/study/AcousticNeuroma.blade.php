@@ -30,6 +30,7 @@
                   data-diagcode="AcousticNeuroma" 
                   data-description="Assessment_Acoustic_Neuroma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[0]->op1 == 'true') checked  @endif
                 >
@@ -48,6 +49,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[0]->op2 == 'true') checked  @endif
               > 
@@ -75,6 +77,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb1 == 'true') checked  @endif
@@ -96,6 +99,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb2 == 'true') checked  @endif
@@ -117,6 +121,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb3 == 'true') checked  @endif
@@ -138,6 +143,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb4 == 'true') checked  @endif
@@ -159,6 +165,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb5 == 'true') checked  @endif
@@ -180,6 +187,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb6 == 'true') checked  @endif
@@ -201,6 +209,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb7 == 'true') checked  @endif
@@ -222,6 +231,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb8 == 'true') checked  @endif
@@ -243,6 +253,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Symptoms" 
                 class="form-check-input"
                 @if($rowdata[1]->cb9 == 'true') checked  @endif
@@ -274,6 +285,7 @@
                   data-diagcode="AcousticNeuroma" 
                   data-description="Assessment_Acoustic_Neuroma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[2]->op1 == 'true') checked  @endif
                 >
@@ -293,6 +305,7 @@
                   data-diagcode="AcousticNeuroma" 
                   data-description="Assessment_Acoustic_Neuroma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[2]->op2 == 'true') checked  @endif
                 > 
@@ -320,6 +333,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
               <label>Date</label>
@@ -334,6 +348,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -361,6 +376,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[4]->op1 == 'true') checked  @endif
               >
@@ -379,6 +395,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[4]->op2 == 'true') checked  @endif
               >
@@ -397,6 +414,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[4]->op3 == 'true') checked  @endif
               >
@@ -415,6 +433,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[4]->op4 == 'true') checked  @endif
               >
@@ -443,6 +462,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[5]->op1 == 'true') checked  @endif
               >
@@ -461,6 +481,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[5]->op2 == 'true') checked  @endif
               >
@@ -479,6 +500,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[5]->op3 == 'true') checked  @endif
               >
@@ -497,6 +519,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[5]->op4 == 'true') checked  @endif
               >
@@ -525,6 +548,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op1 == 'true') checked  @endif
               >
@@ -543,6 +567,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op2 == 'true') checked  @endif
               >
@@ -561,6 +586,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op3 == 'true') checked  @endif
               >
@@ -579,6 +605,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op4 == 'true') checked  @endif
               >
@@ -597,6 +624,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op5 == 'true') checked  @endif
               >
@@ -615,6 +643,7 @@
                 data-diagcode="AcousticNeuroma" 
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op6 == 'true') checked  @endif
               >
@@ -641,6 +670,7 @@
                 data-ta_key="ta1"
                 data-description="Assessment_Acoustic_Neuroma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
               >@if($rowdata[7]->ta1 != ''){!!$rowdata[7]->ta1!!}@endif

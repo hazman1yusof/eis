@@ -30,6 +30,10 @@ $(document).ready(function() {
 
 		current_card = id;
 
+		$(this).next('div.card-custom-normal')[0].click();
+
+		// $('#tab_'+{{$asses_each->description}}_{{$asses_key}}).click();
+
 	});
 
 	var current_input;
@@ -45,6 +49,7 @@ $(document).ready(function() {
 		let _token = $('#_token').first().val();
 		let questionnaire = $(event.currentTarget).first().data('questionnaire');
 		let regdate = $(event.currentTarget).first().data('regdate');
+		let progress = $(event.currentTarget).first().data('progress');
 		let format = $(event.currentTarget).first().data('format');
 		let tf_key = $(event.currentTarget).first().data('tf_key');
 		let ta_key = $(event.currentTarget).first().data('ta_key');
@@ -61,6 +66,7 @@ $(document).ready(function() {
 			diagcode:diagcode,
 			description:description,
 			regdate:regdate,
+			progress:progress,
 			_token:_token,
 			questionnaire:questionnaire,
 			format:format,

@@ -62,7 +62,6 @@ Study
         <div class="card">
           <div id="baseline" class="card-header card-custom selected_card">
             <h4>Baseline</h4>
-            <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->baseline}}</span>
           </div>
           <div class="card-header card-custom-normal baseline @if(empty($diagnosis)){{'_selected'}}@endif" data-description='diagnosis_select' id="tab_diagnosis_select">
               Diagnosis
@@ -83,115 +82,108 @@ Study
           @if(!empty($diagnosis))
 
             <script type="text/javascript">
-              var current_tab = 'tab_{{$asses_by_visit[0]->description}}_0'; 
-              var current_div = 'div_{{$asses_by_visit[0]->description}}_0';
+              var current_tab = 'tab_{{$asses_master[0]->description}}_0'; 
+              var current_div = 'div_{{$asses_master[0]->description}}_0';
               var current_card = 'baseline';
             </script>
 
-            @foreach ($asses_by_visit as $key => $visit)
+            @foreach ($asses_master as $asses_key => $asses_each)
 
-              @if($visit->progress == 'Baseline')
-              <div class="card-header card-custom-normal baseline _selected" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+              @if($asses_each->progress == 'Baseline')
+              <div class="card-header card-custom-normal baseline _selected" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment Baseline
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='1st_Month' class="card-header card-custom">
               <h4>1st Month</h4>
-              <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->month_1st}}</span>
             </div>
 
-            @foreach ($asses_by_visit as $visit)
-              @if($visit->progress == '1st Month')
-              <div class="card-header card-custom-normal _hidediv 1st_Month" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+            @foreach ($asses_master as $asses_key => $asses_each)
+              @if($asses_each->progress == '1st Month')
+              <div class="card-header card-custom-normal _hidediv 1st_Month" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment - 1st Month
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='3rd_Month' class="card-header card-custom">
               <h4>3rd Month</h4>
-              <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->month_3rd}}</span>
             </div>
 
-            @foreach ($asses_by_visit as $visit)
-              @if($visit->progress == '3rd Month')
-              <div class="card-header card-custom-normal _hidediv 3rd_Month" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+            @foreach ($asses_master as $asses_key => $asses_each)
+              @if($asses_each->progress == '3rd Month')
+              <div class="card-header card-custom-normal _hidediv 3rd_Month" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment - 3rd Month
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='6th_Month' class="card-header card-custom">
               <h4>6th Month</h4>
-              <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->month_6th}}</span>
             </div>
 
-            @foreach ($asses_by_visit as $visit)
-              @if($visit->progress == '6th Month')
-              <div class="card-header card-custom-normal _hidediv 6th_Month" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+            @foreach ($asses_master as $asses_key => $asses_each)
+              @if($asses_each->progress == '6th Month')
+              <div class="card-header card-custom-normal _hidediv 6th_Month" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment - 6th Month
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='1_year' class="card-header card-custom">
               <h4>1 year</h4>
-              <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->year_1}}</span>
             </div>
 
-            @foreach ($asses_by_visit as $visit)
-              @if($visit->progress == '1 Year')
-              <div class="card-header card-custom-normal _hidediv 1_Year" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+            @foreach ($asses_master as $asses_key => $asses_each)
+              @if($asses_each->progress == '1 Year')
+              <div class="card-header card-custom-normal _hidediv 1_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment - 1 Year
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='2_year' class="card-header card-custom">
               <h4>2 year</h4>
-              <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->year_2}}</span>
             </div>
 
-            @foreach ($asses_by_visit as $visit)
-              @if($visit->progress == '2 year')
-              <div class="card-header card-custom-normal _hidediv 2_year" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+            @foreach ($asses_master as $asses_key => $asses_each)
+              @if($asses_each->progress == '2 year')
+              <div class="card-header card-custom-normal _hidediv 2_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment - 2 year
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='3_year' class="card-header card-custom">
               <h4>3 year</h4>
-              <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->year_3}}</span>
             </div>
 
-            @foreach ($asses_by_visit as $visit)
-              @if($visit->progress == '3 year')
-              <div class="card-header card-custom-normal _hidediv 3_year" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+            @foreach ($asses_master as $asses_key => $asses_each)
+              @if($asses_each->progress == '3 year')
+              <div class="card-header card-custom-normal _hidediv 3_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment - 3 year
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='4_year' class="card-header card-custom">
               <h4>4 year</h4>
-              <span class="badge" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Number of assesment">{{$badge->year_4}}</span>
             </div>
 
-            @foreach ($asses_by_visit as $visit)
-              @if($visit->progress == '4 year')
-              <div class="card-header card-custom-normal _hidediv 4_year" data-description='{{$visit->description}}_{{$key}}' id="tab_{{$visit->description}}_{{$key}}">
-                Assessment {{$key+1}}
-                <div class="font-weight-500 text-muted text-small">{{$visit->regdate}}</div>
+            @foreach ($asses_master as $asses_key => $asses_each)
+              @if($asses_each->progress == '4 year')
+              <div class="card-header card-custom-normal _hidediv 4_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
+                Assessment - 4 year
+                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
@@ -302,7 +294,7 @@ Study
       @if (!empty($gkcasses))
       
       <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-        @foreach ($asses_by_visit as $key => $visit)
+        @foreach ($asses_master as $key => $visit)
 
           @component('study.'.$diagnosis->diagcode, ['pat_mast' => $pat_mast, 'mrn' => $pat_mast->MRN, 'key' => $key ,'visit' => $visit, 'rowdata' => $visit->rowdata])
           @endcomponent

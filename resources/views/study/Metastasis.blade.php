@@ -30,6 +30,7 @@
               data-diagcode="Metastasis" 
               data-description="Assessment_Metastasis" 
               data-regdate="{{$visit->regdate2}}"
+              data-progress="{{$visit->progress}}"
               class="form-check-input"
               @if($rowdata[0]->op1 == 'true') checked  @endif
             > 
@@ -49,6 +50,7 @@
               data-diagcode="Metastasis" 
               data-description="Assessment_Metastasis" 
               data-regdate="{{$visit->regdate2}}"
+              data-progress="{{$visit->progress}}"
               class="form-check-input"
               @if($rowdata[0]->op2 == 'true') checked  @endif
             > 
@@ -74,6 +76,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[1]->op1 == 'true') checked  @endif
               > 
@@ -93,6 +96,7 @@
               data-diagcode="Metastasis" 
               data-description="Assessment_Metastasis" 
               data-regdate="{{$visit->regdate2}}"
+              data-progress="{{$visit->progress}}"
               class="form-check-input"
               @if($rowdata[1]->op2 == 'true') checked  @endif
             >             
@@ -121,6 +125,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[2]->op1 == 'true') checked  @endif
               >               
@@ -140,6 +145,7 @@
               data-diagcode="Metastasis" 
               data-description="Assessment_Metastasis" 
               data-regdate="{{$visit->regdate2}}"
+              data-progress="{{$visit->progress}}"
               class="form-check-input"
               @if($rowdata[2]->op2 == 'true') checked  @endif                
             >               
@@ -165,6 +171,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -188,6 +195,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -213,6 +221,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -237,6 +246,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op1 == 'true') checked  @endif
               > 
@@ -256,6 +266,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op2 == 'true') checked  @endif
               > 
@@ -282,6 +293,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op1 == 'true') checked  @endif
               > 
@@ -301,6 +313,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[8]->op2 == 'true') checked  @endif
               > 
@@ -327,6 +340,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op1 == 'true') checked  @endif
               > 
@@ -346,6 +360,7 @@
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op2 == 'true') checked  @endif
               > 
@@ -367,6 +382,7 @@ State of Health: Capable of normal activity, few symptoms or signs of disease.
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op3 == 'true') checked  @endif
               > 
@@ -388,6 +404,7 @@ State of Health: Normal activity with some difficulty, some symptoms or signs.
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op4 == 'true') checked  @endif
               > 
@@ -409,6 +426,7 @@ State of Health: Caring for self, not capable of normal activity or work.
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op5 == 'true') checked  @endif
               > 
@@ -430,6 +448,7 @@ State of Health: Requiring some help, can take care of most personal requirement
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op6 == 'true') checked  @endif
               > 
@@ -451,6 +470,7 @@ State of Health: Requires help often, requires frequent medical care.
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op7 == 'true') checked  @endif
               > 
@@ -472,6 +492,7 @@ State of Health: Disabled, requires special care and help.
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op8 == 'true') checked  @endif
               > 
@@ -493,6 +514,7 @@ State of Health: Severely disabled, hospital admission indicated but no risk of 
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[9]->op9 == 'true') checked  @endif
               > 
@@ -522,6 +544,7 @@ State of Health: Very ill, urgently requiring admission, requires supportive mea
                 data-diagcode="Metastasis" 
                 data-description="Assessment_Metastasis" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
               >@if($rowdata[7]->ta1 != ''){!!$rowdata[7]->ta1!!}@endif

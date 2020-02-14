@@ -27,6 +27,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 data-question="Distribution of Pain" 
                                 class="form-check-input"
                                 @if($rowdata[0]->cb1 == 'true') checked  @endif
@@ -49,6 +50,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 data-question="Distribution of Pain" 
                                 class="form-check-input"
                                 @if($rowdata[0]->cb2 == 'true') checked  @endif
@@ -70,6 +72,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 data-question="Distribution of Pain" 
                                 class="form-check-input"
                                 @if($rowdata[0]->cb3 == 'true') checked  @endif
@@ -100,6 +103,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[1]->op1 == 'true') checked  @endif
                             > 
@@ -120,6 +124,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[1]->op2 == 'true') checked  @endif
                             > 
@@ -149,6 +154,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[2]->op1 == 'true') checked  @endif
                             > 
@@ -167,6 +173,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[2]->op2 == 'true') checked  @endif
                             > 
@@ -193,6 +200,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-control"
                                 
                             >
@@ -219,6 +227,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[4]->op1 == 'true') checked  @endif
                             > 
@@ -240,6 +249,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[4]->op2 == 'true') checked  @endif
                             > 
@@ -261,6 +271,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[4]->op3 == 'true') checked  @endif
                             > 
@@ -282,6 +293,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[4]->op4 == 'true') checked  @endif
                             > 
@@ -303,6 +315,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[4]->op5 == 'true') checked  @endif
                             > 
@@ -332,6 +345,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[5]->op1 == 'true') checked  @endif
                             > 
@@ -353,6 +367,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[5]->op2 == 'true') checked  @endif
                             > 
@@ -374,6 +389,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[5]->op3 == 'true') checked  @endif
                             > 
@@ -395,6 +411,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-check-input"
                                 @if($rowdata[5]->op4 == 'true') checked  @endif
                             > 
@@ -424,6 +441,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-control"
                             >
                         </div>
@@ -448,6 +466,7 @@
                                 data-diagcode="TN" 
                                 data-description="Assessment_TN" 
                                 data-regdate="{{$visit->regdate2}}"
+                                data-progress="{{$visit->progress}}"
                                 class="form-control"
                             >
                         </div>
@@ -470,6 +489,7 @@
                         data-diagcode="TN" 
                         data-description="Assessment_TN" 
                         data-regdate="{{$visit->regdate2}}"
+                        data-progress="{{$visit->progress}}"
                         data-ta_key="ta1"
                         class="form-control" 
                         style="height: 80px;"

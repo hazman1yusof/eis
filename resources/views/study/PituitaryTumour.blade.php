@@ -30,6 +30,7 @@
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -53,6 +54,7 @@
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
+                    data-progress="{{$visit->progress}}"
                     data-question="Types of Pituitary Tumour" 
                     class="form-check-input"
                     @if($rowdata[1]->cb1 == 'true') checked  @endif
@@ -73,6 +75,7 @@
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
+                    data-progress="{{$visit->progress}}"
                     data-question="Types of Pituitary Tumour" 
                     class="form-check-input"
                     @if($rowdata[1]->cb2 == 'true') checked  @endif
@@ -93,6 +96,7 @@
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
+                    data-progress="{{$visit->progress}}"
                     data-question="Types of Pituitary Tumour" 
                     class="form-check-input"
                     @if($rowdata[1]->cb3 == 'true') checked  @endif
@@ -113,6 +117,7 @@
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
+                    data-progress="{{$visit->progress}}"
                     data-question="Types of Pituitary Tumour" 
                     class="form-check-input"
                     @if($rowdata[1]->cb4 == 'true') checked  @endif
@@ -139,6 +144,7 @@
                       data-diagcode="PituitaryTumour" 
                       data-description="Assessment_Pituitary_Tumour" 
                       data-regdate="{{$visit->regdate2}}"
+                      data-progress="{{$visit->progress}}"
                       class="form-control"
                     >
                   </div>
@@ -162,6 +168,7 @@
                       data-diagcode="PituitaryTumour" 
                       data-description="Assessment_Pituitary_Tumour" 
                       data-regdate="{{$visit->regdate2}}"
+                      data-progress="{{$visit->progress}}"
                       class="form-control"
                     >
                   </div>
@@ -185,6 +192,7 @@
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
+                    data-progress="{{$visit->progress}}"
                     class="form-control" 
                     style="height: 80px;"
                   >@if($rowdata[4]->ta1 != ''){!!$rowdata[4]->ta1!!}@endif
@@ -210,6 +218,7 @@
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
+                    data-progress="{{$visit->progress}}"
                     class="form-control" 
                     style="height: 80px;"
                   >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif
@@ -236,6 +245,7 @@
                   data-diagcode="PituitaryTumour" 
                   data-description="Assessment_Pituitary_Tumour" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   data-question="Previous Treatment" 
                   class="form-check-input"
                   @if($rowdata[6]->cb1 == 'true') checked  @endif
@@ -256,6 +266,7 @@
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[6]->cb2 == 'true') checked  @endif
@@ -276,6 +287,7 @@
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[6]->cb3 == 'true') checked  @endif
@@ -296,6 +308,7 @@
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[6]->cb4 == 'true') checked  @endif
@@ -324,6 +337,7 @@
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -346,6 +360,7 @@
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
               >@if($rowdata[8]->ta1 != ''){!!$rowdata[8]->ta1!!}@endif

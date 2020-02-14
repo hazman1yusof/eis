@@ -27,6 +27,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
               >
@@ -57,6 +58,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -84,6 +86,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -110,6 +113,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb1 == 'true') checked  @endif
@@ -132,6 +136,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb2 == 'true') checked  @endif
@@ -154,6 +159,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb3 == 'true') checked  @endif
@@ -176,6 +182,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-question="Previous Treatment" 
                 class="form-check-input"
                 @if($rowdata[3]->cb4 == 'true') checked  @endif
@@ -209,6 +216,7 @@
               data-diagcode="Gliomas" 
               data-description="Assessment_Gliomas" 
               data-regdate="{{$visit->regdate2}}"
+              data-progress="{{$visit->progress}}"
               class="form-control"
               >
             </div>
@@ -233,6 +241,7 @@
                 data-diagcode="Gliomas" 
                 data-description="Assessment_Gliomas" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
               >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif

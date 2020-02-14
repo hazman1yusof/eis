@@ -31,6 +31,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -58,6 +59,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -85,6 +87,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[2]->op1 == 'true') checked  @endif
               > 
@@ -107,6 +110,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[2]->op2 == 'true') checked  @endif
               > 
@@ -129,6 +133,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[2]->op3 == 'true') checked  @endif
               > 
@@ -158,6 +163,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
               
@@ -191,6 +197,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[4]->op1 == 'true') checked  @endif
               > 
@@ -213,6 +220,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[4]->op2 == 'true') checked  @endif
               > 
@@ -245,6 +253,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[5]->op1 == 'true') checked  @endif
               > 
@@ -267,6 +276,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[5]->op2 == 'true') checked  @endif
               > 
@@ -299,6 +309,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op1 == 'true') checked  @endif
               > 
@@ -321,6 +332,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op2 == 'true') checked  @endif
               > 
@@ -349,6 +361,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 data-ta_key="ta1"
                 class="form-control" 
                 style="height: 80px;"

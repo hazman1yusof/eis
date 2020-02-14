@@ -29,6 +29,7 @@
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -51,6 +52,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-control"
                 >
               </div>
@@ -73,6 +75,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[2]->op1 == 'true') checked  @endif
                 >
@@ -91,6 +94,7 @@
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[2]->op2 == 'true') checked  @endif
               > 
@@ -115,6 +119,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-control"
                 >
               </div>
@@ -137,6 +142,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[4]->op1 == 'true') checked  @endif
                 > 
@@ -155,6 +161,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[4]->op2 == 'true') checked  @endif
                 > 
@@ -173,6 +180,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[4]->op3 == 'true') checked  @endif
                 >
@@ -191,6 +199,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[4]->op4 == 'true') checked  @endif
                 > 
@@ -215,6 +224,7 @@
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
                   class="form-check-input"
                   @if($rowdata[6]->op1 == 'true') checked  @endif
                 >
@@ -233,6 +243,7 @@
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op2 == 'true') checked  @endif
               > 
@@ -251,6 +262,7 @@
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-check-input"
                 @if($rowdata[6]->op3 == 'true') checked  @endif
               > 
@@ -276,6 +288,7 @@
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control"
               >
             </div>
@@ -298,6 +311,7 @@
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
               >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif
