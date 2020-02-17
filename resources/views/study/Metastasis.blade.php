@@ -2,7 +2,20 @@
   <div class="card">
     <div class="card-header">
       <h4>Assessment Metastasis {{$key+1}} 
-        <div class="font-weight-600 text-muted text-small"><b>Visit Date:</b> {{$visit->regdate}}</div>
+        <div class="font-weight-600 text-muted text-small visit-date-upd" data-key="{{$key}}"><b>Visit Date:</b> <span id="regdate-span-{{$key}}">{{$visit->regdate}}</span>
+            <div class="form-row regdate-upd-all regdate-upd-{{$key}}" style="display: none;">
+                <input type="date" class="form-control col-md-10 regdate-date-{{$key}}" 
+                    name="regdate" 
+                    data-diagcode="Metastasis" 
+                    data-mrn="{{$mrn}}"
+                    data-key="{{$key}}"
+                    data-progress="{{$visit->progress}}"
+                >
+                <button type="button" class="btn btn-icon btn-success col-md-2 regdate-save" data-key="{{$key}}">
+                    <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
         <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
       </h4>
     </div> 

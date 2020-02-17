@@ -197,6 +197,10 @@ class StudyController extends Controller
             case 'ta':
                 $this->save_ta($request);
                 break;
+
+            case 'save_regdate':
+                return $this->save_regdate($request);
+                break;
         }
     }
 
@@ -487,6 +491,22 @@ class StudyController extends Controller
             return response($e->getMessage(), 500);
         }
 
+    }
+
+    public function save_regdate(Request $request){
+
+        $table = DB::table('gkc.patgkcasses')
+                    ->where('mrn','=', $request->mrn)
+                    ->where('diagcode','=',$request->diagcode)
+                    ->where('progress','=',$request->progress)
+                    ->update([
+                        'regdate' => $request->value
+                    ]);
+
+        $responce = new stdClass;
+        $responce->regdate = Carbon::createFromFormat('Y-m-d',$request->value)->toFormattedDateString();
+
+        return json_encode($responce);
     }
 
     public function get_answer_set($row,$null){

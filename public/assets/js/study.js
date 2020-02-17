@@ -97,4 +97,69 @@ $(document).ready(function() {
 		
 	}
 
+	$("div.visit-date-upd").click(function(){
+		let key = $(this).data('key');
+		$('div.regdate-upd-'+key).show();
+	});
+
+	$('button.regdate-save').click(function(){
+
+		let key = $(this).data('key');
+		let value = $('input.regdate-date-'+key).val();
+		let diagcode = $('input.regdate-date-'+key).data('diagcode');
+		let mrn = $('input.regdate-date-'+key).data('mrn');
+		let progress = $('input.regdate-date-'+key).data('progress');
+		let _token = $('#_token').first().val();
+
+		if(value == ''){
+			alert('insert date');
+			return false;
+		}
+
+		let rowdata={
+			_token:_token,
+			format:'save_regdate',
+			value:value,
+			diagcode:diagcode,
+			mrn:mrn,
+			progress:progress
+		}
+
+		let formlink = $('#formlink').data('formlink');
+		$.post( formlink, rowdata, function( data ) {
+
+			
+		},"json")
+
+		.done(function(data) {
+			iziToast.success({
+			    title: 'Saved',timeout: 1000,
+			    message: 'Register date saved'
+			});
+			$('#regdate-span-'+key).text(data.regdate);
+			$('div.regdate-upd-'+key).hide();
+
+		})
+
+		.fail(function(data) {
+			iziToast.error({
+			    title: 'Error',timeout: 1000,
+			    message: 'Register date failed to saved',
+			});
+			$('div.regdate-upd-'+key).hide();
+
+		})
+
+	});
+
+	$(document).mouseup(function(e){
+	    var container = $("div.regdate-upd-all");
+
+	    // if the target of the click isn't the container nor a descendant of the container
+	    if (!container.is(e.target) && container.has(e.target).length === 0) 
+	    {
+	        container.hide();
+	    }
+	});
+
 });

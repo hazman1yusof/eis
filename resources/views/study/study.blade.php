@@ -55,7 +55,7 @@ Study
     <!-- <a id="newdiagnosis" href="/diagnosis/{{$pat_mast->MRN}}" class="btn btn-primary float-right">Select  Diagnosis</a> -->
     <h2 class="section-title">
       {{$pat_mast->Name}} - MRN {{str_pad($pat_mast->MRN,7,"0",STR_PAD_LEFT)}}
-      <button class="btn btn-icon btn-success" style="float: right;" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Add New Assessment"><i class="fas fa-plus"></i></button>
+      <!-- <button class="btn btn-icon btn-success" style="float: right;" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Add New Assessment"><i class="fas fa-plus"></i></button> -->
     </h2>
     <div class="row">
       <div class="col-md-3 col-lg-3 col-sm-12">
