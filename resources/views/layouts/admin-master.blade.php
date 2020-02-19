@@ -18,6 +18,9 @@
 
   <style type="text/css">
     @yield('css')
+    table.dataTable tbody tr.selected a, table.dataTable tbody th.selected a, table.dataTable tbody td.selected a {
+      color: white !important;
+    }
   </style>
 </head>
 

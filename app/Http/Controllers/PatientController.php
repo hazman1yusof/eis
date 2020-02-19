@@ -11,20 +11,25 @@ use DateTime;
 
 class PatientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function show(Request $request)
     {
-    	$pat_mast = DB::table('hisdb.pat_mast')->limit(100)->get();
+    	$pat_mast = DB::table('pat_mast')->limit(100)->get();
 
         return view('patient.patient',compact('pat_mast'));
     }
 
     public function ajax(Request $request){
     	if(!empty($request->search['value'])){
-    		$pat_mast = DB::table('hisdb.pat_mast')
+    		$pat_mast = DB::table('pat_mast')
     			->where($request->where,'like','%'.$request->search['value'].'%')
     			->offset($request->start);
     	}else{
-    		$pat_mast = DB::table('hisdb.pat_mast')->offset($request->start);
+    		$pat_mast = DB::table('pat_mast')->offset($request->start);
     	}
 
     	

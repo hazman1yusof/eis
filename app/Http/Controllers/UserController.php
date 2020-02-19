@@ -7,13 +7,18 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\{UserUpdateRequest,UserAddRequest};
 use Spatie\Permission\Models\Role;
-use App;
+use stdClass;
+use DB;
+use Auth;
+use Carbon\Carbon;
+use DateTime;
+
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(User::class);
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -22,18 +27,21 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize(User::class, 'index');
-        if($request->ajax())
-        {
-            $users = new User;
-            if($request->q)
-            {
-                $users = $users->where('name', 'like', '%'.$request->q.'%')->orWhere('email', $request->q);
-            }
-            $users = $users->paginate(config('stisla.perpage'))->appends(['q' => $request->q]);
-            return response()->json($users);
-        }
-        return view('admin.users.index');
+        // $this->authorize(User::class, 'index');
+        // if($request->ajax())
+        // {
+        //     $users = new User;
+        //     if($request->q)
+        //     {
+        //         $users = $users->where('name', 'like', '%'.$request->q.'%')->orWhere('email', $request->q);
+        //     }
+        //     $users = $users->paginate(config('stisla.perpage'))->appends(['q' => $request->q]);
+        //     return response()->json($users);
+        // }
+
+
+        $users = DB::table('users')->get();
+        return view('admin.users.index',compact('users'));
     }
 
     /**
@@ -52,15 +60,36 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserAddRequest $request)
-    {
-        $user = User::create($request->all());
-        $role = Role::find($request->role);
-        if($role)
-        {
-            $user->assignRole($role);
-        }
-        return response()->json($user);
+    public function store(Request $request)
+    {   
+
+        // dd($request);
+
+        $validatedData = $request->validate([
+            'username' => 'required|unique:users',
+            'type' => 'required',
+            'password' => 'required|confirmed|min:5',
+        ]);
+
+        DB::table('users')
+            ->insert([
+                'username' => $request->username,
+                'name' => $request->name,
+                'password' => $request->password,
+                'type' => $request->type,
+                'email' => $request->email,
+                'adddate' => Carbon::now("Asia/Kuala_Lumpur"),
+            ]);
+
+        // $user = User::create($request->all());
+        // $role = Role::find($request->role);
+        // if($role)
+        // {
+        //     $user->assignRole($role);
+        // }
+        // return response()->json($user);
+
+        return redirect()->route('userlist');
     }
 
     /**
@@ -80,8 +109,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
-    {
+    public function edit($id)
+    {   
+        $user = DB::table('users')
+            ->where('id','=',$id)
+            ->first();
+
         return view('admin.users.edit', compact('user'));
     }
 
@@ -92,30 +125,45 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update($id, Request $request)
     {
-        if(!App::environment('demo'))
-        {
-            $user->update($request->only([
-                'name', 'email'
-            ]));
+        // if(!App::environment('demo'))
+        // {
+        //     $user->update($request->only([
+        //         'name', 'email'
+        //     ]));
 
-            if($request->password)
-            {
-                $user->update(['password' => Hash::make($request->password)]);
-            }
+        //     if($request->password)
+        //     {
+        //         $user->update(['password' => Hash::make($request->password)]);
+        //     }
 
-            if($request->role && $request->user()->can('edit-users') && !$user->isme)
-            {
-                $role = Role::find($request->role);
-                if($role)
-                {
-                    $user->syncRoles([$role]);
-                }
-            }
-        }
+        //     if($request->role && $request->user()->can('edit-users') && !$user->isme)
+        //     {
+        //         $role = Role::find($request->role);
+        //         if($role)
+        //         {
+        //             $user->syncRoles([$role]);
+        //         }
+        //     }
+        // }
 
-        return response()->json($user);
+        $validatedData = $request->validate([
+            'type' => 'required',
+            'password' => 'required|confirmed|min:5',
+        ]);
+
+        DB::table('users')
+            ->where('id','=',$id)
+            ->update([
+                'name' => $request->name,
+                'password' => $request->password,
+                'type' => $request->type,
+                'email' => $request->email,
+                'upddate' => Carbon::now("Asia/Kuala_Lumpur"),
+            ]);
+
+        return redirect()->route('userlist');
     }
 
     /**
@@ -124,19 +172,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        if(!App::environment('demo') && !$user->isme)
-        {
-            $user->delete();
-        } else
-        {
-            return response()->json(['message' => 'User accounts cannot be deleted in demo mode.'], 400);
-        }
+        // if(!App::environment('demo') && !$user->isme)
+        // {
+        //     $user->delete();
+        // } else
+        // {
+        //     return response()->json(['message' => 'User accounts cannot be deleted in demo mode.'], 400);
+        // }
+        DB::table('users')
+            ->where('id','=',$id)
+            ->delete();
+
+        return redirect()->route('userlist');
     }
 
     public function roles()
     {
-        return response()->json(Role::get());
+        // return response()->json(Role::get());
     }
 }

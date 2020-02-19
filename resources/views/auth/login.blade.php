@@ -8,36 +8,21 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
       <div class="form-group">
-        <label for="email">Email</label>
-        <input aria-describedby="emailHelpBlock" id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="Registered email address" tabindex="1" value="{{ old('email') }}" autofocus>
+        <label for="username">Username</label>
+        <input aria-describedby="emailHelpBlock" id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" placeholder="Your account username" tabindex="1" value="{{ old('username') }}" autofocus>
         <div class="invalid-feedback">
-          {{ $errors->first('email') }}
+          {{ $errors->first('username') }}
         </div>
-        @if(App::environment('demo'))
-        <small id="emailHelpBlock" class="form-text text-muted">
-            Demo Email: admin@example.com
-        </small>
-        @endif
       </div>
 
       <div class="form-group">
         <div class="d-block">
             <label for="password" class="control-label">Password</label>
-          <div class="float-right">
-            <a href="{{ route('password.request') }}" class="text-small">
-              Forgot Password?
-            </a>
-          </div>
         </div>
         <input aria-describedby="passwordHelpBlock" id="password" type="password" placeholder="Your account password" class="form-control{{ $errors->has('password') ? ' is-invalid': '' }}" name="password" tabindex="2">
         <div class="invalid-feedback">
           {{ $errors->first('password') }}
         </div>
-        @if(App::environment('demo'))
-        <small id="passwordHelpBlock" class="form-text text-muted">
-            Demo Password: 1234
-        </small>
-        @endif
       </div>
 
       <div class="form-group">
@@ -54,8 +39,5 @@
       </div>
     </form>
   </div>
-</div>
-<div class="mt-5 text-muted text-center">
-  Don't have an account? <a href="{{ route('register') }}">Create One</a>
 </div>
 @endsection
