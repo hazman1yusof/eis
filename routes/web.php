@@ -15,12 +15,13 @@ Route::post('/login','SessionController@login')->name('login');
 Route::get('/logout','SessionController@destroy')->name('logout');
 
 Route::get('/userlist','UserController@index')->name('userlist');
-Route::get('/user/{id}','UserController@edit');
+Route::get('/user/{id}','UserController@edit')->name('user');
 Route::post('/user/{id}','UserController@update');
 Route::get('/user','UserController@create');
 Route::post('/user','UserController@store');
 Route::get('/user/delete/{id}','UserController@destroy');
 
+Route::get('/patmast','PatmastController@patmast');
 
 
 

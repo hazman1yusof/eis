@@ -59,8 +59,7 @@ class SessionController extends Controller
         $remember = (!empty($request->remember)) ? true:false;
         // $user = User::where('username','=',$request->username);
 
-        $user = User::where('username',request('username'))
-                    ->where('password',request('password'));
+        $user = User::where('username',request('username'));
 
         if($user->count() > 0){
             // if($user->first()->status == 'Inactive'){
@@ -69,7 +68,12 @@ class SessionController extends Controller
 
             if ($request->password == $user->first()->password) {
                 Auth::login($user->first(),$remember);
-                return redirect()->route('patient');
+
+                if(Auth::user()->type=='admin'){
+                    return redirect()->route('userlist');
+                }else{
+                    return redirect()->route('patient');
+                }
             }else{
                 return back()->withErrors(['password' => 'Try again, Password entered incorrect']);
             }
