@@ -16,13 +16,16 @@ $(document).ready(function() {
 		    }
         },
         "columns": [
-            { "data": "MRN" },
             { "data": "Name" },
-            { "data": "Newic" },
-            { "data": "telhp" },
-            { "data": "telh" },
-            { "data": "Episno" },
-            { 'data' : "button"}
+            { 'data' : "button"},
+            { "data": "Baseline" , "className": "centertd"},
+            { "data": "_1st_Month" , "className": "centertd"},
+            { "data": "_3rd_Month" , "className": "centertd"},
+            { "data": "_6th_Month" , "className": "centertd"},
+            { 'data' : "_1_Year", "className": "centertd"},
+            { 'data' : "_2_Year", "className": "centertd"},
+            { 'data' : "_3_Year", "className": "centertd"},
+            { 'data' : "_4_Year", "className": "centertd"},
         ]
 	} ).on( 'init.dt', function () {
         $('#example_filter').prepend( `Search By &nbsp;<label>

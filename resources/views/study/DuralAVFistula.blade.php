@@ -1,25 +1,54 @@
 <div data-description="Assessment_Dural_AV_Fistula" id="div_Assessment_Dural_AV_Fistula_{{$key}}" class="col-md-_{{$key}}9
 data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
   <div class="card">
-    <div class="card-header">
-      <h4>Assessment DuralAVFistula {{$key+1}}
+
+    <div class="card-header"><div class="row">
+      <div class="col-12">
+          <h4>Assessment DuralAVFistula {{$key+1}} </h4>
+      </div>
+      <div class="col-12">
         <div class="font-weight-600 text-muted text-small visit-date-upd" data-key="{{$key}}"><b>Visit Date:</b> <span id="regdate-span-{{$key}}">{{$visit->regdate}}</span>
-            <div class="form-row regdate-upd-all regdate-upd-{{$key}}" style="display: none;">
-                <input type="date" class="form-control col-md-10 regdate-date-{{$key}}" 
+              <div class="form-row">
+                <input type="date" class="form-control col-md-6 regdate-date-{{$key}}"
+                    value="{{$visit->regdate2}}"  
                     name="regdate" 
                     data-diagcode="DuralAVFistula" 
                     data-mrn="{{$mrn}}"
                     data-key="{{$key}}"
                     data-progress="{{$visit->progress}}"
                 >
-                <button type="button" class="btn btn-icon btn-success col-md-2 regdate-save" data-key="{{$key}}">
-                    <i class="fas fa-check"></i>
-                </button>
-            </div>
-        </div>
-        <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
-      </h4>
-    </div> 
+              </div>
+          </div>
+      </div>
+
+      <div class="col-12">
+          <div class="font-weight-600 text-muted text-small visit-date-upd" data-key="{{$key}}"><b>Status:</b> <span id="completed-span-{{$key}}">{{$visit->completed}}</span>
+              <div class="form-row">
+                  <button type="button" class="btn btn-icon btn-success col-md-3 completed-save"
+                      data-value='true'
+                      data-diagcode="DuralAVFistula" 
+                      data-mrn="{{$mrn}}"
+                      data-key="{{$key}}"
+                      data-progress="{{$visit->progress}}"
+                  >
+                      completed <i class="fas fa-check"></i>
+                  </button>
+                  &nbsp;
+                  <button type="button" class="btn btn-icon btn-danger col-md-3 completed-save"
+                      data-value='false'
+                      data-diagcode="DuralAVFistula" 
+                      data-mrn="{{$mrn}}"
+                      data-key="{{$key}}"
+                      data-progress="{{$visit->progress}}"
+                  >
+                      uncompleted <i class="fas fa-times"></i>
+                  </button>
+              </div>
+          </div>
+          <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
+      </div>
+    </div></div>
+
     <div class="card-body">
       <div id="form_Assessment_Dural_AV_Fistula" action="/study" method="POST">
         <input type="hidden" name_="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
@@ -166,7 +195,100 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
           <div class="col-form-label col-4"> Barrow Classification </div> 
           
           <div class="col-8">
-            <div class="form-group">
+            <div class="form-check">
+              <input type="radio" 
+                ques_num='3'
+                name="Corticovenus Drainage_{{$key}}" 
+                name_="Corticovenus Drainage" 
+                id="Assessment_Dural_AV_Fistula_Barrow Classification_0_{{$key}}"
+                data-key={{$key}} 
+                value="op1" 
+                data-format="op" 
+                data-mrn="{{$mrn}}" 
+                data-diagcode="DuralAVFistula" 
+                data-description="Assessment_Dural_AV_Fistula" 
+                data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
+                class="form-check-input"
+                @if($rowdata[3]->op1 == 'true') checked  @endif
+              > 
+
+              <label for="Assessment_Dural_AV_Fistula_Barrow Classification_0_{{$key}}" class="form-check-label">
+                A
+              </label>
+            </div> 
+
+            <div class="form-check">
+              <input type="radio" 
+                ques_num='3'
+                name="Corticovenus Drainage_{{$key}}" 
+                name_="Corticovenus Drainage" 
+                id="Assessment_Dural_AV_Fistula_Barrow Classification_1_{{$key}}"
+                data-key={{$key}} 
+                value="op2" 
+                data-format="op" 
+                data-mrn="{{$mrn}}" 
+                data-diagcode="DuralAVFistula" 
+                data-description="Assessment_Dural_AV_Fistula" 
+                data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
+                class="form-check-input"
+                @if($rowdata[3]->op2 == 'true') checked  @endif
+              > 
+
+              <label for="Assessment_Dural_AV_Fistula_Barrow Classification_1_{{$key}}" class="form-check-label">
+                B
+              </label>
+            </div> 
+
+            <div class="form-check">
+              <input type="radio" 
+                ques_num='3'
+                name="Corticovenus Drainage_{{$key}}" 
+                name_="Corticovenus Drainage" 
+                id="Assessment_Dural_AV_Fistula_Barrow Classification_2_{{$key}}"
+                data-key={{$key}} 
+                value="op3" 
+                data-format="op" 
+                data-mrn="{{$mrn}}" 
+                data-diagcode="DuralAVFistula" 
+                data-description="Assessment_Dural_AV_Fistula" 
+                data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
+                class="form-check-input"
+                @if($rowdata[3]->op3 == 'true') checked  @endif
+              > 
+
+              <label for="Assessment_Dural_AV_Fistula_Barrow Classification_2_{{$key}}" class="form-check-label">
+                C
+              </label>
+            </div> 
+
+            <div class="form-check">
+              <input type="radio" 
+                ques_num='3'
+                name="Corticovenus Drainage_{{$key}}" 
+                name_="Corticovenus Drainage" 
+                id="Assessment_Dural_AV_Fistula_Barrow Classification_3_{{$key}}"
+                data-key={{$key}} 
+                value="op4" 
+                data-format="op" 
+                data-mrn="{{$mrn}}" 
+                data-diagcode="DuralAVFistula" 
+                data-description="Assessment_Dural_AV_Fistula" 
+                data-regdate="{{$visit->regdate2}}"
+                data-progress="{{$visit->progress}}"
+                class="form-check-input"
+                @if($rowdata[3]->op4 == 'true') checked  @endif
+              > 
+
+              <label for="Assessment_Dural_AV_Fistula_Barrow Classification_3_{{$key}}" class="form-check-label">
+                D
+              </label>
+            </div> 
+
+
+            <!-- <div class="form-group">
               <select name_="Barrow Classification" 
                 ques_num='3'
                 id="Assessment_Dural_AV_Fistula_Barrow Classification_{{$key}}"
@@ -185,7 +307,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 <option value="dd3">C</option> 
                 <option value="dd4">D</option>
               </select>
-            </div>
+            </div> -->
           </div>
 
         </div> 
@@ -271,7 +393,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 @if($rowdata[5]->op1 == 'true') checked  @endif
               > 
 
-              <label for="Assessment_Dural_AV_Fistula_Anatomy of Fistula_0_{{$key}}" class="form-check-label">
+              <label for="Assessment_Dural_AV_Fistula_Corticovenus of Fistula_0_{{$key}}" class="form-check-label">
                 Single Hole
               </label>
             </div> 

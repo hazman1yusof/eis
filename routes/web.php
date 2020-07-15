@@ -23,6 +23,8 @@ Route::get('/user/delete/{id}','UserController@destroy');
 
 Route::get('/patmast','PatmastController@patmast');
 
+Route::get('/patmast_test','PatmastController@test');
+
 
 
 

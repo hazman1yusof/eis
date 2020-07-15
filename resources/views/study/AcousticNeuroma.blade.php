@@ -1,24 +1,52 @@
 <div data-description="Assessment_Acoustic_Neuroma" id="div_Assessment_Acoustic_Neuroma_{{$key}}" class="col-md-9 col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif">
   <div class="card">
-    <div class="card-header">
-      <h4>Acoustic Neuroma {{$key+1}} 
+
+    <div class="card-header"><div class="row">
+      <div class="col-12">
+          <h4>Acoustic Neuroma {{$key+1}} </h4>
+      </div>
+      <div class="col-12">
         <div class="font-weight-600 text-muted text-small visit-date-upd" data-key="{{$key}}"><b>Visit Date:</b> <span id="regdate-span-{{$key}}">{{$visit->regdate}}</span>
-              <div class="form-row regdate-upd-all regdate-upd-{{$key}}" style="display: none;">
-                  <input type="date" class="form-control col-md-10 regdate-date-{{$key}}" 
-                      name="regdate" 
+              <div class="form-row">
+                <input type="date" class="form-control col-md-6 regdate-date-{{$key}}"
+                    value="{{$visit->regdate2}}"  
+                    name="regdate" 
+                    data-diagcode="AcousticNeuroma" 
+                    data-mrn="{{$mrn}}"
+                    data-key="{{$key}}"
+                    data-progress="{{$visit->progress}}"
+                >
+              </div>
+          </div>
+      </div>
+
+      <div class="col-12">
+          <div class="font-weight-600 text-muted text-small visit-date-upd" data-key="{{$key}}"><b>Status:</b> <span id="completed-span-{{$key}}">{{$visit->completed}}</span>
+              <div class="form-row">
+                  <button type="button" class="btn btn-icon btn-success col-md-3 completed-save"
+                      data-value='true'
                       data-diagcode="AcousticNeuroma" 
                       data-mrn="{{$mrn}}"
                       data-key="{{$key}}"
                       data-progress="{{$visit->progress}}"
                   >
-                  <button type="button" class="btn btn-icon btn-success col-md-2 regdate-save" data-key="{{$key}}">
-                      <i class="fas fa-check"></i>
+                      completed <i class="fas fa-check"></i>
+                  </button>
+                  &nbsp;
+                  <button type="button" class="btn btn-icon btn-danger col-md-3 completed-save"
+                      data-value='false'
+                      data-diagcode="AcousticNeuroma" 
+                      data-mrn="{{$mrn}}"
+                      data-key="{{$key}}"
+                      data-progress="{{$visit->progress}}"
+                  >
+                      uncompleted <i class="fas fa-times"></i>
                   </button>
               </div>
           </div>
-        <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
-      </h4>
-    </div>
+          <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
+      </div>
+    </div></div>
 
     <div class="card-body">
       <div id="form_Assessment_Meningioma" action="/study" method="POST">
@@ -333,38 +361,124 @@
         <div class="row" id="row_procedure_{{$key}}">
           <div class="col-form-label col-4"> Procedure </div> 
           <div class="col-8">
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" 
-                name_="Procedure" 
-                ques_num='3'
-                data-tf_key='tf1'
-                id="Assessment_Acoustic_Neuroma Procedure_0_{{$key}}" 
-                value="@if($rowdata[3]->tf1 != ''){{$rowdata[3]->tf1}}@endif"
-                data-format="tf" 
-                data-mrn="{{$mrn}}" 
-                data-diagcode="AcousticNeuroma" 
-                data-description="Assessment_Acoustic_Neuroma" 
-                data-regdate="{{$visit->regdate2}}"
-                data-progress="{{$visit->progress}}"
-                class="form-control"
-              >
-              <label>Date</label>
-              <input type="date" 
-                name_="Procedure" 
-                ques_num='3'
-                data-tf_key='tf2'
-                id="Assessment_Acoustic_Neuroma Procedure_0_{{$key}}" 
-                value="@if($rowdata[3]->tf2 != ''){{$rowdata[3]->tf2}}@endif"
-                data-format="tf" 
-                data-mrn="{{$mrn}}" 
-                data-diagcode="AcousticNeuroma" 
-                data-description="Assessment_Acoustic_Neuroma" 
-                data-regdate="{{$visit->regdate2}}"
-                data-progress="{{$visit->progress}}"
-                class="form-control"
-              >
+            <div class="form-row AcousticNeuroma_procedure_class_{{str_replace(' ','_',$visit->progress)}}">
+
+          @if(!empty($rowdata[3]->at1))
+            @foreach ($rowdata[3]->at1 as $key_at1 => $obj_at1)
+
+              <div class="col-md-5 col-xs-12">
+                <label>Name</label>
+                <input type="text" 
+                  name_="Procedure" 
+                  ques_num='3'
+                  data-at_key='at1'
+                  data-at_index='{{$key_at1}}'
+                  data-at_field='field1'
+                  data-at_id='AcousticNeuroma_procedure_{{$visit->progress}}'
+                  id="Assessment_Acoustic_Neuroma Procedure_0_{{$key}}" 
+                  value="{{$obj_at1->field1}}"
+                  data-format="at" 
+                  data-mrn="{{$mrn}}" 
+                  data-diagcode="AcousticNeuroma" 
+                  data-description="Assessment_Acoustic_Neuroma" 
+                  data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
+                  class="form-control"
+                >
+              </div>
+              <div class="col-md-5 col-xs-12">
+                <label>Date</label>
+                <input type="date" 
+                  name_="Procedure" 
+                  ques_num='3'
+                  data-at_key='at1'
+                  data-at_index='{{$key_at1}}'
+                  data-at_field='field_date1'
+                  data-at_id='AcousticNeuroma_procedure_{{$visit->progress}}'
+                  id="Assessment_Acoustic_Neuroma Procedure_0_{{$key}}" 
+                  value="{{$obj_at1->field_date1}}"
+                  data-format="at" 
+                  data-mrn="{{$mrn}}" 
+                  data-diagcode="AcousticNeuroma" 
+                  data-description="Assessment_Acoustic_Neuroma" 
+                  data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
+                  class="form-control"
+                >
+              </div>
+
+            @endforeach
+
+          @else
+
+              <div class="col-md-5 col-xs-12">
+                <label>Name</label>
+                <input type="text" 
+                  name_="Procedure" 
+                  ques_num='3'
+                  data-at_key='at1'
+                  data-at_index='0'
+                  data-at_field='field1'
+                  data-at_id='AcousticNeuroma_procedure_{{$visit->progress}}'
+                  id="Assessment_Acoustic_Neuroma Procedure_0_{{$key}}" 
+                  value=""
+                  data-format="at" 
+                  data-mrn="{{$mrn}}" 
+                  data-diagcode="AcousticNeuroma" 
+                  data-description="Assessment_Acoustic_Neuroma" 
+                  data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
+                  class="form-control"
+                >
+              </div>
+              <div class="col-md-5 col-xs-12">
+                <label>Date</label>
+                <input type="date" 
+                  name_="Procedure" 
+                  ques_num='3'
+                  data-at_key='at1'
+                  data-at_index='0'
+                  data-at_field='field_date1'
+                  data-at_id='AcousticNeuroma_procedure_{{$visit->progress}}'
+                  id="Assessment_Acoustic_Neuroma Procedure_0_{{$key}}" 
+                  value=""
+                  data-format="at" 
+                  data-mrn="{{$mrn}}" 
+                  data-diagcode="AcousticNeuroma" 
+                  data-description="Assessment_Acoustic_Neuroma" 
+                  data-regdate="{{$visit->regdate2}}"
+                  data-progress="{{$visit->progress}}"
+                  class="form-control"
+                >
+              </div>
+
+          @endif
+
+              @if(!empty($rowdata[3]->at1))
+                <div class="col-md-2 col-xs-12">
+                  <button tabindex="0" role="button" class=" btn btn-icon btn-success at_AcousticNeuroma_procedure" data-original-title="" title="" 
+                    data-progress="{{$visit->progress}}"
+                    data-at1_curr_index = "{{count($rowdata[3]->at1)}}"
+                    data-field_key = "{{$key}}"
+                    data-regdate = @if(!empty($visit->regdate2)) "{{$visit->regdate2}}" @else "" @endif
+                    data-mrn = "{{$mrn}}"
+
+                    ><i class="fas fa-plus"></i></button>
+                </div>
+              @else
+                <div class="col-md-2 col-xs-12">
+                  <button tabindex="0" role="button" class=" btn btn-icon btn-success at_AcousticNeuroma_procedure" data-original-title="" title="" 
+                    data-progress="{{$visit->progress}}"
+                    data-at1_curr_index="1"
+                    data-field_key="{{$key}}"
+                    data-regdate = @if(!empty($visit->regdate2))"{{$visit->regdate2}}"@else""@endif 
+                    data-mrn = "{{$mrn}}"
+                  ><i class="fas fa-plus"></i></button>
+                </div>
+              @endif
+
             </div>
+
           </div>
         </div>
 

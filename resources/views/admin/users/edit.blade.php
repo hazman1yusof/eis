@@ -15,16 +15,24 @@ Edit Profile ({{ $user->name }})
       <div class="card-body"> 
 
       	@if($errors->any())
-		<div class="segment">
-			<div class="ui error message">
-				<ul>
-				@foreach($errors->all() as $error)
-					<li>{{$error}}</li>
-				@endforeach
-				</ul>
-			</div>
-		</div>
-		@endif
+    		<div class="segment">
+    			<div class="alert alert-danger">
+    				<ul>
+    				@foreach($errors->all() as $error)
+    					<li>{{$error}}</li>
+    				@endforeach
+    				</ul>
+    			</div>
+    		</div>
+    		@endif
+
+        @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+            </div>
+        @endif
         <form method="POST">
 
 		{{csrf_field()}}
@@ -49,6 +57,11 @@ Edit Profile ({{ $user->name }})
           <div class="form-group">
             <label for="email">Email</label>
             <input id="email" type="email" class="form-control" name="email" value="{{$user->email}}">
+          </div>
+
+          <div class="form-group">
+            <label for="newic">I/C</label>
+            <input id="newic" type="text" class="form-control" name="newic" value="{{$user->newic}}">
           </div>
 
           <div class="form-group">

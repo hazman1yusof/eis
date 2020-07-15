@@ -52,11 +52,16 @@ Create User
           </div>
 
           <div class="form-group">
+            <label for="newic">I/C</label>
+            <input id="newic" type="text" class="form-control" name="newic">
+          </div>
+
+          <div class="form-group">
             <label for="type">User Type</label>
             <select id="type" name="type" class="form-control">
-			  <option value="user">User</option>
-			  <option value="admin">Admin</option>
-			</select>
+      			  <option value="user">User</option>
+      			  <option value="admin">Admin</option>
+      			</select>
           </div>
 
           

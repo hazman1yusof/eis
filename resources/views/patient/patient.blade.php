@@ -14,6 +14,10 @@ Patients
     background-color: #9cc6ea;
   }
 
+  .centertd{
+    text-align: -webkit-center;
+  }
+
 @endsection
 
 @section('content')
@@ -29,13 +33,16 @@ Patients
         	<table id="example" class="table table-striped">
               <thead>
                   <tr>
-                      <th>MRN</th>
-                      <th>Name</th>
-                      <th>New IC</th>
-                      <th>telhp</th>
-                      <th>telh</th>
-                      <th>Episode</th>
-                      <th>Action</th>
+                      <th>Patient</th>
+                      <th>Study</th>
+                      <th>Baseline</th>
+                      <th>1st Month</th>
+                      <th>3rd Month</th>
+                      <th>6th Month</th>
+                      <th>1 Year</th>
+                      <th>2 Year</th>
+                      <th>3 Year</th>
+                      <th>4 Year</th>
                   </tr>
               </thead>
               <!-- <tbody>
@@ -53,13 +60,16 @@ Patients
               </tbody> -->
               <tfoot>
                   <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                      <th>Action</th>
+                      <th>Patient</th>
+                      <th>Study</th>
+                      <th>Baseline</th>
+                      <th>1st Month</th>
+                      <th>3rd Month</th>
+                      <th>6th Month</th>
+                      <th>1 Year</th>
+                      <th>2 Year</th>
+                      <th>3 Year</th>
+                      <th>4 Year</th>
                   </tr>
               </tfoot>
           </table>

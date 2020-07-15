@@ -78,6 +78,7 @@ class UserController extends Controller
                 'password' => $request->password,
                 'type' => $request->type,
                 'email' => $request->email,
+                'newic' => $request->newic,
                 'adddate' => Carbon::now("Asia/Kuala_Lumpur"),
             ]);
 
@@ -160,10 +161,15 @@ class UserController extends Controller
                 'password' => $request->password,
                 'type' => $request->type,
                 'email' => $request->email,
+                'newic' => $request->newic,
                 'upddate' => Carbon::now("Asia/Kuala_Lumpur"),
             ]);
-
-        return redirect()->route('userlist');
+        
+        if(Auth::user()->type=='admin'){
+            return redirect()->back()->with('success', 'Profile Succesfully Updated'); 
+        }else{
+            return redirect()->back()->with('success', 'Profile Succesfully Updated'); 
+        }
     }
 
     /**

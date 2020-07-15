@@ -61,11 +61,25 @@ Study
       <div class="col-md-3 col-lg-3 col-sm-12">
         <div class="card">
           <div id="baseline" class="card-header card-custom selected_card">
-            <h4>Baseline</h4>
+            <h4>Baseline </h4>
+
+            @if(!empty($asses_master[0]->regdate))
+            <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_Baseline_main">{{$asses_master[0]->regdate}}</span>
+              <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+            </div>
+            @else
+            <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_Baseline_main"></span>
+            </div>
+            @endif
+
+
+
           </div>
+          @if(empty($diagnosis))
           <div class="card-header card-custom-normal baseline @if(empty($diagnosis)){{'_selected'}}@endif" data-description='diagnosis_select' id="tab_diagnosis_select">
               Diagnosis
           </div>
+          @endif
 
           <div class="card-header card-custom-normal baseline" data-description='biodata' id="tab_biodata">
               Biodata
@@ -77,7 +91,7 @@ Study
               var current_div = 'div_diagnosis_select';
               var current_card = 'baseline';
             </script>
-            @endif
+          @endif
 
           @if(!empty($diagnosis))
 
@@ -92,98 +106,161 @@ Study
               @if($asses_each->progress == 'Baseline')
               <div class="card-header card-custom-normal baseline _selected" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment Baseline
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_Baseline">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='1st_Month' class="card-header card-custom">
               <h4>1st Month</h4>
+
+              @if(!empty($asses_master[1]->regdate))
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_1st_Month_main">{{$asses_master[1]->regdate}}</span>
+                <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+              </div>
+              @else
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_1st_Month_main"></span>
+              </div>
+              @endif
             </div>
 
             @foreach ($asses_master as $asses_key => $asses_each)
               @if($asses_each->progress == '1st Month')
               <div class="card-header card-custom-normal _hidediv 1st_Month" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment - 1st Month
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_1st_Month">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='3rd_Month' class="card-header card-custom">
               <h4>3rd Month</h4>
+
+              @if(!empty($asses_master[2]->regdate))
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_3rd_Month_main">{{$asses_master[2]->regdate}}</span>
+                <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+              </div>
+              @else
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_3rd_Month_main"></span>
+              </div>
+              @endif
             </div>
 
             @foreach ($asses_master as $asses_key => $asses_each)
               @if($asses_each->progress == '3rd Month')
               <div class="card-header card-custom-normal _hidediv 3rd_Month" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment - 3rd Month
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_3rd_Month">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='6th_Month' class="card-header card-custom">
               <h4>6th Month</h4>
+
+              @if(!empty($asses_master[3]->regdate))
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_6th_Month_main">{{$asses_master[3]->regdate}}</span>
+                <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+              </div>
+              @else
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_6th_Month_main"></span>
+              </div>
+              @endif
             </div>
 
             @foreach ($asses_master as $asses_key => $asses_each)
               @if($asses_each->progress == '6th Month')
               <div class="card-header card-custom-normal _hidediv 6th_Month" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment - 6th Month
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_6th_Month">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='1_year' class="card-header card-custom">
               <h4>1 year</h4>
+
+              @if(!empty($asses_master[4]->regdate))
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_1_year_main">{{$asses_master[4]->regdate}}</span>
+                <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+              </div>
+              @else
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_1_year_main"></span>
+              </div>
+              @endif
             </div>
 
             @foreach ($asses_master as $asses_key => $asses_each)
               @if($asses_each->progress == '1 Year')
               <div class="card-header card-custom-normal _hidediv 1_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment - 1 Year
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_1_Year">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='2_year' class="card-header card-custom">
               <h4>2 year</h4>
+
+              @if(!empty($asses_master[5]->regdate))
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_2_year_main">{{$asses_master[5]->regdate}}</span>
+                <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+              </div>
+              @else
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_2_year_main"></span>
+              </div>
+              @endif
             </div>
 
             @foreach ($asses_master as $asses_key => $asses_each)
               @if($asses_each->progress == '2 year')
               <div class="card-header card-custom-normal _hidediv 2_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment - 2 year
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_2_year">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='3_year' class="card-header card-custom">
               <h4>3 year</h4>
+
+              @if(!empty($asses_master[6]->regdate))
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_3_year_main">{{$asses_master[6]->regdate}}</span>
+                <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+              </div>
+              @else
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_3_year_main"></span>
+              </div>
+              @endif
             </div>
 
             @foreach ($asses_master as $asses_key => $asses_each)
               @if($asses_each->progress == '3 year')
               <div class="card-header card-custom-normal _hidediv 3_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment - 3 year
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_3_year">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
 
             <div id='4_year' class="card-header card-custom">
               <h4>4 year</h4>
+
+              @if(!empty($asses_master[7]->regdate))
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_4_year_main">{{$asses_master[7]->regdate}}</span>
+                <i class="fa fa-check-square" aria-hidden="true" style="color: white"></i>
+              </div>
+              @else
+              <div class="font-weight-500 pull-right" style="color: white"><span id="regdate_4_year_main"></span>
+              </div>
+              @endif
             </div>
 
             @foreach ($asses_master as $asses_key => $asses_each)
               @if($asses_each->progress == '4 year')
               <div class="card-header card-custom-normal _hidediv 4_year" data-description='{{$asses_each->description}}_{{$asses_key}}' id="tab_{{$asses_each->description}}_{{$asses_key}}">
                 Assessment - 4 year
-                <div class="font-weight-500 text-muted text-small">{{$asses_each->regdate}}</div>
+                <div class="font-weight-500 text-muted text-small" id="regdate_4_year">{{$asses_each->regdate}}</div>
               </div>
               @endif
             @endforeach
@@ -244,8 +321,8 @@ Study
                     <td>{{$pat_mast->Name}}</td>
                   </tr>
                   <tr>
-                    <th>Episode</th>
-                    <td>{{$pat_mast->Episno}}</td>
+                    <th>Diagnosis</th>
+                    <td>{{$pat_mast->diag_desc}}</td>
                   </tr>
                   <tr>
                     <th>Telephone</th>

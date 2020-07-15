@@ -37,15 +37,14 @@ class StudyController extends Controller
 
             // $badge_count = $patgkcasses->distinct()->get(['progress','mrn','description','diagcode','regdate']);
 
-            $badge_count = ['Baseline','1st Month','3rd Month','6th Month','1 Year','2 year','3 year','4 year'];
-
-
+            $badge_count = ['Baseline','1st Month','3rd Month','6th Month','1 Year','2 Year','3 Year','4 Year'];
 
             foreach ($badge_count as $badge_count_key => $progress) {
                 $this_progress = $progress;
 
                 $this_mrn = $mrn;
                 $this_regdate2 = '';
+                $this_completed = '';
                 $this_description = '';
                 $this_diagcode = $request->diagcode;
 
@@ -61,27 +60,30 @@ class StudyController extends Controller
                                     ->where('progress','=',$progress)
                                     ->where('questionnaire','=',$gkcasses_each->questionnaire);
 
-
                     if($patgkcasses_obj->exists()){
-
-                        if($this_regdate2 == ''){
-                            $this_regdate2 = $patgkcasses_obj->first()->regdate;
-                        }
-
-
                         array_push($answer_set, $this->get_answer_set($patgkcasses_obj->first(),false));
                     }else{
                         array_push($answer_set, $this->get_answer_set($gkcasses_each,true));
                     }
 
-
                 }
 
+                $pat_mast_info = DB::table('pat_mast_info')
+                                    ->where('mrn','=',$mrn);
+                $field_name_completed = str_replace(' ', '_', $progress).'_completed';
+                $field_name_regdate = str_replace(' ', '_', $progress).'_regdate';
 
                 $responce = new stdClass;
 
+                if($pat_mast_info->exists()){
+                    $pat_mast_info = (array)$pat_mast_info->first();
+                    $this_regdate2 = $pat_mast_info[$field_name_regdate];
+                    $this_completed = $pat_mast_info[$field_name_completed];
+                }
+
                 $responce->progress = $this_progress;
                 $responce->mrn = $this_mrn;
+
                 if($this_regdate2 != ''){
                     $responce->regdate2 = $this_regdate2;
                     $responce->regdate = Carbon::createFromFormat('Y-m-d',$this_regdate2)->toFormattedDateString();
@@ -89,16 +91,22 @@ class StudyController extends Controller
                     $responce->regdate2 = null;
                     $responce->regdate = null;
                 }
+
+                if($this_completed == 'true'){
+                    $responce->completed = 'Completed';
+                }else{
+                    $responce->completed = 'Uncompleted';
+                }
                 $responce->description = $this_description;
                 $responce->diagcode = $this_diagcode;
                 $responce->rowdata = $answer_set;
 
                 array_push($asses_master, $responce);
 
-
             }
 
             // dd($asses_master);
+
             
         	return view('study.study',compact('pat_mast','diagnosis','diagnosis_all','badge','asses_master','gkcasses'));
     	}
@@ -111,6 +119,25 @@ class StudyController extends Controller
         DB::beginTransaction();
 
         try {
+
+            $pat_mast = DB::table('pat_mast')->where('MRN','=',$request->mrn)->first();
+
+            if(empty($pat_mast->diagnosis)){
+
+                $gkcdiag = DB::table('gkcdiag')
+                    ->where('diagcode','=',$request->diagcode)
+                    ->first();
+
+                DB::table('pat_mast')
+                    ->where('MRN','=',$request->mrn)
+                    ->update([
+                        'diagnosis' => $request->diagcode,
+                        'diag_desc' => $gkcdiag->Description
+                    ]);
+            }
+
+
+            DB::commit();
 
             return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
 
@@ -170,7 +197,6 @@ class StudyController extends Controller
             // }
 
 
-            // DB::commit();
 
             //return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
         } catch (\Exception $e) {
@@ -199,12 +225,21 @@ class StudyController extends Controller
                 // $this->save_dd($request,$value);
                 break;
 
+            case 'at':
+                $this->save_at($request);
+                break;
+
             case 'ta':
                 $this->save_ta($request);
                 break;
 
             case 'save_regdate':
                 return $this->save_regdate($request);
+                break;
+
+
+            case 'save_complete':
+                return $this->save_complete($request);
                 break;
         }
     }
@@ -392,8 +427,6 @@ class StudyController extends Controller
                             'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                         ]);
                 }
-
-
                 
             }
             DB::commit();
@@ -498,20 +531,162 @@ class StudyController extends Controller
 
     }
 
-    public function save_regdate(Request $request){
+    public function save_at(Request $request){ // xbuat lagi
+        DB::beginTransaction();
 
-        $table = DB::table('patgkcasses')
+        try {
+
+            if(!empty($request->value)){
+                $table = DB::table('patgkcasses')
                     ->where('mrn','=', $request->mrn)
                     ->where('diagcode','=',$request->diagcode)
-                    ->where('progress','=',$request->progress)
-                    ->update([
-                        'regdate' => $request->value
+                    ->where('description','=',$request->description)
+                    ->where('questionnaire','=',$request->name)
+                    ->where('progress','=',$request->progress);
+
+                if($table->exists()){
+                    $table->update([
+                        $request->at_key => $request->at_id ,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
 
-        $responce = new stdClass;
-        $responce->regdate = Carbon::createFromFormat('Y-m-d',$request->value)->toFormattedDateString();
+                    $anchor_table = DB::table('anchor_table')
+                            ->where('mrn','=',$request->mrn)
+                            ->where('anchor_id','=',$request->at_id)
+                            ->where('anchor_index','=',$request->at_index);
 
-        return json_encode($responce);
+                    if($anchor_table->exists()){
+                        $anchor_table->update([
+                            $request->at_field => $request->value
+                        ]);
+                    }else{
+                        DB::table('anchor_table')
+                            ->insert([
+                                'mrn' => $request->mrn,
+                                'anchor_id' => $request->at_id,
+                                'anchor_index' => $request->at_index,
+                                $request->at_field => $request->value
+                            ]);
+                    }
+                            
+
+                }else{
+
+                    DB::table('patgkcasses')
+                        ->insert([
+                            'mrn' => $request->mrn,
+                            'diagcode' => $request->diagcode,
+                            'description' => $request->description,
+                            'questionnaire' => $request->name,
+                            'progress' => $request->progress,
+                            $request->at_key => $request->at_id ,
+                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        ]);
+
+                    DB::table('anchor_table')
+                        ->insert([
+                            'mrn' => $request->mrn,
+                            'anchor_id' => $request->at_id,
+                            'anchor_index' => $request->at_index,
+                            $request->at_field => $request->value
+                        ]);
+
+                }
+                
+            }
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
+        }
+
+    }
+
+    public function save_regdate(Request $request){
+
+
+        DB::beginTransaction();
+
+        try {
+
+            $pat_mast_info = DB::table('pat_mast_info')
+                        ->where('mrn','=',$request->mrn);
+
+            $field_name = str_replace(' ', '_', $request->progress).'_regdate';
+
+            if($pat_mast_info->exists()){
+
+                $pat_mast_info->update([
+                    $field_name => $request->value
+                ]);
+
+            }else{
+
+                DB::table('pat_mast_info')
+                    ->insert([
+                        'mrn' => $request->mrn,
+                        $field_name => $request->value
+                    ]);
+
+            }
+            DB::commit();
+
+            $responce = new stdClass;
+            $responce->regdate = Carbon::createFromFormat('Y-m-d',$request->value)->toFormattedDateString();
+            return json_encode($responce);
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
+        }
+        
+    }
+
+    public function save_complete(Request $request){
+
+        DB::beginTransaction();
+
+        try {
+
+            $pat_mast_info = DB::table('pat_mast_info')
+                        ->where('mrn','=',$request->mrn);
+
+            $field_name = str_replace(' ', '_', $request->progress).'_completed';
+
+
+            if($pat_mast_info->exists()){
+
+                $pat_mast_info->update([
+                    $field_name => $request->value
+                ]);
+
+            }else{
+
+                DB::table('pat_mast_info')
+                    ->insert([
+                        'mrn' => $request->mrn,
+                        $field_name => $request->value
+                    ]);
+
+            }
+            DB::commit();
+
+            $responce = new stdClass;
+            if($request->value == 'true'){
+                $responce->completed = 'Completed';
+            }else{
+                $responce->completed = 'Uncompleted';
+            }
+            return json_encode($responce);
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return response($e->getMessage(), 500);
+        }
     }
 
     public function get_answer_set($row,$null){
@@ -521,8 +696,19 @@ class StudyController extends Controller
             $row->op1=$row->op2=$row->op3=$row->op4=$row->op5=$row->op6=$row->op7=$row->op8=$row->op9=null;
             $row->dd1=$row->dd2=$row->dd3=$row->dd4=null;
             $row->ta1=$row->ta2=$row->ta3=$row->ta4=null;
+            $row->at1=$row->at2=$row->at3=$row->at4=null;
             return $row;
         }else{
+            if($row->at1!=null){
+                $anchor_table = DB::table('anchor_table')
+                    ->where('mrn','=',$row->mrn)
+                    ->where('anchor_id','=',$row->at1)
+                    ->get()
+                    ->toArray();
+
+                $row->at1 = $anchor_table;
+
+            }
             return $row;
         }
 

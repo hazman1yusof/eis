@@ -27,16 +27,50 @@ class PatientController extends Controller
     	if(!empty($request->search['value'])){
     		$pat_mast = DB::table('pat_mast')
     			->where($request->where,'like','%'.$request->search['value'].'%')
-    			->offset($request->start);
+    			->offset($request->start)
+                ->orderBy('idno', 'desc');
     	}else{
-    		$pat_mast = DB::table('pat_mast')->offset($request->start);
+    		$pat_mast = DB::table('pat_mast')->offset($request->start)->orderBy('idno', 'desc');
     	}
 
     	
         $paginate = $pat_mast->paginate($request->length);
 
         foreach ($paginate->items() as $key => $value) {
-        	$value->button = '<a href="./study/'.$value->MRN.'" class="btn btn-sm btn-primary">Study</a>';
+            $pat_mast_info = DB::table('pat_mast_info')->where('mrn','=',$value->MRN);
+
+            if($pat_mast_info->exists()){
+                $pat_mast_info = (array)$pat_mast_info->first();
+
+                $value->Baseline = $this->make_field('Baseline',$pat_mast_info);
+                $value->_1st_Month = $this->make_field('1st_Month',$pat_mast_info);
+                $value->_3rd_Month = $this->make_field('3rd_Month',$pat_mast_info); 
+                $value->_6th_Month = $this->make_field('6th_Month',$pat_mast_info); 
+                $value->_1_Year = $this->make_field('1_Year',$pat_mast_info); 
+                $value->_2_Year = $this->make_field('2_Year',$pat_mast_info); 
+                $value->_3_Year = $this->make_field('3_Year',$pat_mast_info);
+                $value->_4_Year = $this->make_field('4_Year',$pat_mast_info); 
+
+            }else{
+                $value->Baseline = null;
+                $value->_1st_Month = null;
+                $value->_3rd_Month = null; 
+                $value->_6th_Month = null; 
+                $value->_1_Year = null; 
+                $value->_2_Year = null; 
+                $value->_3_Year = null; 
+                $value->_4_Year = null; 
+            }
+
+
+            if(!empty($value->last_visit)){
+                $value->last_visit  = Carbon::createFromFormat('Y-m-d',$value->last_visit)->toFormattedDateString();
+            }
+            if(!empty($value->diagnosis)){
+                $value->button = '<a href="./study/'.$value->MRN.'?diagcode='.$value->diagnosis.'" class="btn btn-sm btn-primary">'.$value->diag_desc.'</a>';
+            }else{
+                $value->button = '<a href="./study/'.$value->MRN.'" class="btn btn-sm btn-primary">Study</a>';
+            }
         }
 
 
@@ -51,56 +85,19 @@ class PatientController extends Controller
         return json_encode($responce);
     }
 
-    public function patmast(Request $request){
-        // foreach ($_GET as $key => $value) {
-        //     dump($key.' => '.$value);
-        // }
 
+    public function make_field($name,$pat_mast_info){
+        if($pat_mast_info[$name.'_completed'] == 'true'){
 
-        $get_array=[];
-        foreach ($_GET as $key => $value) {
-            // $value = $this->turn_into_appro_array($value);
-            $get_array = array_merge($get_array,[$key => $value]);
-        }
+            $field = $pat_mast_info[$name.'_regdate'].'</br><i class="fas fa-check" style="color:green"></i>';
 
-        // dd($get_array);
-
-
-        $patmast_obj = DB::table('pat_mast')->where('mrn','=',$_GET['MRN']);
-
-        if($patmast_obj->exists()){
-            $patmast_obj->update($get_array);
-            $lastid = $patmast_obj->first()->idno;
         }else{
-            $lastid = DB::table('pat_mast')->insertGetId($get_array);
+
+            $field = $pat_mast_info[$name.'_regdate'].'</br><i class="fas fa-times" style="color:red"></i>';
         }
 
-        $patmast = DB::table('pat_mast')->where('idno','=',$lastid)->first();
 
-        dd($patmast);
+        return $field;
 
-        // return view('patmast.show',compact('patmast'));
-    }
-
-    public function turn_into_appro_array($array){
-        $int_array = ['MRN','Episno','Postcode','Century','Accum_chg','Accum_Paid','first_visit_date','last_visit_date','Reg_Date','last_episno','FirstIpEpisNo','FirstOpEpisNo','AddDate','Lastupdate','NewMrn','pPostCode','DeceasedDate','upddate','idno'];
-        $date_array = ['DOB','first_visit_date','Reg_Date','last_visit_date','AddDate','Lastupdate','DeceasedDate','upddate'];
-
-        foreach ($array as $key => $value) {
-            // if(in_array($key, $date_array) && !empty($value)){
-            //  $array[$key] = $this->turn_date($value);
-            // }
-            if(in_array($key, $int_array) && empty($value)){
-                unset($array[$key]);
-            }
-        }
-        // dd($array);
-
-        return $array;
-    }
-
-    public static function turn_date($from_date,$from_format='d/m/Y'){
-        $carbon = Carbon::createFromFormat($from_format,$from_date);
-        return $carbon;
     }
 }

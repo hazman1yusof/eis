@@ -1,24 +1,53 @@
 <div data-description="Assessment_Gliomas" id="div_Assessment_Gliomas_{{$key}}" class="col-md-9 col-lg-9 col-sm-1 @if($key != 0) _hidediv  @endif  ">
   <div class="card">
-    <div class="card-header">
-      <h4>Assessment Gliomas {{$key+1}}
+
+    <div class="card-header"><div class="row">
+      <div class="col-12">
+          <h4>Assessment Gliomas {{$key+1}} </h4>
+      </div>
+      <div class="col-12">
         <div class="font-weight-600 text-muted text-small visit-date-upd" data-key="{{$key}}"><b>Visit Date:</b> <span id="regdate-span-{{$key}}">{{$visit->regdate}}</span>
-            <div class="form-row regdate-upd-all regdate-upd-{{$key}}" style="display: none;">
-                <input type="date" class="form-control col-md-10 regdate-date-{{$key}}" 
+              <div class="form-row">
+                <input type="date" class="form-control col-md-6 regdate-date-{{$key}}"
+                    value="{{$visit->regdate2}}"  
                     name="regdate" 
                     data-diagcode="Gliomas" 
                     data-mrn="{{$mrn}}"
                     data-key="{{$key}}"
                     data-progress="{{$visit->progress}}"
                 >
-                <button type="button" class="btn btn-icon btn-success col-md-2 regdate-save" data-key="{{$key}}">
-                    <i class="fas fa-check"></i>
-                </button>
-            </div>
-        </div>
-        <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
-      </h4>
-    </div> 
+              </div>
+          </div>
+      </div>
+
+      <div class="col-12">
+          <div class="font-weight-600 text-muted text-small visit-date-upd" data-key="{{$key}}"><b>Status:</b> <span id="completed-span-{{$key}}">{{$visit->completed}}</span>
+              <div class="form-row">
+                  <button type="button" class="btn btn-icon btn-success col-md-3 completed-save"
+                      data-value='true'
+                      data-diagcode="Gliomas" 
+                      data-mrn="{{$mrn}}"
+                      data-key="{{$key}}"
+                      data-progress="{{$visit->progress}}"
+                  >
+                      completed <i class="fas fa-check"></i>
+                  </button>
+                  &nbsp;
+                  <button type="button" class="btn btn-icon btn-danger col-md-3 completed-save"
+                      data-value='false'
+                      data-diagcode="Gliomas" 
+                      data-mrn="{{$mrn}}"
+                      data-key="{{$key}}"
+                      data-progress="{{$visit->progress}}"
+                  >
+                      uncompleted <i class="fas fa-times"></i>
+                  </button>
+              </div>
+          </div>
+          <div class="font-weight-600 text-muted text-small"><b>Patient:</b> {{$pat_mast->Name}}</div>
+      </div>
+    </div></div>
+    
     <div class="card-body">
       <div id="form_Assessment_Gliomas" action="/study" method="POST}">
         <input type="hidden" name_="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 

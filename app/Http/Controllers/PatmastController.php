@@ -23,7 +23,9 @@ class PatmastController extends Controller
 
         $get_array=[];
         foreach ($_GET as $key => $value) {
-            // $value = $this->turn_into_appro_array($value);
+            if($this->discard_null_value($key,$value)){
+                continue;
+            }
             $get_array = array_merge($get_array,[$key => $value]);
         }
 
@@ -41,30 +43,34 @@ class PatmastController extends Controller
 
         $patmast = DB::table('pat_mast')->where('idno','=',$lastid)->first();
 
-        dd($patmast);
-
-        // return view('patmast.show',compact('patmast'));
+        return view('patmast.show',compact('patmast'));
     }
 
-    public function turn_into_appro_array($array){
+    public function discard_null_value($key,$value){
         $int_array = ['MRN','Episno','Postcode','Century','Accum_chg','Accum_Paid','first_visit_date','last_visit_date','Reg_Date','last_episno','FirstIpEpisNo','FirstOpEpisNo','AddDate','Lastupdate','NewMrn','pPostCode','DeceasedDate','upddate','idno'];
         $date_array = ['DOB','first_visit_date','Reg_Date','last_visit_date','AddDate','Lastupdate','DeceasedDate','upddate'];
 
-        foreach ($array as $key => $value) {
-            // if(in_array($key, $date_array) && !empty($value)){
-            //  $array[$key] = $this->turn_date($value);
-            // }
-            if(in_array($key, $int_array) && empty($value)){
-                unset($array[$key]);
-            }
+        if(in_array($key, $int_array) && empty($value)){
+            return true;            
+        }
+
+        if(in_array($key, $date_array) && empty($value)){
+            return true;            
         }
         // dd($array);
 
-        return $array;
+        return false;
     }
 
     public static function turn_date($from_date,$from_format='d/m/Y'){
         $carbon = Carbon::createFromFormat($from_format,$from_date);
         return $carbon;
+    }
+
+    public function test(Request $request){
+        $patmast = DB::table('pat_mast')->where('idno','=',1)->first();
+        // dd($patmast);
+
+        return view('patmast.show',compact('patmast'));
     }
 }
