@@ -1,13 +1,19 @@
 <?php
-Route::get('/patient','PatientController@show')->name('patient');
-Route::get('/patient_ajax','PatientController@ajax');
-Route::get('/','PatientController@show');
-Route::get('/study/{mrn}','StudyController@show')->name('study');
-Route::post('/study','StudyController@study_post');
+Route::get('/study/{idno}','StudyController@show')->name('study');
+Route::post('/study','StudyController@study_post');//xguna
 Route::post('/studyv2','StudyController@study_postv2');
 
 Route::post('/diagnosis','StudyController@diagnosis_post');
 
+
+
+Route::get('/patient_ajax','PatientController@ajax');
+Route::get('/','PatientController@show');
+Route::get('/patient','PatientController@show')->name('patient');
+Route::get('/patient/{id}','PatientController@edit_patient');
+Route::post('/patient/{id}','PatientController@store_patient');
+Route::get('/new_patient','PatientController@new_patient');
+Route::post('/new_patient','PatientController@add_patient');
 
 
 Route::get('/login','SessionController@show');
@@ -21,9 +27,9 @@ Route::get('/user','UserController@create');
 Route::post('/user','UserController@store');
 Route::get('/user/delete/{id}','UserController@destroy');
 
-Route::get('/patmast','PatmastController@patmast');
+// Route::get('/patmast','PatmastController@patmast');
 
-Route::get('/patmast_test','PatmastController@test');
+// Route::get('/patmast_test','PatmastController@test');
 
 
 

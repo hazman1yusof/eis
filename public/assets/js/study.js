@@ -50,7 +50,7 @@ $(document).ready(function() {
 		let key = $(this).data('key');
 		let value = $('input.regdate-date-'+key).val();
 		let diagcode = $('input.regdate-date-'+key).data('diagcode');
-		let mrn = $('input.regdate-date-'+key).data('mrn');
+		let pm_idno = $('input.regdate-date-'+key).data('pm_idno');
 		let progress = $('input.regdate-date-'+key).data('progress');
 		let _token = $('#_token').first().val();
 
@@ -64,7 +64,7 @@ $(document).ready(function() {
 			format:'save_regdate',
 			value:value,
 			diagcode:diagcode,
-			mrn:mrn,
+			pm_idno:pm_idno,
 			progress:progress
 		}
 
@@ -114,7 +114,7 @@ $("button.completed-save").click(function(){
 	let key = $(this).data('key');
 	let value = $(this).data('value');
 	let diagcode = $(this).data('diagcode');
-	let mrn = $(this).data('mrn');
+	let pm_idno = $(this).data('pm_idno');
 	let progress = $(this).data('progress');
 	let _token = $('#_token').first().val();
 
@@ -123,7 +123,7 @@ $("button.completed-save").click(function(){
 		format:'save_complete',
 		value:value,
 		diagcode:diagcode,
-		mrn:mrn,
+		pm_idno:pm_idno,
 		progress:progress
 	}
 
@@ -153,7 +153,7 @@ $("button.completed-save").click(function(){
 function saveonchange(event){
 	let name = $(event.currentTarget).first().attr('name_');
 	let value = $(event.currentTarget).first().val();
-	let mrn = $(event.currentTarget).first().data('mrn');
+	let pm_idno = $(event.currentTarget).first().data('pm_idno');
 	let diagcode = $(event.currentTarget).first().data('diagcode');
 	let description = $(event.currentTarget).first().data('description');
 	let _token = $('#_token').first().val();
@@ -180,7 +180,7 @@ function saveonchange(event){
 	let rowdata={
 		name:name,
 		value:value,
-		mrn:mrn,
+		pm_idno:pm_idno,
 		diagcode:diagcode,
 		description:description,
 		regdate:regdate,

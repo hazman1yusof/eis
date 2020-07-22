@@ -23,17 +23,28 @@ Patients
 @section('content')
 <section class="section">
   <div class="section-header">
-    <h1>Patient List</h1>
+    <h1>Patient List </h1>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <h1><a href="./new_patient" ><i class="fa fa-plus-circle"></i> <span>New Patient</span></a></h1>
   </div>
 
   <div class="section-body" >
     <div class="card">
       <div class="card-body">
+        @if (\Session::has('success'))
+        <div class="alert alert-success">
+          <ul>
+            <li>{!! \Session::get('success') !!}</li>
+          </ul>
+        </div>
+        @endif
         <div class="table-responsive">
         	<table id="example" class="table table-striped">
               <thead>
                   <tr>
                       <th>Patient</th>
+                      <th>MRN</th>
+                      <th>HUKM MRN</th>
                       <th>Study</th>
                       <th>Baseline</th>
                       <th>1st Month</th>
@@ -45,22 +56,11 @@ Patients
                       <th>4 Year</th>
                   </tr>
               </thead>
-              <!-- <tbody>
-              	@foreach ($pat_mast as $user)
-              	<tr>
-                      <td>{{$user->MRN}}</td>
-                      <td>{{$user->Name}}</td>
-                      <td>{{$user->Newic}}</td>
-                      <td>{{$user->telhp}}</td>
-                      <td>{{$user->telh}}</td>
-                      <td>{{$user->Episno}}</td>
-                      <td><a href="./study/{{$user->MRN}}" class="btn btn-sm btn-primary">Study</a></td>
-                  </tr>
-      			    @endforeach
-              </tbody> -->
               <tfoot>
                   <tr>
                       <th>Patient</th>
+                      <th>MRN</th>
+                      <th>HUKM MRN</th>
                       <th>Study</th>
                       <th>Baseline</th>
                       <th>1st Month</th>

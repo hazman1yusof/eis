@@ -68,6 +68,7 @@ class SessionController extends Controller
 
             if ($request->password == $user->first()->password) {
                 Auth::login($user->first(),$remember);
+                $request->session()->put('username', request('username'));
 
                 if(Auth::user()->type=='admin'){
                     return redirect()->route('userlist');

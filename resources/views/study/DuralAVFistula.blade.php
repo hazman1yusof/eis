@@ -13,7 +13,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                     value="{{$visit->regdate2}}"  
                     name="regdate" 
                     data-diagcode="DuralAVFistula" 
-                    data-mrn="{{$mrn}}"
+                    data-pm_idno="{{$pm_idno}}"
                     data-key="{{$key}}"
                     data-progress="{{$visit->progress}}"
                 >
@@ -27,7 +27,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                   <button type="button" class="btn btn-icon btn-success col-md-3 completed-save"
                       data-value='true'
                       data-diagcode="DuralAVFistula" 
-                      data-mrn="{{$mrn}}"
+                      data-pm_idno="{{$pm_idno}}"
                       data-key="{{$key}}"
                       data-progress="{{$visit->progress}}"
                   >
@@ -37,7 +37,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                   <button type="button" class="btn btn-icon btn-danger col-md-3 completed-save"
                       data-value='false'
                       data-diagcode="DuralAVFistula" 
-                      data-mrn="{{$mrn}}"
+                      data-pm_idno="{{$pm_idno}}"
                       data-key="{{$key}}"
                       data-progress="{{$visit->progress}}"
                   >
@@ -52,7 +52,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
     <div class="card-body">
       <div id="form_Assessment_Dural_AV_Fistula" action="/study" method="POST">
         <input type="hidden" name_="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
-        <input type="hidden" name_="mrn" value="{{$mrn}}"> 
+        <input type="hidden" name_="pm_idno" value="{{$pm_idno}}"> 
         <input type="hidden" name_="diagcode" value="DuralAVFistula"> 
         <input type="hidden" name_="description" value="Assessment_Dural_AV_Fistula"> 
         <div class="row">
@@ -69,7 +69,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 value="@if($rowdata[0]->tf1 != ''){{$rowdata[0]->tf1}}@endif" 
                 data-format="tf" 
                 data-tf_key="tf1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -97,7 +97,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 value="@if($rowdata[1]->tf1 != ''){{$rowdata[1]->tf1}}@endif"
                 data-format="tf" 
                 data-tf_key="tf1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -125,7 +125,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op1" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -148,7 +148,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op2" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -171,7 +171,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op3" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -198,13 +198,13 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
             <div class="form-check">
               <input type="radio" 
                 ques_num='3'
-                name="Corticovenus Drainage_{{$key}}" 
-                name_="Corticovenus Drainage" 
+                name="Barrow Classification_{{$key}}" 
+                name_="Barrow Classification" 
                 id="Assessment_Dural_AV_Fistula_Barrow Classification_0_{{$key}}"
                 data-key={{$key}} 
                 value="op1" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -221,13 +221,13 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
             <div class="form-check">
               <input type="radio" 
                 ques_num='3'
-                name="Corticovenus Drainage_{{$key}}" 
-                name_="Corticovenus Drainage" 
+                name="Barrow Classification_{{$key}}" 
+                name_="Barrow Classification" 
                 id="Assessment_Dural_AV_Fistula_Barrow Classification_1_{{$key}}"
                 data-key={{$key}} 
                 value="op2" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -244,13 +244,13 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
             <div class="form-check">
               <input type="radio" 
                 ques_num='3'
-                name="Corticovenus Drainage_{{$key}}" 
-                name_="Corticovenus Drainage" 
+                name="Barrow Classification_{{$key}}" 
+                name_="Barrow Classification" 
                 id="Assessment_Dural_AV_Fistula_Barrow Classification_2_{{$key}}"
                 data-key={{$key}} 
                 value="op3" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -267,13 +267,13 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
             <div class="form-check">
               <input type="radio" 
                 ques_num='3'
-                name="Corticovenus Drainage_{{$key}}" 
-                name_="Corticovenus Drainage" 
+                name="Barrow Classification_{{$key}}" 
+                name_="Barrow Classification" 
                 id="Assessment_Dural_AV_Fistula_Barrow Classification_3_{{$key}}"
                 data-key={{$key}} 
                 value="op4" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -294,7 +294,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 id="Assessment_Dural_AV_Fistula_Barrow Classification_{{$key}}"
                 data-key={{$key}} 
                 data-format="dd" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -328,7 +328,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op1" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -351,7 +351,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op2" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -384,7 +384,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op1" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -407,7 +407,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op2" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -440,7 +440,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op1" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -463,7 +463,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-key={{$key}} 
                 value="op2" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -492,7 +492,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 id="Assessment_Dural_AV_Fistula_Note_0_{{$key}}"
                 data-key={{$key}} 
                 data-format="ta" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="DuralAVFistula" 
                 data-description="Assessment_Dural_AV_Fistula" 
                 data-regdate="{{$visit->regdate2}}"
@@ -500,8 +500,7 @@ data-key={{$key}} col-lg-9 col-sm-12 @if($key != 0) _hidediv  @endif  ">
                 data-ta_key="ta1"
                 class="form-control" 
                 style="height: 80px;"
-              >@if($rowdata[7]->ta1 != ''){!!$rowdata[7]->ta1!!}@endif
-              </textarea>
+              >@if($rowdata[7]->ta1 != ''){!!$rowdata[7]->ta1!!}@endif</textarea>
             </div>
           </div>
         </div>

@@ -54,7 +54,7 @@ Study
   <div class="section-body">
     <!-- <a id="newdiagnosis" href="/diagnosis/{{$pat_mast->MRN}}" class="btn btn-primary float-right">Select  Diagnosis</a> -->
     <h2 class="section-title">
-      {{$pat_mast->Name}} - MRN {{str_pad($pat_mast->MRN,7,"0",STR_PAD_LEFT)}}
+      {{$pat_mast->Name}} - MRN {{str_pad($pat_mast->OldMrn,7,"0",STR_PAD_LEFT)}}
       <!-- <button class="btn btn-icon btn-success" style="float: right;" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" data-content="Add New Assessment"><i class="fas fa-plus"></i></button> -->
     </h2>
     <div class="row">
@@ -281,8 +281,9 @@ Study
               {!! csrf_field() !!}
               <div class="form-group">
                 <label>MRN</label>
-                <input type="hidden" name="mrn" value="{{$pat_mast->MRN}}">
-                <input type="text" name="mrn_dummy" class="form-control" value="{{str_pad($pat_mast->MRN,7,'0',STR_PAD_LEFT)}}" readonly="">
+                <input type="hidden" name="OldMrn" value="{{$pat_mast->OldMrn}}">
+                <input type="hidden" name="idno" value="{{$pat_mast->idno}}">
+                <input type="text" name="mrn_dummy" class="form-control" value="{{str_pad($pat_mast->OldMrn,7,'0',STR_PAD_LEFT)}}" readonly="">
               </div>
 
               <div class="form-group">
@@ -373,7 +374,7 @@ Study
       <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
         @foreach ($asses_master as $key => $visit)
 
-          @component('study.'.$diagnosis->diagcode, ['pat_mast' => $pat_mast, 'mrn' => $pat_mast->MRN, 'key' => $key ,'visit' => $visit, 'rowdata' => $visit->rowdata])
+          @component('study.'.$diagnosis->diagcode, ['pat_mast' => $pat_mast, 'pm_idno' => $pat_mast->idno, 'key' => $key ,'visit' => $visit, 'rowdata' => $visit->rowdata])
           @endcomponent
 
         @endforeach

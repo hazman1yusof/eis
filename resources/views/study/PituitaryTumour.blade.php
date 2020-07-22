@@ -12,7 +12,7 @@
                     value="{{$visit->regdate2}}"  
                     name="regdate" 
                     data-diagcode="PituitaryTumour" 
-                    data-mrn="{{$mrn}}"
+                    data-pm_idno="{{$pm_idno}}"
                     data-key="{{$key}}"
                     data-progress="{{$visit->progress}}"
                 >
@@ -26,7 +26,7 @@
                   <button type="button" class="btn btn-icon btn-success col-md-3 completed-save"
                       data-value='true'
                       data-diagcode="PituitaryTumour" 
-                      data-mrn="{{$mrn}}"
+                      data-pm_idno="{{$pm_idno}}"
                       data-key="{{$key}}"
                       data-progress="{{$visit->progress}}"
                   >
@@ -36,7 +36,7 @@
                   <button type="button" class="btn btn-icon btn-danger col-md-3 completed-save"
                       data-value='false'
                       data-diagcode="PituitaryTumour" 
-                      data-mrn="{{$mrn}}"
+                      data-pm_idno="{{$pm_idno}}"
                       data-key="{{$key}}"
                       data-progress="{{$visit->progress}}"
                   >
@@ -51,7 +51,7 @@
     <div class="card-body">
       <div id="form_Assessment_Pituitary_Tumour" action="/study" method="POST">
         <input type="hidden" name_="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
-        <input type="hidden" name_="mrn" value="1"> 
+        <input type="hidden" name_="pm_idno" value="1"> 
         <input type="hidden" name_="diagcode" value="Pituitary Tumour"> 
         <input type="hidden" name_="description" value="Assessment_Pituitary_Tumour">      
         
@@ -67,7 +67,7 @@
                 value="@if($rowdata[0]->tf1 != ''){{$rowdata[0]->tf1}}@endif" 
                 data-format="tf" 
                 data-tf_key="tf1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
@@ -91,7 +91,7 @@
                     data-key="{{$key}}"
                     value="cb1" 
                     data-format="cb" 
-                    data-mrn="{{$mrn}}" 
+                    data-pm_idno="{{$pm_idno}}" 
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
@@ -112,7 +112,7 @@
                     data-key="{{$key}}"
                     value="cb2" 
                     data-format="cb" 
-                    data-mrn="{{$mrn}}" 
+                    data-pm_idno="{{$pm_idno}}" 
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
@@ -133,7 +133,7 @@
                     data-key="{{$key}}"
                     value="cb3" 
                     data-format="cb" 
-                    data-mrn="{{$mrn}}" 
+                    data-pm_idno="{{$pm_idno}}" 
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
@@ -154,7 +154,7 @@
                     data-key="{{$key}}"
                     value="cb4" 
                     data-format="cb" 
-                    data-mrn="{{$mrn}}" 
+                    data-pm_idno="{{$pm_idno}}" 
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
@@ -181,7 +181,7 @@
                       value="@if($rowdata[2]->tf1 != ''){{$rowdata[2]->tf1}}@endif" 
                       data-format="tf" 
                       data-tf_key="tf1"
-                      data-mrn="{{$mrn}}" 
+                      data-pm_idno="{{$pm_idno}}" 
                       data-diagcode="PituitaryTumour" 
                       data-description="Assessment_Pituitary_Tumour" 
                       data-regdate="{{$visit->regdate2}}"
@@ -205,7 +205,7 @@
                       value="@if($rowdata[3]->tf1 != ''){{$rowdata[3]->tf1}}@endif" 
                       data-format="tf" 
                       data-tf_key="tf1"
-                      data-mrn="{{$mrn}}" 
+                      data-pm_idno="{{$pm_idno}}" 
                       data-diagcode="PituitaryTumour" 
                       data-description="Assessment_Pituitary_Tumour" 
                       data-regdate="{{$visit->regdate2}}"
@@ -229,15 +229,14 @@
                     data-key="{{$key}}"
                     data-format="ta" 
                     data-ta_key="ta1"
-                    data-mrn="{{$mrn}}" 
+                    data-pm_idno="{{$pm_idno}}" 
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
                     data-progress="{{$visit->progress}}"
                     class="form-control" 
                     style="height: 80px;"
-                  >@if($rowdata[4]->ta1 != ''){!!$rowdata[4]->ta1!!}@endif
-                  </textarea>
+                  >@if($rowdata[4]->ta1 != ''){!!$rowdata[4]->ta1!!}@endif</textarea>
                 </div>
               </div>
             </div> 
@@ -255,15 +254,14 @@
                     data-key="{{$key}}"
                     data-format="ta" 
                     data-ta_key="ta1"
-                    data-mrn="{{$mrn}}" 
+                    data-pm_idno="{{$pm_idno}}" 
                     data-diagcode="PituitaryTumour" 
                     data-description="Assessment_Pituitary_Tumour" 
                     data-regdate="{{$visit->regdate2}}"
                     data-progress="{{$visit->progress}}"
                     class="form-control" 
                     style="height: 80px;"
-                  >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif
-                  </textarea>
+                  >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif</textarea>
                 </div>
               </div>
             </div> 
@@ -282,7 +280,7 @@
                   data-key="{{$key}}"
                   value="cb1" 
                   data-format="cb" 
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="PituitaryTumour" 
                   data-description="Assessment_Pituitary_Tumour" 
                   data-regdate="{{$visit->regdate2}}"
@@ -303,7 +301,7 @@
                 data-key="{{$key}}"
                 value="cb2" 
                 data-format="cb" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
@@ -324,7 +322,7 @@
                 data-key="{{$key}}"
                 value="cb3" 
                 data-format="cb" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
@@ -345,7 +343,7 @@
                 data-key="{{$key}}"
                 value="cb4" 
                 data-format="cb" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
@@ -374,7 +372,7 @@
                 value="@if($rowdata[7]->tf1 != ''){{$rowdata[7]->tf1}}@endif" 
                 data-format="tf" 
                 data-tf_key="tf1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
@@ -397,15 +395,14 @@
                 data-key="{{$key}}"
                 data-format="ta" 
                 data-ta_key="ta1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="PituitaryTumour" 
                 data-description="Assessment_Pituitary_Tumour" 
                 data-regdate="{{$visit->regdate2}}"
                 data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
-              >@if($rowdata[8]->ta1 != ''){!!$rowdata[8]->ta1!!}@endif
-              </textarea>
+              >@if($rowdata[8]->ta1 != ''){!!$rowdata[8]->ta1!!}@endif</textarea>
             </div>
           </div>
         </div>

@@ -15,27 +15,28 @@ Edit Profile ({{ $user->name }})
       <div class="card-body"> 
 
       	@if($errors->any())
-    		<div class="segment">
-    			<div class="alert alert-danger">
-    				<ul>
-    				@foreach($errors->all() as $error)
-    					<li>{{$error}}</li>
-    				@endforeach
-    				</ul>
-    			</div>
-    		</div>
+      		<div class="segment">
+      			<div class="alert alert-danger">
+      				<ul>
+      				@foreach($errors->all() as $error)
+      					<li>{{$error}}</li>
+      				@endforeach
+      				</ul>
+      			</div>
+      		</div>
     		@endif
 
         @if (\Session::has('success'))
-            <div class="alert alert-success">
-                <ul>
-                    <li>{!! \Session::get('success') !!}</li>
-                </ul>
-            </div>
+          <div class="alert alert-success">
+            <ul>
+              <li>{!! \Session::get('success') !!}</li>
+            </ul>
+          </div>
         @endif
+        
         <form method="POST">
 
-		{{csrf_field()}}
+		      {{csrf_field()}}
           <div class="form-group">
             <label for="username">Username</label>
             <input id="username" type="username" class="form-control" name="username" value="{{$user->username}}" readonly="">
@@ -67,9 +68,9 @@ Edit Profile ({{ $user->name }})
           <div class="form-group">
             <label for="type">User Type</label>
             <select id="type" name="type" class="form-control">
-			  <option value="user" {{ $user->type === 'user' ? 'selected' : '' }}>User</option>
-			  <option value="admin" {{ $user->type === 'admin' ? 'selected' : '' }}>Admin</option>
-			</select>
+      			  <option value="user" {{ $user->type === 'user' ? 'selected' : '' }}>User</option>
+      			  <option value="admin" {{ $user->type === 'admin' ? 'selected' : '' }}>Admin</option>
+      			</select>
           </div>
 
           

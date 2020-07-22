@@ -14,9 +14,9 @@ class StudyController extends Controller
         $this->middleware('auth');
     }
 
-    public function show($mrn,Request $request)
+    public function show($idno,Request $request)
     {	
-    	$pat_mast = DB::table('pat_mast')->where('MRN','=',$mrn)->first();
+    	$pat_mast = DB::table('pat_mast')->where('idno','=',$idno)->first();
         $diagnosis_all = DB::table('gkcdiag')->get();
 
         $badge = new stdClass;
@@ -32,7 +32,7 @@ class StudyController extends Controller
             $diagnosis = DB::table('gkcdiag')->where('diagcode','=',$request->diagcode)->first();
 
             $patgkcasses = DB::table('patgkcasses')
-                            ->where('MRN','=',$mrn)
+                            ->where('pm_idno','=',$idno)
                             ->where('diagcode','=',$request->diagcode);
 
             // $badge_count = $patgkcasses->distinct()->get(['progress','mrn','description','diagcode','regdate']);
@@ -42,7 +42,7 @@ class StudyController extends Controller
             foreach ($badge_count as $badge_count_key => $progress) {
                 $this_progress = $progress;
 
-                $this_mrn = $mrn;
+                $this_idno = $idno;
                 $this_regdate2 = '';
                 $this_completed = '';
                 $this_description = '';
@@ -55,7 +55,7 @@ class StudyController extends Controller
                     }
 
                     $patgkcasses_obj = DB::table('patgkcasses')
-                                    ->where('MRN','=',$mrn)
+                                    ->where('pm_idno','=',$idno)
                                     ->where('diagcode','=',$request->diagcode)
                                     ->where('progress','=',$progress)
                                     ->where('questionnaire','=',$gkcasses_each->questionnaire);
@@ -69,7 +69,7 @@ class StudyController extends Controller
                 }
 
                 $pat_mast_info = DB::table('pat_mast_info')
-                                    ->where('mrn','=',$mrn);
+                                    ->where('pm_idno','=',$idno);
                 $field_name_completed = str_replace(' ', '_', $progress).'_completed';
                 $field_name_regdate = str_replace(' ', '_', $progress).'_regdate';
 
@@ -82,7 +82,7 @@ class StudyController extends Controller
                 }
 
                 $responce->progress = $this_progress;
-                $responce->mrn = $this_mrn;
+                $responce->idno = $this_idno;
 
                 if($this_regdate2 != ''){
                     $responce->regdate2 = $this_regdate2;
@@ -120,7 +120,7 @@ class StudyController extends Controller
 
         try {
 
-            $pat_mast = DB::table('pat_mast')->where('MRN','=',$request->mrn)->first();
+            $pat_mast = DB::table('pat_mast')->where('idno','=',$request->idno)->first();
 
             if(empty($pat_mast->diagnosis)){
 
@@ -129,76 +129,17 @@ class StudyController extends Controller
                     ->first();
 
                 DB::table('pat_mast')
-                    ->where('MRN','=',$request->mrn)
+                    ->where('idno','=',$request->idno)
                     ->update([
                         'diagnosis' => $request->diagcode,
                         'diag_desc' => $gkcdiag->Description
                     ]);
             }
 
-
             DB::commit();
 
-            return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
+            return redirect('/study/'.$request->idno.'?diagcode='.$request->diagcode);
 
-            // $patgkcasses_obj = DB::table('patgkcasses')
-            //                     ->where('compcode','=','9A')
-            //                     ->where('mrn','=',$request->mrn)
-            //                     ->where('diagcode','=',$request->diagcode);
-
-            // if($patgkcasses_obj->exists()){
-            //     return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
-            // }
-
-            // $gkcasses = DB::table('gkcasses')->where('diagcode','=',$request->diagcode)->get();
-            // $patvisit = DB::table('patvisit')
-            //             ->where('mrn','=',$request->mrn)
-            //             ->where('compcode','=','9A')->get();
-
-            // //ni salah betulkan balik nanti
-
-            // $baseline_date = Carbon::createFromFormat('Y-m-d',$patvisit[0]->regdate);
-
-            // foreach ($patvisit as $key_visit => $visit) {
-
-            //     $visit_date = Carbon::createFromFormat('Y-m-d',$visit->regdate);
-            //     if($visit_date->equalTo($baseline_date)){
-            //         $progress = 'Baseline';
-            //     }else if($visit_date->diffInMonths($baseline_date) <= 1){
-            //         $progress = '1st Month';
-            //     }else if($visit_date->diffInMonths($baseline_date) <= 3){
-            //         $progress = '3rd Month';
-            //     }else if($visit_date->diffInMonths($baseline_date) <= 6){
-            //         $progress = '6th Month';
-            //     }else if($visit_date->diffInYears($baseline_date) <= 1){
-            //         $progress = '1st Year';
-            //     }else if($visit_date->diffInYears($baseline_date) <= 2){
-            //         $progress = '2nd Year';
-            //     }else if($visit_date->diffInYears($baseline_date) <= 3){
-            //         $progress = '3rd Year';
-            //     }else if($visit_date->diffInYears($baseline_date) >= 4){
-            //         $progress = '4th Year';
-            //     }else{
-            //         $progress = 'Error';
-            //     }
-                
-            //     foreach ($gkcasses as $key_gkc => $gkc) {
-            //         DB::table('patgkcasses')->insert([
-            //             'compcode' => $visit->compcode,
-            //             'mrn' => $visit->mrn,
-            //             'description' => $gkc->description,
-            //             'diagcode' => $gkc->diagcode,
-            //             'questionnaire' => $gkc->questionnaire,
-            //             'progress' => $progress,
-            //             'regdate' => $visit->regdate,
-            //             'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-            //         ]);
-            //     }
-            // }
-
-
-
-            //return redirect('/study/'.$request->mrn.'?diagcode='.$request->diagcode);
         } catch (\Exception $e) {
             DB::rollback();
             
@@ -244,7 +185,7 @@ class StudyController extends Controller
         }
     }
 
-    public function study_post(Request $request){
+    public function study_post(Request $request){//xguna
 
         $gkcasses = DB::table('gkcasses')
             ->where('diagcode','=',$request->diagcode)
@@ -298,7 +239,7 @@ class StudyController extends Controller
 
             if(!empty($request->value)){
                 $table = DB::table('patgkcasses')
-                    ->where('mrn','=', $request->mrn)
+                    ->where('pm_idno','=', $request->pm_idno)
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
@@ -312,7 +253,7 @@ class StudyController extends Controller
                 }else{
                     DB::table('patgkcasses')
                         ->insert([
-                            'mrn' => $request->mrn,
+                            'pm_idno' => $request->pm_idno,
                             'diagcode' => $request->diagcode,
                             'description' => $request->description,
                             'questionnaire' => $request->name,
@@ -343,7 +284,7 @@ class StudyController extends Controller
         try {
             if(!empty($request->value)){
                 $table= DB::table('patgkcasses')
-                    ->where('mrn','=', $request->mrn)
+                    ->where('pm_idno','=', $request->pm_idno)
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
@@ -372,7 +313,7 @@ class StudyController extends Controller
                 }else{
                     DB::table('patgkcasses')
                         ->insert([
-                            'mrn' => $request->mrn,
+                            'pm_idno' => $request->pm_idno,
                             'diagcode' => $request->diagcode,
                             'description' => $request->description,
                             'questionnaire' => $request->name,
@@ -404,7 +345,7 @@ class StudyController extends Controller
 
             if(!empty($request->value)){
                 $table = DB::table('patgkcasses')
-                    ->where('mrn','=', $request->mrn)
+                    ->where('pm_idno','=', $request->pm_idno)
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
@@ -418,7 +359,7 @@ class StudyController extends Controller
                 }else{
                     DB::table('patgkcasses')
                         ->insert([
-                            'mrn' => $request->mrn,
+                            'pm_idno' => $request->pm_idno,
                             'diagcode' => $request->diagcode,
                             'description' => $request->description,
                             'questionnaire' => $request->name,
@@ -445,7 +386,7 @@ class StudyController extends Controller
         try {
             if(!empty($request->value)){
                 $table = DB::table('patgkcasses')
-                            ->where('mrn','=', $request->mrn)
+                            ->where('pm_idno','=', $request->pm_idno)
                             ->where('diagcode','=',$request->diagcode)
                             ->where('description','=',$request->description)
                             ->where('questionnaire','=',$request->name)
@@ -459,7 +400,7 @@ class StudyController extends Controller
                 }else{
                     DB::table('patgkcasses')
                         ->insert([
-                            'mrn' => $request->mrn,
+                            'pm_idno' => $request->pm_idno,
                             'diagcode' => $request->diagcode,
                             'description' => $request->description,
                             'questionnaire' => $request->name,
@@ -479,7 +420,7 @@ class StudyController extends Controller
         }
     }
 
-    public function save_dd(Request $request, $value){ // xbuat lagi
+    public function save_dd(Request $request, $value){ // xbuat lagi dropdown xguna
         DB::beginTransaction();
 
         try {
@@ -487,7 +428,7 @@ class StudyController extends Controller
             if(!empty($request[str_replace(' ', '_', $value->questionnaire)])){
 
                 $table = DB::table('patgkcasses')
-                        ->where('mrn','=', $request->mrn)
+                        ->where('pm_idno','=', $request->pm_idno)
                         ->where('diagcode','=',$request->diagcode)
                         ->where('description','=',$request->description)
                         ->where('questionnaire','=',$value->name)
@@ -531,14 +472,14 @@ class StudyController extends Controller
 
     }
 
-    public function save_at(Request $request){ // xbuat lagi
+    public function save_at(Request $request){
         DB::beginTransaction();
 
         try {
 
             if(!empty($request->value)){
                 $table = DB::table('patgkcasses')
-                    ->where('mrn','=', $request->mrn)
+                    ->where('pm_idno','=', $request->pm_idno)
                     ->where('diagcode','=',$request->diagcode)
                     ->where('description','=',$request->description)
                     ->where('questionnaire','=',$request->name)
@@ -551,7 +492,7 @@ class StudyController extends Controller
                     ]);
 
                     $anchor_table = DB::table('anchor_table')
-                            ->where('mrn','=',$request->mrn)
+                            ->where('pm_idno','=',$request->pm_idno)
                             ->where('anchor_id','=',$request->at_id)
                             ->where('anchor_index','=',$request->at_index);
 
@@ -562,7 +503,7 @@ class StudyController extends Controller
                     }else{
                         DB::table('anchor_table')
                             ->insert([
-                                'mrn' => $request->mrn,
+                                'pm_idno' => $request->pm_idno,
                                 'anchor_id' => $request->at_id,
                                 'anchor_index' => $request->at_index,
                                 $request->at_field => $request->value
@@ -574,7 +515,7 @@ class StudyController extends Controller
 
                     DB::table('patgkcasses')
                         ->insert([
-                            'mrn' => $request->mrn,
+                            'pm_idno' => $request->pm_idno,
                             'diagcode' => $request->diagcode,
                             'description' => $request->description,
                             'questionnaire' => $request->name,
@@ -585,7 +526,7 @@ class StudyController extends Controller
 
                     DB::table('anchor_table')
                         ->insert([
-                            'mrn' => $request->mrn,
+                            'pm_idno' => $request->pm_idno,
                             'anchor_id' => $request->at_id,
                             'anchor_index' => $request->at_index,
                             $request->at_field => $request->value
@@ -612,7 +553,7 @@ class StudyController extends Controller
         try {
 
             $pat_mast_info = DB::table('pat_mast_info')
-                        ->where('mrn','=',$request->mrn);
+                        ->where('pm_idno','=',$request->pm_idno);
 
             $field_name = str_replace(' ', '_', $request->progress).'_regdate';
 
@@ -626,7 +567,7 @@ class StudyController extends Controller
 
                 DB::table('pat_mast_info')
                     ->insert([
-                        'mrn' => $request->mrn,
+                        'pm_idno' => $request->pm_idno,
                         $field_name => $request->value
                     ]);
 
@@ -652,7 +593,7 @@ class StudyController extends Controller
         try {
 
             $pat_mast_info = DB::table('pat_mast_info')
-                        ->where('mrn','=',$request->mrn);
+                        ->where('pm_idno','=',$request->pm_idno);
 
             $field_name = str_replace(' ', '_', $request->progress).'_completed';
 
@@ -667,7 +608,7 @@ class StudyController extends Controller
 
                 DB::table('pat_mast_info')
                     ->insert([
-                        'mrn' => $request->mrn,
+                        'pm_idno' => $request->pm_idno,
                         $field_name => $request->value
                     ]);
 
@@ -701,7 +642,7 @@ class StudyController extends Controller
         }else{
             if($row->at1!=null){
                 $anchor_table = DB::table('anchor_table')
-                    ->where('mrn','=',$row->mrn)
+                    ->where('pm_idno','=',$row->pm_idno)
                     ->where('anchor_id','=',$row->at1)
                     ->get()
                     ->toArray();

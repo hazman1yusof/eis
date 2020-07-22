@@ -17,6 +17,8 @@ $(document).ready(function() {
         },
         "columns": [
             { "data": "Name" },
+            { "data": "MRN" },
+            { "data": "OldMrn" },
             { 'data' : "button"},
             { "data": "Baseline" , "className": "centertd"},
             { "data": "_1st_Month" , "className": "centertd"},
@@ -30,7 +32,7 @@ $(document).ready(function() {
 	} ).on( 'init.dt', function () {
         $('#example_filter').prepend( `Search By &nbsp;<label>
         	<select class="custom-select custom-select-sm form-control form-control-sm" id="search-select">
-			    <option value="MRN">MRN</option>
+			    <option value="OldMrn">HUKM sMRN</option>
 			    <option value="Name" selected>Name</option>
 			    <option value="Newic">New IC</option>
 			</select></label>&nbsp;` );

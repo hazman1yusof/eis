@@ -15,7 +15,7 @@ class PatmastController extends Controller
     {
     }
 
-    public function patmast(Request $request){
+    public function patmast(Request $request){ //xguna
         // foreach ($_GET as $key => $value) {
         //     dump($key.' => '.$value);
         // }

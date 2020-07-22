@@ -32,7 +32,7 @@ $(document).ready(function() {
     let at1_curr_index = $(this).data('at1_curr_index');
     let field_key = $(this).data('field_key');
     let regdate = $(this).data('regdate');
-    let mrn = $(this).data('mrn');
+    let pm_idno = $(this).data('pm_idno');
 
 		$("div.AcousticNeuroma_procedure_class_"+progress.replace(" ", "_")).append(
 			`
@@ -48,7 +48,7 @@ $(document).ready(function() {
             id="Assessment_Acoustic_Neuroma Procedure_0_`+field_key+`" 
             value=""
             data-format="at" 
-            data-mrn="`+mrn+`" 
+            data-pm_idno="`+pm_idno+`" 
             data-diagcode="AcousticNeuroma" 
             data-description="Assessment_Acoustic_Neuroma" 
             data-regdate="`+regdate+`"
@@ -68,7 +68,7 @@ $(document).ready(function() {
             id="Assessment_Acoustic_Neuroma Procedure_0_`+field_key+`" 
             value=""
             data-format="at" 
-            data-mrn="`+mrn+`" 
+            data-pm_idno="`+pm_idno+`" 
             data-diagcode="AcousticNeuroma" 
             data-description="Assessment_Acoustic_Neuroma" 
             data-regdate="`+regdate+`"

@@ -12,7 +12,7 @@
                     value="{{$visit->regdate2}}"  
                     name="regdate" 
                     data-diagcode="Meningioma" 
-                    data-mrn="{{$mrn}}"
+                    data-pm_idno="{{$pm_idno}}"
                     data-key="{{$key}}"
                     data-progress="{{$visit->progress}}"
                 >
@@ -26,7 +26,7 @@
                   <button type="button" class="btn btn-icon btn-success col-md-3 completed-save"
                       data-value='true'
                       data-diagcode="Meningioma" 
-                      data-mrn="{{$mrn}}"
+                      data-pm_idno="{{$pm_idno}}"
                       data-key="{{$key}}"
                       data-progress="{{$visit->progress}}"
                   >
@@ -36,7 +36,7 @@
                   <button type="button" class="btn btn-icon btn-danger col-md-3 completed-save"
                       data-value='false'
                       data-diagcode="Meningioma" 
-                      data-mrn="{{$mrn}}"
+                      data-pm_idno="{{$pm_idno}}"
                       data-key="{{$key}}"
                       data-progress="{{$visit->progress}}"
                   >
@@ -51,7 +51,7 @@
     <div class="card-body">
       <div id="form_Assessment_Meningioma" action="/study" method="POST"_{{$key}}>
         <input type="hidden" name_="_token" value="CBb4Y9ThONoAXRrWArHw2v0kU10204PH22aURjBO"> 
-        <input type="hidden" name_="mrn" value="1"> 
+        <input type="hidden" name_="pm_idno" value="1"> 
         <input type="hidden" name_="diagcode" value="Meningioma"> 
         <input type="hidden" name_="description" value="Assessment_Meningioma"> 
         
@@ -66,7 +66,7 @@
                 value="@if($rowdata[0]->tf1 != ''){{$rowdata[0]->tf1}}@endif" 
                 data-format="tf" 
                 data-tf_key="tf1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
@@ -89,7 +89,7 @@
                   value="@if($rowdata[1]->tf1 != ''){{$rowdata[1]->tf1}}@endif" 
                   data-format="tf" 
                   data-tf_key="tf1"
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -112,7 +112,7 @@
                   id="Assessment_Meningioma_Type_0_{{$key}}" 
                   value="op1" 
                   data-format="op" 
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -131,7 +131,7 @@
                 id="Assessment_Meningioma_Type_1_{{$key}}" 
                 value="op2" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
@@ -156,7 +156,7 @@
                   value="@if($rowdata[3]->tf1 != ''){{$rowdata[3]->tf1}}@endif" 
                   data-format="tf" 
                   data-tf_key="tf1"
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -179,7 +179,7 @@
                   id="Assessment_Meningioma_Previous Treatment_0_{{$key}}" 
                   value="op1" 
                   data-format="op" 
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -198,7 +198,7 @@
                   id="Assessment_Meningioma_Previous Treatment_1_{{$key}}" 
                   value="op2" 
                   data-format="op" 
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -217,7 +217,7 @@
                   id="Assessment_Meningioma_Previous Treatment_2_{{$key}}"
                   value="op3" 
                   data-format="op" 
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -236,7 +236,7 @@
                   id="Assessment_Meningioma_Previous Treatment_3_{{$key}}" 
                   value="op4" 
                   data-format="op" 
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -261,7 +261,7 @@
                   id="Assessment_Meningioma_Histology_0_{{$key}}" 
                   value="op1" 
                   data-format="op" 
-                  data-mrn="{{$mrn}}" 
+                  data-pm_idno="{{$pm_idno}}" 
                   data-diagcode="Meningioma" 
                   data-description="Assessment_Meningioma" 
                   data-regdate="{{$visit->regdate2}}"
@@ -280,7 +280,7 @@
                 id="Assessment_Meningioma_Histology_1_{{$key}}" 
                 value="op2" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
@@ -299,7 +299,7 @@
                 id="Assessment_Meningioma_Histology_2_{{$key}}" 
                 value="op3" 
                 data-format="op" 
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
@@ -325,7 +325,7 @@
                 value="@if($rowdata[7]->tf1 != ''){{$rowdata[7]->tf1}}@endif" 
                 data-format="tf" 
                 data-tf_key="tf1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
@@ -348,15 +348,14 @@
                 id="Assessment_Meningioma_Note_0_{{$key}}" 
                 data-format="ta" 
                 data-ta_key="ta1"
-                data-mrn="{{$mrn}}" 
+                data-pm_idno="{{$pm_idno}}" 
                 data-diagcode="Meningioma" 
                 data-description="Assessment_Meningioma" 
                 data-regdate="{{$visit->regdate2}}"
                 data-progress="{{$visit->progress}}"
                 class="form-control" 
                 style="height: 80px;"
-              >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif
-              </textarea>
+              >@if($rowdata[5]->ta1 != ''){!!$rowdata[5]->ta1!!}@endif</textarea>
             </div>
           </div>
         </div>
