@@ -1,7 +1,7 @@
 $(document).ready(function() {
-
-    iziToast.show({
-        message: 'Loading Data, Please Wait',
+    var t_config = {
+        class: 'test',
+        message: 'Loading Data, Please Wait',
         theme: 'light', // dark
         color: 'green', 
         position: 'center',
@@ -11,27 +11,32 @@ $(document).ready(function() {
         progressBar: true,
         overlay: true,
         overlayClose: false,
+        displayMode:2,
         onOpening: function () {},
-        onOpened: function () {},
+        onOpened: function () {
+            toast = document.querySelector('.iziToast');
+            // iziToast.progress({}, toast).pause();
+        },
         onClosing: function () {},
         onClosed: function () {}
+    }
+
+    document.addEventListener('iziToast-closing', function(data){
+        if(data.detail.class == 'test'){
+            toast = document.querySelector('.iziToast');
+            iziToast.progress({}, toast).pause();
+        }
     });
 
-    $('input[name="type"]').change(function(){
-        console.log($(this).val())
-        getDB($(this).val());
-    });
-
-    var dis = localforage.createInstance({
-        name: "db_dis"
-    });
-
-    var reg = localforage.createInstance({
-        name: "db_reg"
-    });
+    var dis = localforage.createInstance({name: "db_dis"});
+    var reg = localforage.createInstance({name: "db_reg"});
 
     var db_dis = null;
     var db_reg = null;
+
+    $('input[name="type"]').change(function(){
+        getDB($(this).val());
+    });
 
     getDB('dis');
 
@@ -62,11 +67,15 @@ $(document).ready(function() {
     }
 
     function fetchjson(type){
+        iziToast.show(t_config);
         $.getJSON("pivot_get?action=get_json_pivot_epis&datetype="+type, function(mps) {
             if(type == 'dis'){
                 db_dis = mps;
                 dis.setItem('db', mps).then(function(value) {
-                    getDB(type);
+                    var toast = document.querySelector('.iziToast');
+                    iziToast.hide({}, toast);
+                    db_dis = value;
+                    pivot(type)
                 }).catch(function(err) {
                     console.log(err);
                 });
@@ -74,7 +83,10 @@ $(document).ready(function() {
             }else if(type == 'reg'){
                 db_reg = mps;
                 reg.setItem('db', mps).then(function(value) {
-                    getDB(type);
+                    var toast = document.querySelector('.iziToast');
+                    iziToast.hide({}, toast);
+                    db_dis = value;
+                    pivot(type)
                 }).catch(function(err) {
                     console.log(err);
                 });
