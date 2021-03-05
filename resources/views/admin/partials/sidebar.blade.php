@@ -1,17 +1,23 @@
 <aside id="sidebar-wrapper">
   <div class="sidebar-brand">
-    <a href="{{ route('patient') }}">GKC Study</a>
+    <a href="{{ route('patient') }}">EIS</a>
   </div>
   <div class="sidebar-brand sidebar-brand-sm">
-    <a>GKC</a>
+    <a>EIS</a>
   </div>
   <ul class="sidebar-menu">
 
       @if(Auth::user()->type=='user')
 
-      <li class="{{ Request::route()->getName() == 'patient' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ url('patient') }}">
-          <i class="fa fa-users"></i> <span>Patient</span>
+      <li class="{{ Request::route()->getName() == 'eis' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ url('eis') }}">
+          <i class="fa fa-chart-bar"></i> <span>Episode Statistics</span>
+        </a>
+      </li>
+
+      <li class="{{ Request::route()->getName() == 'reveis' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ url('reveis') }}">
+          <i class="fa fa-chart-line"></i> <span>Revenue By service</span>
         </a>
       </li>
 

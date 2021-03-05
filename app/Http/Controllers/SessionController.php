@@ -73,7 +73,7 @@ class SessionController extends Controller
                 if(Auth::user()->type=='admin'){
                     return redirect()->route('userlist');
                 }else{
-                    return redirect()->route('patient');
+                    return redirect()->route('eis');
                 }
             }else{
                 return back()->withErrors(['password' => 'Try again, Password entered incorrect']);

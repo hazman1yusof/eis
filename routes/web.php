@@ -6,6 +6,11 @@ Route::post('/studyv2','StudyController@study_postv2');
 Route::post('/diagnosis','StudyController@diagnosis_post');
 
 
+Route::get('/eis','eisController@show')->name('eis');
+Route::get('/pivot_get', "eisController@get_json_pivot");
+
+Route::get('/reveis','eisController@reveis')->name('reveis');
+Route::get('/pivot_get_reveis', "eisController@get_json_pivot_reveis");
 
 Route::get('/patient_ajax','PatientController@ajax');
 Route::get('/','PatientController@show');
