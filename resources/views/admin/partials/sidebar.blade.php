@@ -7,7 +7,7 @@
   </div>
   <ul class="sidebar-menu">
 
-      @if(Auth::user()->type=='user')
+      <!-- @if(Auth::user()->type=='user') -->
 
       <li class="{{ Request::route()->getName() == 'eis' ? ' active' : '' }}">
         <a class="nav-link" href="{{ url('eis') }}">
@@ -21,14 +21,6 @@
         </a>
       </li>
 
-      <li class="{{ Request::route()->getName() == 'user' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ url('user/'.Auth::user()->id) }}">
-          <i class="fa fa-key"></i> <span>Change Password</span>
-        </a>
-      </li>
-
-      @elseif(Auth::user()->type=='admin')
-
       <li class="{{ Request::route()->getName() == 'userlist' ? ' active' : '' }}">
         <a class="nav-link" href="{{ url('userlist') }}">
           <i class="fa fa-user-circle"></i> <span>Users</span>
@@ -41,7 +33,15 @@
         </a>
       </li>
 
-      @endif
+      <!-- @elseif(Auth::user()->type=='admin')
+
+      <li class="{{ Request::route()->getName() == 'user' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ url('user/'.Auth::user()->id) }}">
+          <i class="fa fa-key"></i> <span>Change Password</span>
+        </a>
+      </li>
+
+      @endif -->
 
   </ul>
 </aside>

@@ -46,19 +46,32 @@ class eisController extends Controller
 
     public function get_json_pivot_epis(Request $request){
         $datetype = $request->datetype;
+        $init = $request->init;
         $pateis = DB::table('pateis_epis')
                     ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','state','country','year','quarter','month','datetype')
-                    ->where('datetype','=',$datetype)
-                    ->get();
+                    ->where('datetype','=',$datetype);
+        if($init == 'init'){
+            $dt = Carbon::now("Asia/Kuala_Lumpur");
+            $pateis = $pateis->where('year','=','Y'.$dt->year);
+            $pateis = $pateis->where('month','=','M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT));
+        }
+        $pateis = $pateis->get();
 
         return json_encode($pateis);
-
     }
 
     public function get_json_pivot_reveis(Request $request){
-    	$pateis = DB::table('pateis_epis')
-                    ->where('datetype','=',$datetype)
-    				->get();
+        $datetype = $request->datetype;
+        $init = $request->init;
+    	$pateis = DB::table('pateis_rev')
+                    ->select('epistype','groupdesc','typedesc','month','quarter','year','datetype')
+                    ->where('datetype','=',$datetype);
+        if($init == 'init'){
+            $dt = Carbon::now("Asia/Kuala_Lumpur");
+            $pateis = $pateis->where('year','=','Y'.$dt->year);
+            $pateis = $pateis->where('month','=','M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT));
+        }
+        $pateis = $pateis->get();
 
     	return json_encode($pateis);
     }

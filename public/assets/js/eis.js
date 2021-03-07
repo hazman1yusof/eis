@@ -6,7 +6,7 @@ $(document).ready(function() {
         color: 'green', 
         position: 'center',
         close:false,
-        timeout: 5000,
+        timeout: 50000,
         drag: false,
         progressBar: true,
         overlay: true,
@@ -14,7 +14,7 @@ $(document).ready(function() {
         displayMode:2,
         onOpening: function () {},
         onOpened: function () {
-            toast = document.querySelector('.iziToast');
+            // toast = document.querySelector('.iziToast');
             // iziToast.progress({}, toast).pause();
         },
         onClosing: function () {},
@@ -32,7 +32,9 @@ $(document).ready(function() {
     var reg = localforage.createInstance({name: "db_reg"});
 
     var db_dis = null;
+    var db_dis_init = false;
     var db_reg = null;
+    var db_reg_init = false;
 
     $('input[name="type"]').change(function(){
         getDB($(this).val());
@@ -44,10 +46,15 @@ $(document).ready(function() {
         if(type == 'dis'){
             dis.getItem('db').then(function(value) {
                 if(value == null){
-                    fetchjson(type)
+                    fetchjson(type); //kalau db xde fetch suma
                 }else{
-                    db_dis = value;
-                    pivot(type)
+                    if(!db_dis_init){
+                        db_dis_init = true;
+                        fetchjson(type,'init'); //kalau db ade, tp kali pertama load, fetch last month
+                    }else{
+                        db_dis = value; //kalau db ade, bukan pertama, fetch local
+                        pivot(type);
+                    }
                 }
             }).catch(function(err) {
                 console.log(err);
@@ -55,10 +62,15 @@ $(document).ready(function() {
         }else if(type == 'reg'){
             reg.getItem('db').then(function(value) {
                 if(value == null){
-                    fetchjson(type)
+                    fetchjson(type); //kalau db xde fetch suma
                 }else{
-                    db_reg = value;
-                    pivot(type)
+                    if(!db_reg_init){
+                        db_reg_init = true;
+                        fetchjson(type,'init'); //kalau db ade, tp kali pertama load, fetch last month
+                    }else{
+                        db_reg = value; //kalau db ade, bukan pertama, fetch local
+                        pivot(type);
+                    }
                 }
             }).catch(function(err) {
                 console.log(err);
@@ -66,31 +78,10 @@ $(document).ready(function() {
         }
     }
 
-    function fetchjson(type){
+    function fetchjson(type,init="notinit"){
         iziToast.show(t_config);
-        $.getJSON("pivot_get?action=get_json_pivot_epis&datetype="+type, function(mps) {
-            if(type == 'dis'){
-                db_dis = mps;
-                dis.setItem('db', mps).then(function(value) {
-                    var toast = document.querySelector('.iziToast');
-                    iziToast.hide({}, toast);
-                    db_dis = value;
-                    pivot(type)
-                }).catch(function(err) {
-                    console.log(err);
-                });
-
-            }else if(type == 'reg'){
-                db_reg = mps;
-                reg.setItem('db', mps).then(function(value) {
-                    var toast = document.querySelector('.iziToast');
-                    iziToast.hide({}, toast);
-                    db_dis = value;
-                    pivot(type)
-                }).catch(function(err) {
-                    console.log(err);
-                });
-            }
+        $.getJSON("pivot_get?action=get_json_pivot_epis&datetype="+type+"&init="+init, function(mps) {
+            loadDB(type,mps,init);
         });
     }
 
@@ -119,4 +110,78 @@ $(document).ready(function() {
             rowOrder: "value_z_to_a", colOrder: "value_z_to_a",
         });
     }
+
+    function loadDB(type,mps,init){
+        if(init=='init'){
+            var year = 'Y'+ moment().year();
+            var month = 'M'+ str_pad((moment().month()+1).toString(), 2, '0', 'STR_PAD_LEFT');
+            if(type == 'dis'){
+                dis.getItem('db').then(function(value) {
+                    value = value.filter(function(e,i){
+                        if(e.month == month && e.year == year){
+                            return false;
+                        }
+                        return true;
+                    });
+                    value = value.concat(mps);
+                    dis.setItem('db', value).then(function(value) {
+                        db_dis = value;
+                        pivot(type);
+                        hideToast();
+                    });
+                })
+            }else if(type == 'reg'){
+                reg.getItem('db').then(function(value) {
+                    value = value.filter(function(e,i){
+                        if(e.month == month && e.year == year){
+                            return false;
+                        }
+                        return true;
+                    });
+                    value = value.concat(mps);
+                    reg.setItem('db', value).then(function(value) {
+                        db_reg = value;
+                        pivot(type);
+                        hideToast();
+                    })
+                })
+            }
+        }else{
+
+            if(type == 'dis'){
+                dis.setItem('db', mps).then(function(value) {
+                    db_dis = value;
+                    pivot(type);
+                    hideToast();
+                });
+            }else if(type == 'reg'){
+                reg.setItem('db', mps).then(function(value) {
+                    db_reg = value;
+                    pivot(type);
+                    hideToast();
+                });
+            }
+        }
+    }
+
+    function hideToast(){
+        var toast = document.querySelector('.iziToast');
+        iziToast.hide({}, toast);
+    }
+
+    function str_pad(str, pad_length, pad_string, pad_type){
+        var len = pad_length - str.length;
+        if(len < 0) return str;
+        for(var i = 0; i < len; i++){
+            if(pad_type == "STR_PAD_LEFT"){
+                str = pad_string + str;
+            }else{
+                str += pad_string;
+            }
+        }
+
+        return str;
+
+    }
+
 } );
