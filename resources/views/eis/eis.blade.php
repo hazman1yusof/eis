@@ -16,12 +16,21 @@ EIS
   .form-check{
     padding-right:15px;
   }
-
   .pvtFilterBox{
       z-index: 120 !important;
   }
   .card-body{
       overflow-x: scroll !important;
+  }
+  #preview{
+    position: absolute;
+    right: 0px;
+  }
+  .form-inline{
+    padding: 10px;
+  }
+  .form-check-label{
+    padding-right: 10px;  
   }
   .pvtHorizList li { display: inline-block !important; } 
 @endsection
@@ -35,7 +44,28 @@ EIS
 
   <div class="section-body" >
     <div class="card">
-      <div class="card-body">
+
+    <div id="preview">
+      <canvas width="100" height="70" id="canvas-preview"></canvas>
+    </div>
+
+        <form class="form-inline">
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label" for="fromdate">
+                Date From: 
+              </label>
+              <input class="form-control" type="month" id="fromdate" name="fromdate" >
+            </div>
+            <div class="form-check">
+              <label class="form-check-label" for="todate">
+                To: 
+              </label>
+              <input class="form-control" type="month" id="todate" name="todate" >
+            </div>
+            <button class="btn btn-primary" type="button" id="fetch">Fetch Data</button>
+          </div>
+        </form>
 
         <form class="form-inline">
           <div class="form-group">
@@ -63,6 +93,7 @@ EIS
 
 @section('scripts')
     <script src="{{ asset('assets/js/eis.js') }}"></script>
+    <script src="{{ asset('assets/node_modules/gauge.min.js') }}"></script>
     <script src="{{ asset('assets/node_modules/izitoast/dist/js/iziToast.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.9.0/localforage.min.js" integrity="sha512-GkJRKF+k/yzHfJUg9LrNLQhS0jorQe4kES+GHkqtQThCJ5z5A1KwCXH0GYbJApDh/a3ERFvq9xbRJY9mEXzQiA==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>

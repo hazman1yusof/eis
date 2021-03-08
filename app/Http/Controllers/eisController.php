@@ -46,9 +46,14 @@ class eisController extends Controller
 
     public function get_json_pivot_epis(Request $request){
         $datetype = $request->datetype;
+        $datefrom = new Carbon($request->datefrom);
+        $dateto = new Carbon($request->dateto);
+        $dateto = $datefrom->day($datefrom->daysInMonth);
+
         $init = $request->init;
         $pateis = DB::table('pateis_epis')
-                    ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','state','country','year','quarter','month','datetype')
+                    ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admdate','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','state','country','year','quarter','month','datetype')
+                    ->whereBetween('admdate', [$datefrom, $dateto])
                     ->where('datetype','=',$datetype);
         if($init == 'init'){
             $dt = Carbon::now("Asia/Kuala_Lumpur");
