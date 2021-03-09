@@ -45,24 +45,73 @@ class eisController extends Controller
     }
 
     public function get_json_pivot_epis(Request $request){
+        // DB::enableQueryLog();
+        $dt = Carbon::now("Asia/Kuala_Lumpur");
+        $year = [$dt->year];
         $datetype = $request->datetype;
-        $datefrom = new Carbon($request->datefrom);
-        $dateto = new Carbon($request->dateto);
-        $dateto = $datefrom->day($datefrom->daysInMonth);
-
-        $init = $request->init;
-        $pateis = DB::table('pateis_epis')
-                    ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admdate','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','state','country','year','quarter','month','datetype')
-                    ->whereBetween('admdate', [$datefrom, $dateto])
-                    ->where('datetype','=',$datetype);
-        if($init == 'init'){
-            $dt = Carbon::now("Asia/Kuala_Lumpur");
-            $pateis = $pateis->where('year','=','Y'.$dt->year);
-            $pateis = $pateis->where('month','=','M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT));
+        if(!empty($request->dbtosearch)){
+            $dbtosearch = explode(",", $request->dbtosearch);
+        }else{
+            $dbtosearch = [];
         }
-        $pateis = $pateis->get();
+        foreach ($dbtosearch as $value) {
+            $date_ = explode("-", $value);
+            if(!in_array($date_[0],$year)){
+                array_push($year,$date_[0]);
+            }
+            
+        }
+        $object = new stdClass();
+        foreach ($year as $value) {
+            $date_ = explode("-", $value);
+            $month = ($value == $dt->year)?['M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT)]:[];
+            foreach ($dbtosearch as $value2) {
+                $date_ = explode("-", $value2);
+                if($date_[0] == $value){
+                    array_push($month,'M'.$date_[1]);
+                }
+            }
+            $object->$value = $month;
+        }
 
-        return json_encode($pateis);
+        $all_collection = collect();
+        foreach ($object as $key => $value) {
+            $pateis = DB::table('pateis_epis')
+                    ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admdate','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','state','country','year','quarter','month','datetype')
+                    ->where('datetype','=',$datetype)
+                    ->where('year','=','Y'.$key)
+                    ->whereIn('month',$value);
+                
+            $all_collection = $all_collection->merge($pateis->get());
+        }
+
+        $responce = new stdClass();
+        $responce->queries = $this->getQueries($pateis);
+        $responce->data = $all_collection;
+
+        echo json_encode($responce);
+
+
+
+        // $object = (object) ['property' => 'Here we go'];
+        // $datefrom = new Carbon($request->datefrom);
+        // $dateto = new Carbon($request->dateto);
+        // $dateto = $dateto->day($dateto->daysInMonth);
+
+        // $init = $request->init;
+        // $pateis = DB::table('pateis_epis')
+        //             ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admdate','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','state','country','year','quarter','month','datetype')
+        //             ->where('datetype','=',$datetype)
+        //             ->whereBetween('admdate', [$datefrom, $dateto]);
+        // if($init == 'init'){
+        //     $dt = Carbon::now("Asia/Kuala_Lumpur");
+        //     $pateis = $pateis->where('year','=','Y'.$dt->year);
+        //     $pateis = $pateis->where('month','=','M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT));
+        // }else{
+        // }
+        // $pateis = $pateis;
+
+        // $queries = DB::getQueryLog();
     }
 
     public function get_json_pivot_reveis(Request $request){
@@ -84,6 +133,11 @@ class eisController extends Controller
     public function get_month(Request $request){
         
 
+    }
+
+    public static function getQueries($builder){
+        $addSlashes = str_replace('?', "'?'", $builder->toSql());
+        return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
     }
 
 }

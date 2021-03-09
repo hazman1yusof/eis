@@ -19,7 +19,7 @@ class PatientController extends Controller
 
     public function show(Request $request)
     {
-        return view('patient.patient');
+        return redirect()->route('eis');
     }
 
     public function ajax(Request $request){
