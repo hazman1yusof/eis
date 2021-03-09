@@ -119,7 +119,7 @@ $(document).ready(function() {
         $("#output").pivotUI(mps, {
             renderers: renderers,
             unusedAttrsVertical: false,
-            cols: ["month"], rows: ["religion"],
+            cols: ["year","month"], rows: ["epistype"],
             rendererName: "Table",
             rowOrder: "value_z_to_a", colOrder: "value_z_to_a",
         });

@@ -7,6 +7,8 @@ Route::post('/diagnosis','StudyController@diagnosis_post');
 
 
 Route::get('/eis','eisController@show')->name('eis');
+Route::post('/post','PostController@post');
+Route::get('/get','PostController@get');
 Route::get('/reveis','eisController@reveis')->name('reveis');
 Route::get('/pivot_get', "eisController@table");
 

@@ -140,4 +140,8 @@ class eisController extends Controller
         return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
     }
 
+    public function post(Request $request){
+        echo "huuhu";
+    }
+
 }
