@@ -19,42 +19,68 @@ class PostController extends Controller
     	echo $file_path;
     }
 
-    public function get()
+    public function get(Request $request)
     {	
     	$filename = storage_path()."/app/public/upload/3uo7bTJhARp7eRQ4MSZa6HjCbkU1igkai5UlTdij.txt";
-    	$content = File::get($filename);
     	$myfile = fopen($filename,'r');
-    	// dd(fgetcsv($myfile, 1000, ","));
+
     	$year_obj = $this->getmonth_year($myfile);
+    	DB::table('pateis_epis')
+                ->where('datetype','=','dis')
+                ->where('year','=',$year_obj->year)
+                ->where('month','=',$year_obj->month)
+                ->delete();
 
-    	// DB::table('pateis_epis')
-     //            ->where('datetype','=','dis')
-     //            ->where('year','=',$year_obj->year)
-     //            ->where('month','=',$year_obj->month)
-     //            ->delete();
+        fclose($myfile);
+        $myfile = fopen($filename,'r');
 
+        $row = 0;
+        $field_name = [];
+        $array_insert = [];
     	while (($data = fgetcsv($myfile, 1000, ",")) !== FALSE) {
 	        $row++;
-    		if($row == 1)continue;
-    		$num = count($data);
-	        echo "<p> $num fields in line $row: <br /></p>\n";
-	        for ($c=0; $c < $num; $c++) {
-	            echo $data[$c] . "<br />\n";
-	        }
-	        $array_insert;
-	        DB::table('pateis_epis')
-	        		->insert($array_insert);
+    		if($row == 1){
+                $field_name = $this->makefield($data);
+                continue;
+            }
+            array_push($array_insert,$this->make_array_insert($data,$field_name));
 	    }
-  //   	echo fread($myfile,filesize($filename));
-		// fclose($myfile);
-    	// dump($file_handle);
-    	// while (!feof($file_handle)) {
-    	// 	dump($file_handle);
-    	// }
-    	// dd($content);
-    	// foreach($content as $line) {
-     //        echo $line;
-     //    }
+        fclose($myfile);
+        foreach (array_chunk($array_insert,1000) as $t){ // masuk macam ni sebab mysql xboleh byk sekali harung
+            DB::table('pateis_epis')->insert($t);
+        }
+
+    }
+
+    public function makefield($data){
+        $field_name = [];
+        foreach ($data as $key => $value) {
+            if($value == 'Procedure'){
+                array_push($field_name,'procedure_');
+            }else if($value == 'Case'){
+                array_push($field_name,'case_');
+            }else{
+                array_push($field_name,str_replace(' ', '', strtolower($value)));
+            }
+        }
+        array_push($field_name,'datetype');
+        return $field_name;
+    }
+
+    public function make_array_insert($data,$field_name){
+        $array_insert = [];
+        foreach ($field_name as $key => $field) {
+            if($field == 'datetype'){
+                $value = 'dis';
+            }else{
+                $value = $data[$key];
+            }
+
+            $array_insert = array_merge($array_insert,array(
+                $field=>$value
+            ));
+        }
+        return $array_insert;
     }
 
     public function getmonth_year($myfile){
