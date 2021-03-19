@@ -119,7 +119,7 @@ $(document).ready(function() {
         $("#output").pivotUI(mps, {
             renderers: renderers,
             unusedAttrsVertical: false,
-            cols: ["year","month"], rows: ["epistype"],
+            cols: ["year","month"], rows: ["units"],
             rendererName: "Table",
             rowOrder: "value_z_to_a", colOrder: "value_z_to_a",
         });
