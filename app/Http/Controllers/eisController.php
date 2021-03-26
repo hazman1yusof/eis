@@ -64,7 +64,8 @@ class eisController extends Controller
         $object = new stdClass();
         foreach ($year as $value) {
             $date_ = explode("-", $value);
-            $month = ($value == $dt->year)?['M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT)]:[];
+            // $month = ($value == $dt->year)?['M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT)]:[];
+            $month = [];
             foreach ($dbtosearch as $value2) {
                 $date_ = explode("-", $value2);
                 if($date_[0] == $value){
@@ -133,7 +134,8 @@ class eisController extends Controller
         $object = new stdClass();
         foreach ($year as $value) {
             $date_ = explode("-", $value);
-            $month = ($value == $dt->year)?['M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT)]:[];
+            // $month = ($value == $dt->year)?['M'.str_pad($dt->month, 2, '0', STR_PAD_LEFT)]:[];
+            $month = [];
             foreach ($dbtosearch as $value2) {
                 $date_ = explode("-", $value2);
                 if($date_[0] == $value){
@@ -146,7 +148,7 @@ class eisController extends Controller
         $all_collection = collect();
         foreach ($object as $key => $value) {
             $pateis = DB::table('pateis_rev')
-                    ->select('units','mrn','episno','epistype','chgdesc','groupdesc','typedesc','quantity','unitprice','amount','month','quarter','year','regdate','disdate','datetype')
+                    ->select('units','epistype','chgcode','chgdesc','groupdesc','typedesc','quantity','unitprice','amount','month','quarter','year','regdate','disdate','datetype')
                     ->where('datetype','=',$datetype)
                     ->where('year','=','Y'.$key)
                     ->whereIn('month',$value);

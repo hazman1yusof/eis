@@ -39,7 +39,7 @@ EIS
 @section('content')
 <section class="section">
   <div class="section-header">
-    <h1>EIS - Revenue By service</h1>
+    <h1>EIS - Revenue By Services</h1>
   </div>
 
   <div class="section-body" >

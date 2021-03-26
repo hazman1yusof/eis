@@ -17,7 +17,7 @@
 
       <li class="{{ Request::route()->getName() == 'reveis' ? ' active' : '' }}">
         <a class="nav-link" href="{{ url('reveis') }}">
-          <i class="fa fa-chart-line"></i> <span>Revenue By service</span>
+          <i class="fa fa-chart-line"></i> <span>Revenue By Services</span>
         </a>
       </li>
 

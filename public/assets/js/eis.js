@@ -37,17 +37,24 @@ $(document).ready(function() {
     var dis = localforage.createInstance({name: "db_dis"});
     var reg = localforage.createInstance({name: "db_reg"});
 
+    dis.removeItem(moment().format('YYYY-MM')); // remove current month
+    reg.removeItem(moment().format('YYYY-MM')); // remove current month
+
     var db_loaded = [];
 
     $('input[name="type"]').change(function(){
-        getDB($(this).val());
+        // getDB($(this).val());
     });
 
     $('#fetch').click(function(){
         getDB($('input[type="radio"][name="type"]:checked').val());
     });
 
-    getDB('dis');
+    // getDB('dis');
+
+    $('#canvas-preview').dblclick(function(){
+        deleteDB();
+    });
 
     var x=0;
     function getDB(type){
@@ -121,8 +128,8 @@ $(document).ready(function() {
             unusedAttrsVertical: false,
             cols: ["year","month"], rows: ["units"],
             rendererName: "Table",
-            rowOrder: "value_z_to_a", colOrder: "value_z_to_a",
-        });
+            rowOrder: "key_a_to_z", colOrder: "key_a_to_z",
+        }, true);
     }
 
     var y=0;
@@ -136,11 +143,12 @@ $(document).ready(function() {
         y=0;
         dbnottosearch.forEach(function(e,i){ //e tu nama db, e.g(2021-3)
             searchandget(db,e,function(e,value){//value tu isi db, e.g({...})
-                if(value != null){
-                    if(e != moment().format('YYYY-MM')){
-                        all_data = all_data.concat(value);
-                    }
-                }
+                // if(value != null){
+                //     if(e != moment().format('YYYY-MM')){
+                //         all_data = all_data.concat(value);
+                //     }
+                // }
+                all_data = all_data.concat(value);
                 y = y + 1;
                 if(y>=dbnottosearch.length){
                     db_loaded = all_data;
@@ -191,6 +199,15 @@ $(document).ready(function() {
         db.getItem(e).then(function(value) {
             func(e,value);
         });
+    }
+
+    function deleteDB(){
+        var r = confirm("Delete local database?");
+        if (r == true) {
+            localforage.dropInstance({name: "db_dis"});
+            localforage.dropInstance({name: "db_reg"});
+            location.reload();
+        }
     }
 
 } );
