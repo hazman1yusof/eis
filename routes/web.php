@@ -14,7 +14,7 @@ Route::get('/pivot_get', "eisController@table");
 
 
 Route::get('/patient_ajax','PatientController@ajax');
-Route::get('/','PatientController@show');
+Route::get('/','PatientController@dashboard');
 Route::get('/patient','PatientController@show')->name('patient');
 Route::get('/patient/{id}','PatientController@edit_patient');
 Route::post('/patient/{id}','PatientController@store_patient');

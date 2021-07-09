@@ -5,10 +5,10 @@
  * Stisla is a clean & modern HTML5 admin template based on Bootstrap 4.
  * Stisla will make it easier for you to create your own admin interface.
  *
- * @package	Stisla
- * @version	2.3.0
- * @author 	Muhamad Nauval Azhar
- * @url 	https://getstisla.com
+ * @package Stisla
+ * @version 2.3.0
+ * @author  Muhamad Nauval Azhar
+ * @url   https://getstisla.com
  *
  */
 /**
@@ -17,35 +17,35 @@
  * 1. Variable
  * 2. Mixin
  * 3. Bootstrap Override
- * 	  3.1 Misc
- * 	  3.2 Form
- * 	  3.3 List
- * 	  3.4 Alert
- * 	  3.5 Card
- * 	  3.6 Table
- * 	  3.7 Tooltip
- * 	  3.8 Modal
- * 	  3.9 Nav
- * 	  3.10 Pagination
- * 	  3.11 Badge
- * 	  3.12 Button
- * 	  3.13 Media
- * 	  3.14 Breadcrumb
- * 	  3.15 Accordion
- * 	  3.16 Popover
- * 	  3.17 Grid
- * 	  3.18 Navbar
- * 	  3.19 Dropdown
- * 	  3.20 Tab
- * 	  3.21 Progressbar
- * 	  3.22 Jumbotron
- * 	  3.23 Carousel
+ *    3.1 Misc
+ *    3.2 Form
+ *    3.3 List
+ *    3.4 Alert
+ *    3.5 Card
+ *    3.6 Table
+ *    3.7 Tooltip
+ *    3.8 Modal
+ *    3.9 Nav
+ *    3.10 Pagination
+ *    3.11 Badge
+ *    3.12 Button
+ *    3.13 Media
+ *    3.14 Breadcrumb
+ *    3.15 Accordion
+ *    3.16 Popover
+ *    3.17 Grid
+ *    3.18 Navbar
+ *    3.19 Dropdown
+ *    3.20 Tab
+ *    3.21 Progressbar
+ *    3.22 Jumbotron
+ *    3.23 Carousel
  * 4. Theme Style
- * 	  4.1 Misc
- * 	  4.2 Section
- * 	  4.3 Page
- * 	  4.4 Layout
- * 	  4.5 Animation
+ *    4.1 Misc
+ *    4.2 Section
+ *    4.3 Page
+ *    4.4 Layout
+ *    4.5 Animation
  * 5. Responsive
  *
  */
@@ -314,7 +314,6 @@ select.form-control:not([size]):not([multiple]) {
   .selectgroup-button-icon i {
     font-size: 14px; }
 
-.selectgroup-input:focus + .selectgroup-button,
 .selectgroup-input:checked + .selectgroup-button {
   background-color: #6777ef;
   color: #fff;
@@ -725,7 +724,7 @@ select.form-control:not([size]):not([multiple]) {
   .card.card-primary {
     border-top: 2px solid #6777ef; }
   .card.card-secondary {
-    border-top: 2px solid #34395e; }
+    border-top: 2px solid #cdd3d8; }
   .card.card-success {
     border-top: 2px solid #47c363; }
   .card.card-danger {
@@ -1093,7 +1092,7 @@ table tr:hover .table-links {
   .badge.badge-primary {
     background-color: #6777ef; }
   .badge.badge-secondary {
-    background-color: #34395e; }
+    background-color: #cdd3d8; }
   .badge.badge-success {
     background-color: #47c363; }
   .badge.badge-info {
@@ -1913,6 +1912,18 @@ a.dropdown-item {
 
 .tab-content > .tab-pane {
   line-height: 28px; }
+
+ul.nav-tabs li.nav-item a.nav-link i {
+  color: #6777ef; }
+
+ul.nav-tabs li.nav-item a.nav-link span {
+  display: block;
+  line-height: 60%; }
+  ul.nav-tabs li.nav-item a.nav-link span i {
+    font-size: 16px !important; }
+
+ul.nav-tabs li.nav-item a.nav-link.active i {
+  color: #191d21; }
 
 /* 3.21 Progress Bar */
 .progress-bar {
@@ -2795,7 +2806,7 @@ body.layout-3 .main-footer {
         margin-top: 2px; }
       .main-sidebar .sidebar-menu li a i {
         width: 28px;
-        /*margin-right: 20px;*/
+        margin-right: 20px;
         text-align: center; }
       .main-sidebar .sidebar-menu li a span {
         margin-top: 3px;

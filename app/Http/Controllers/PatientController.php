@@ -167,4 +167,21 @@ class PatientController extends Controller
         
         return redirect()->back()->with('success', 'Patient Succesfully Updated');
     }
+
+
+    public function dashboard(Request $request)
+    {
+
+        $dt = Carbon::now();
+        $dt->set('month', 6);
+        $dt->set('day', 1);
+        $firstdate = $dt;
+        $seconddate = $dt->add(7, 'days');
+        $thirddate = $dt->add(7, 'days');
+        $fourthdate = $dt->endOfMonth();
+
+        dd('end');
+
+        return view('dashboard.dashboard');
+    }
 }
