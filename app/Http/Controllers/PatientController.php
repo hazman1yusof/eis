@@ -172,16 +172,109 @@ class PatientController extends Controller
     public function dashboard(Request $request)
     {
 
-        $dt = Carbon::now();
-        $dt->set('month', 6);
-        $dt->set('day', 1);
-        $firstdate = $dt;
-        $seconddate = $dt->add(7, 'days');
-        $thirddate = $dt->add(7, 'days');
-        $fourthdate = $dt->endOfMonth();
+        $firstdate = Carbon::createFromDate(2021, 6, 1);
+        $seconddate = Carbon::createFromDate(2021, 6, 1)->add(6, 'days');
+        $thirddate = Carbon::createFromDate(2021, 6, 1)->add(12+1, 'days');
+        $fourthdate = Carbon::createFromDate(2021, 6, 1)->add(18+2, 'days');
+        $fiftthdate = Carbon::createFromDate(2021, 6, 1)->endOfMonth();
 
-        dd('end');
+        $week1ip = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','IP')
+                    ->whereBetween('disdate', [$firstdate, $seconddate])
+                    ->count();
 
-        return view('dashboard.dashboard');
+        $week2ip = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','IP')
+                    ->whereBetween('disdate', [$seconddate, $thirddate])
+                    ->count();
+
+        $week3ip = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','IP')
+                    ->whereBetween('disdate', [$thirddate, $fourthdate])
+                    ->count();
+
+        $week4ip = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','IP')
+                    ->whereBetween('disdate', [$fourthdate, $fiftthdate])
+                    ->count();
+
+        $week1op = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','OP')
+                    ->whereBetween('disdate', [$firstdate, $seconddate])
+                    ->count();
+
+        $week2op = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','OP')
+                    ->whereBetween('disdate', [$seconddate, $thirddate])
+                    ->count();
+
+        $week3op = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','OP')
+                    ->whereBetween('disdate', [$thirddate, $fourthdate])
+                    ->count();
+
+        $week4op = DB::table('ukmkcomm_eis.pateis_rev')
+                    ->where('year','=','Y2021')
+                    ->where('month','=','M06')
+                    ->where('epistype','=','OP')
+                    ->whereBetween('disdate', [$fourthdate, $fiftthdate])
+                    ->count();
+
+        $groupdesc_ = DB::table('ukmkcomm_eis.pateis_rev')->distinct()->get(['groupdesc']);
+
+        $groupdesc = [];
+        $groupdesc_val_op = [];
+        $groupdesc_val_ip = [];
+        $groupdesc_val_op_percent = [];
+        $groupdesc_val_ip_percent = [];
+        $groupdesc_val = [];
+        foreach ($groupdesc_ as $key => $value) {
+            $groupdesc[$key] = $value->groupdesc;
+            $groupdesc_op = DB::table('ukmkcomm_eis.pateis_rev')
+                            ->where('year','=','Y2021')
+                            ->where('month','=','M06')
+                            ->where('epistype','=','OP')
+                            ->where('groupdesc','=',$value->groupdesc)
+                            ->count();
+            $groupdesc_val_op[$key] = $groupdesc_op;
+
+            $groupdesc_ip = DB::table('ukmkcomm_eis.pateis_rev')
+                            ->where('year','=','Y2021')
+                            ->where('month','=','M06')
+                            ->where('epistype','=','IP')
+                            ->where('groupdesc','=',$value->groupdesc)
+                            ->count();
+            $groupdesc_val_ip[$key] = $groupdesc_ip;
+            $groupdesc_val[$key] = $groupdesc_op + $groupdesc_ip;
+
+
+            if($groupdesc_val[$key] != 0){
+                $groupdesc_val_op_percent[$key] = $groupdesc_op / $groupdesc_val[$key] * 100;
+                $groupdesc_val_ip_percent[$key] = $groupdesc_ip / $groupdesc_val[$key] * 100;
+            }else{
+                $groupdesc_val_op_percent[$key] = 0;
+                $groupdesc_val_ip_percent[$key] = 0;
+            }
+
+        }
+
+        $ip_month = [$week1ip,$week2ip,$week3ip,$week4ip];
+        $op_month = [$week1op,$week2op,$week3op,$week4op];
+
+        return view('dashboard.dashboard',compact('ip_month','op_month','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_val','groupdesc_val_op_percent','groupdesc_val_ip_percent'));
     }
 }

@@ -1,26 +1,28 @@
 "use strict";
 
 
+console.log(ip_month);
+
 var ctx = document.getElementById("myChart2").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    labels: ["First Week", "Second Week", "Third Week", "Fourth Week"],
     datasets: [{
-      label: 'out patients',
-      data: [46, 45, 33, 50, 43, 30, 48],
+      label: 'In Patients',
+      data: ip_month,
       borderWidth: 1,
-      backgroundColor: '#6777ef',
-      borderColor: '#6777ef',
+      backgroundColor: '#47aeff',
+      borderColor: '#47aeff',
       borderWidth: 1.5,
       pointBackgroundColor: '#ffffff',
       pointRadius: 2
     },{
-      label: 'in patients',
-      data: [23, 12, 54, 23, 45, 12, 20],
+      label: 'Out Patients',
+      data: op_month,
       borderWidth: 1,
-      backgroundColor: 'red',
-      borderColor: 'red',
+      backgroundColor: '#f44336',
+      borderColor: '#f44336',
       borderWidth: 1.5,
       pointBackgroundColor: '#ffffff',
       pointRadius: 2
