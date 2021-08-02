@@ -65,6 +65,8 @@ Edit Profile ({{ $user->name }})
             <input id="newic" type="text" class="form-control" name="newic" value="{{$user->newic}}">
           </div>
 
+
+        @if(Auth::user()->type=='admin')
           <div class="form-group">
             <label for="type">User Type</label>
             <select id="type" name="type" class="form-control">
@@ -72,6 +74,7 @@ Edit Profile ({{ $user->name }})
       			  <option value="admin" {{ $user->type === 'admin' ? 'selected' : '' }}>Admin</option>
       			</select>
           </div>
+        @endif
 
           
           <div class="form-group">

@@ -71,7 +71,6 @@ $(document).ready(function() {
                     dbtosearch.push(e_db);
                 }else{
                     dbnottosearch.push(e_db);
-                    // db_loaded = db_loaded.concat(obj);
                 }
                 x = x + 1;
                 if(x>=dbname.length){
@@ -102,10 +101,16 @@ $(document).ready(function() {
     }
 
     function fetchjson(db,dbtosearch,dbnottosearch){
+        console.log(dbtosearch)
         var type = $('input[type="radio"][name="type"]:checked').val();
 
         gauge.set(100);
-        $.getJSON("pivot_get?action=get_json_pivot_epis&datetype="+type+"&dbtosearch="+dbtosearch, function(mps) {
+        // $.getJSON("pivot_get?action=get_json_pivot_epis&datetype="+type+"&dbtosearch="+dbtosearch, function(mps) {
+        //     loadDB(db,mps.data,dbtosearch,dbnottosearch);
+        // });
+        $.get( "pivot_get?action=get_json_pivot_epis&datetype="+type+"&dbtosearch="+dbtosearch, function() {
+          
+        },"json").done(function(mps){
             loadDB(db,mps.data,dbtosearch,dbnottosearch);
         });
     }
@@ -143,11 +148,6 @@ $(document).ready(function() {
         y=0;
         dbnottosearch.forEach(function(e,i){ //e tu nama db, e.g(2021-3)
             searchandget(db,e,function(e,value){//value tu isi db, e.g({...})
-                // if(value != null){
-                //     if(e != moment().format('YYYY-MM')){
-                //         all_data = all_data.concat(value);
-                //     }
-                // }
                 all_data = all_data.concat(value);
                 y = y + 1;
                 if(y>=dbnottosearch.length){
@@ -158,6 +158,11 @@ $(document).ready(function() {
             }); // amik yg dah ada
         });
 
+        if(dbnottosearch.length == 0){
+            db_loaded = all_data;
+            pivot();
+            gauge.set(300);
+        }
     }
 
     function str_pad(str, pad_length, pad_string, pad_type){

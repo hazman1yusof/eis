@@ -53,10 +53,7 @@ $(document).ready(function() {
     // getDB('dis');
 
     $('#canvas-preview').dblclick(function(){
-        if (window.event.ctrlKey) {
-            //ctrl was held down during the click
-            deleteDB();
-        }
+        deleteDB();
     });
 
     var x=0;
@@ -103,7 +100,13 @@ $(document).ready(function() {
         var type = $('input[type="radio"][name="type"]:checked').val();
 
         gauge.set(100);
-        $.getJSON("pivot_get?action=get_json_pivot_rev&datetype="+type+"&dbtosearch="+dbtosearch, function(mps) {
+        // $.getJSON("pivot_get?action=get_json_pivot_rev&datetype="+type+"&dbtosearch="+dbtosearch, function(mps) {
+        //     loadDB(db,mps.data,dbtosearch,dbnottosearch);
+        // });
+
+        $.get( "pivot_get?action=get_json_pivot_rev&datetype="+type+"&dbtosearch="+dbtosearch, function() {
+          
+        },"json").done(function(mps){
             loadDB(db,mps.data,dbtosearch,dbnottosearch);
         });
     }
@@ -136,7 +139,7 @@ $(document).ready(function() {
               },
             inclusions: {
                 "units": [
-                  "UKMSC",
+                  "ABC",
                 ]
               },
         }, true);
@@ -149,7 +152,6 @@ $(document).ready(function() {
         dbtosearch.forEach(function(e,i){
             searchandstore(db,e,mps); // simpan yg dah search
         });
-
         y=0;
         dbnottosearch.forEach(function(e,i){ //e tu nama db, e.g(2021-3)
             searchandget(db,e,function(e,value){//value tu isi db, e.g({...})
@@ -162,6 +164,12 @@ $(document).ready(function() {
                 }
             }); // amik yg dah ada
         });
+        
+        if(dbnottosearch.length == 0){
+            db_loaded = all_data;
+            pivot();
+            gauge.set(300);
+        }
     }
 
     function str_pad(str, pad_length, pad_string, pad_type){

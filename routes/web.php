@@ -1,4 +1,7 @@
 <?php
+
+Route::get('/','eisController@dashboard');
+
 Route::get('/study/{idno}','StudyController@show')->name('study');
 Route::post('/study','StudyController@study_post');//xguna
 Route::post('/studyv2','StudyController@study_postv2');
@@ -6,6 +9,7 @@ Route::post('/studyv2','StudyController@study_postv2');
 Route::post('/diagnosis','StudyController@diagnosis_post');
 
 
+Route::get('/dashboard','eisController@dashboard')->name('dashboard');
 Route::get('/eis','eisController@show')->name('eis');
 Route::post('/post','PostController@post');
 Route::get('/get','PostController@get');
@@ -14,7 +18,6 @@ Route::get('/pivot_get', "eisController@table");
 
 
 Route::get('/patient_ajax','PatientController@ajax');
-Route::get('/','PatientController@dashboard')->name('dashboard');
 Route::get('/patient','PatientController@show')->name('patient');
 Route::get('/patient/{id}','PatientController@edit_patient');
 Route::post('/patient/{id}','PatientController@store_patient');
@@ -32,6 +35,8 @@ Route::post('/user/{id}','UserController@update');
 Route::get('/user','UserController@create');
 Route::post('/user','UserController@store');
 Route::get('/user/delete/{id}','UserController@destroy');
+
+Route::get('/store_dashb','WebserviceController@store_dashb');
 
 // Route::get('/patmast','PatmastController@patmast');
 
