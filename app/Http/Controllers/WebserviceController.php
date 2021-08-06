@@ -32,7 +32,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$firstdate, $seconddate])
                     ->sum('amount');
@@ -41,7 +41,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$seconddate, $thirddate])
                     ->sum('amount');
@@ -50,7 +50,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$thirddate, $fourthdate])
                     ->sum('amount');
@@ -59,7 +59,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$fourthdate, $fiftthdate])
                     ->sum('amount');
@@ -94,7 +94,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$firstdate, $seconddate])
                     ->sum('amount');
@@ -103,7 +103,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$seconddate, $thirddate])
                     ->sum('amount');
@@ -112,7 +112,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$thirddate, $fourthdate])
                     ->sum('amount');
@@ -121,7 +121,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OP')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$fourthdate, $fiftthdate])
                     ->sum('amount');
@@ -158,7 +158,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$firstdate, $seconddate])
                     ->count();
@@ -167,7 +167,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$seconddate, $thirddate])
                     ->count();
@@ -176,7 +176,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$thirddate, $fourthdate])
                     ->count();
@@ -185,7 +185,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$fourthdate, $fiftthdate])
                     ->count();
@@ -220,7 +220,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$firstdate, $seconddate])
                     ->count();
@@ -229,7 +229,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$seconddate, $thirddate])
                     ->count();
@@ -238,7 +238,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$thirddate, $fourthdate])
                     ->count();
@@ -247,7 +247,7 @@ class WebserviceController extends Controller
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','ABC')
+                    ->where('units','=','UKMSC')
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$fourthdate, $fiftthdate])
                     ->count();
@@ -290,7 +290,7 @@ class WebserviceController extends Controller
                             ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                             ->where('epistype','=','OP')
                             ->where('groupdesc','=',$value->groupdesc)
-                            ->where('units','=','ABC')
+                            ->where('units','=','UKMSC')
                             ->where('datetype','=','DIS');
 
             $groupdesc_op_sum = $groupdesc_op->sum('amount');
@@ -304,7 +304,7 @@ class WebserviceController extends Controller
                             ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                             ->where('epistype','=','IP')
                             ->where('groupdesc','=',$value->groupdesc)
-                            ->where('units','=','ABC')
+                            ->where('units','=','UKMSC')
                             ->where('datetype','=','DIS');
 
             $groupdesc_ip_sum = $groupdesc_ip->sum('amount');
