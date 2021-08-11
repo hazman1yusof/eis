@@ -59,7 +59,7 @@ Dashboard
     <div class="col-6">
       <div class="card">
         <div class="card-header">
-          <h4>Revenue By Services</h4>
+          <h4>Revenue By Services - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
         <div class="card-body">
           <canvas id="myChart2" style="display: block; width: 732px; height: 266px;" class="chartjs-render-monitor"></canvas>
@@ -70,7 +70,7 @@ Dashboard
     <div class="col-6">
       <div class="card">
         <div class="card-header">
-          <h4>Patient Statistics</h4>
+          <h4>Patient Statistics - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
         <div class="card-body">
           <canvas id="myChart3" style="display: block; width: 732px; height: 266px;" class="chartjs-render-monitor"></canvas>
@@ -95,7 +95,7 @@ Dashboard
             <table class="table table-striped">
               <tbody>
               <tr>
-                <th>GROUP</th>
+                <th>GROUP ( <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i> )</th>
                 <th class="blue">IN PATIENT COUNT</th>
                 <th class="red">OUT PATIENT COUNT</th>
                 <th class="blue">IN PATIENT (RM)</th>

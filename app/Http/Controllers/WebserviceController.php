@@ -28,325 +28,355 @@ class WebserviceController extends Controller
         $fourthdate = Carbon::createFromDate($year, $month, 1)->addDays(18+2);
         $fiftthdate = Carbon::createFromDate($year, $month, 1)->endOfMonth();
 
-        $week1ip = DB::table('pateis_rev')
+        $units = DB::table('pateis_rev')->select('units')->distinct()->get();
+
+        foreach ($units as $key => $unit) {
+            $week1ip = DB::table('pateis_rev')
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IP')
-                    ->where('units','=','UKMSC')
+                    ->where('units','=', $unit->units)
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$firstdate, $seconddate])
                     ->sum('amount');
 
-        $week2ip = DB::table('pateis_rev')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','IP')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$seconddate, $thirddate])
-                    ->sum('amount');
+            $week2ip = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','IP')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('disdate', [$seconddate, $thirddate])
+                        ->sum('amount');
 
-        $week3ip = DB::table('pateis_rev')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','IP')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$thirddate, $fourthdate])
-                    ->sum('amount');
+            $week3ip = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','IP')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('disdate', [$thirddate, $fourthdate])
+                        ->sum('amount');
 
-        $week4ip = DB::table('pateis_rev')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','IP')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$fourthdate, $fiftthdate])
-                    ->sum('amount');
+            $week4ip = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','IP')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('disdate', [$fourthdate, $fiftthdate])
+                        ->sum('amount');
 
-        $patsumepis = DB::table('patsumepis')
-                        ->where('month','=',$month)
-                        ->where('year','=',$year)
-                        ->where('type','=','REV')
-                        ->where('patient','=','IP');
+            $patsumepis = DB::table('patsumepis')
+                            ->where('month','=',$month)
+                            ->where('year','=',$year)
+                            ->where('units','=', $unit->units)
+                            ->where('type','=','REV')
+                            ->where('patient','=','IP');
 
-        if($patsumepis->exists()){
-            $patsumepis->update([
-                'week1' => $week1ip,
-                'week2' => $week2ip,
-                'week3' => $week3ip,
-                'week4' => $week4ip
-            ]);
-        }else{
-            $patsumepis->insert([
-                'month' => $month,
-                'year' => $year,
-                'type' => 'REV',
-                'patient' => 'IP',
-                'week1' => $week1ip,
-                'week2' => $week2ip,
-                'week3' => $week3ip,
-                'week4' => $week4ip
-            ]);
+            if($patsumepis->exists()){
+                $patsumepis->update([
+                    'week1' => $week1ip,
+                    'week2' => $week2ip,
+                    'week3' => $week3ip,
+                    'week4' => $week4ip
+                ]);
+            }else{
+                $patsumepis->insert([
+                    'month' => $month,
+                    'year' => $year,
+                    'units' => $unit->units,
+                    'type' => 'REV',
+                    'patient' => 'IP',
+                    'week1' => $week1ip,
+                    'week2' => $week2ip,
+                    'week3' => $week3ip,
+                    'week4' => $week4ip
+                ]);
+            }
         }
 
-        $week1op = DB::table('pateis_rev')
+        
+        foreach ($units as $key => $unit) {
+            $week1op = DB::table('pateis_rev')
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','OP')
-                    ->where('units','=','UKMSC')
+                    ->where('units','=', $unit->units)
                     ->where('datetype','=','DIS')
                     ->whereBetween('disdate', [$firstdate, $seconddate])
                     ->sum('amount');
 
-        $week2op = DB::table('pateis_rev')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','OP')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$seconddate, $thirddate])
-                    ->sum('amount');
+            $week2op = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OP')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('disdate', [$seconddate, $thirddate])
+                        ->sum('amount');
 
-        $week3op = DB::table('pateis_rev')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','OP')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$thirddate, $fourthdate])
-                    ->sum('amount');
+            $week3op = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OP')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('disdate', [$thirddate, $fourthdate])
+                        ->sum('amount');
 
-        $week4op = DB::table('pateis_rev')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','OP')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$fourthdate, $fiftthdate])
-                    ->sum('amount');
+            $week4op = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OP')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('disdate', [$fourthdate, $fiftthdate])
+                        ->sum('amount');
 
 
-        $patsumepis = DB::table('patsumepis')
-                        ->where('month','=',$month)
-                        ->where('year','=',$year)
-                        ->where('type','=','REV')
-                        ->where('patient','=','OP');
+            $patsumepis = DB::table('patsumepis')
+                            ->where('month','=',$month)
+                            ->where('year','=',$year)
+                            ->where('units','=', $unit->units)
+                            ->where('type','=','REV')
+                            ->where('patient','=','OP');
 
-        if($patsumepis->exists()){
-            $patsumepis->update([
-                'week1' => $week1op,
-                'week2' => $week2op,
-                'week3' => $week3op,
-                'week4' => $week4op
-            ]);
-        }else{
-            $patsumepis->insert([
-                'month' => $month,
-                'year' => $year,
-                'type' => 'REV',
-                'patient' => 'OP',
-                'week1' => $week1op,
-                'week2' => $week2op,
-                'week3' => $week3op,
-                'week4' => $week4op
-            ]);
+            if($patsumepis->exists()){
+                $patsumepis->update([
+                    'week1' => $week1op,
+                    'week2' => $week2op,
+                    'week3' => $week3op,
+                    'week4' => $week4op
+                ]);
+            }else{
+                $patsumepis->insert([
+                    'month' => $month,
+                    'year' => $year,
+                    'units' => $unit->units,
+                    'type' => 'REV',
+                    'patient' => 'OP',
+                    'week1' => $week1op,
+                    'week2' => $week2op,
+                    'week3' => $week3op,
+                    'week4' => $week4op
+                ]);
+            }
         }
+        
 
 
-        $week1ip_pt = DB::table('pateis_epis')
+        $units = DB::table('pateis_epis')->select('units')->distinct()->get();
+
+        foreach ($units as $key => $unit) {
+            $week1ip_pt = DB::table('pateis_epis')
                     ->where('year','=','Y'.$year)
                     ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
                     ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','UKMSC')
+                    ->where('units','=', $unit->units)
                     ->where('datetype','=','DIS')
                     ->whereBetween('admdate', [$firstdate, $seconddate])
                     ->count();
 
-        $week2ip_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$seconddate, $thirddate])
-                    ->count();
+            $week2ip_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','IN-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('admdate', [$seconddate, $thirddate])
+                        ->count();
 
-        $week3ip_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$thirddate, $fourthdate])
-                    ->count();
+            $week3ip_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','IN-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('admdate', [$thirddate, $fourthdate])
+                        ->count();
 
-        $week4ip_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$fourthdate, $fiftthdate])
-                    ->count();
+            $week4ip_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','IN-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('admdate', [$fourthdate, $fiftthdate])
+                        ->count();
 
-        $patsumepis = DB::table('patsumepis')
-                        ->where('year','=',$year)
-                        ->where('month','=',$month)
-                        ->where('type','=','epis')
-                        ->where('patient','=','IP');
+            $patsumepis = DB::table('patsumepis')
+                            ->where('year','=',$year)
+                            ->where('month','=',$month)
+                            ->where('units','=', $unit->units)
+                            ->where('type','=','epis')
+                            ->where('patient','=','IP');
 
-        if($patsumepis->exists()){
-            $patsumepis->update([
-                'week1' => $week1ip_pt,
-                'week2' => $week2ip_pt,
-                'week3' => $week3ip_pt,
-                'week4' => $week4ip_pt
-            ]);
-        }else{
-            $patsumepis->insert([
-                'month' => $month,
-                'year' => $year,
-                'type' => 'epis',
-                'patient' => 'IP',
-                'week1' => $week1ip_pt,
-                'week2' => $week2ip_pt,
-                'week3' => $week3ip_pt,
-                'week4' => $week4ip_pt
-            ]);
+            if($patsumepis->exists()){
+                $patsumepis->update([
+                    'week1' => $week1ip_pt,
+                    'week2' => $week2ip_pt,
+                    'week3' => $week3ip_pt,
+                    'week4' => $week4ip_pt
+                ]);
+            }else{
+                $patsumepis->insert([
+                    'month' => $month,
+                    'year' => $year,
+                    'units' => $unit->units,
+                    'type' => 'epis',
+                    'patient' => 'IP',
+                    'week1' => $week1ip_pt,
+                    'week2' => $week2ip_pt,
+                    'week3' => $week3ip_pt,
+                    'week4' => $week4ip_pt
+                ]);
+            }
+        }
+        
+
+        foreach ($units as $key => $unit) {
+            $week1op_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OUT-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('admdate', [$firstdate, $seconddate])
+                        ->count();
+
+            $week2op_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OUT-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('admdate', [$seconddate, $thirddate])
+                        ->count();
+
+            $week3op_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OUT-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('admdate', [$thirddate, $fourthdate])
+                        ->count();
+
+            $week4op_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OUT-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereBetween('admdate', [$fourthdate, $fiftthdate])
+                        ->count();
+
+            $patsumepis = DB::table('patsumepis')
+                            ->where('year','=',$year)
+                            ->where('month','=',$month)
+                            ->where('units','=', $unit->units)
+                            ->where('type','=','epis')
+                            ->where('patient','=','OP');
+
+            if($patsumepis->exists()){
+                $patsumepis->update([
+                    'week1' => $week1op_pt,
+                    'week2' => $week2op_pt,
+                    'week3' => $week3op_pt,
+                    'week4' => $week4op_pt
+                ]);
+            }else{
+                $patsumepis->insert([
+                    'month' => $month,
+                    'year' => $year,
+                    'units' => $unit->units,
+                    'type' => 'epis',
+                    'patient' => 'OP',
+                    'week1' => $week1op_pt,
+                    'week2' => $week2op_pt,
+                    'week3' => $week3op_pt,
+                    'week4' => $week4op_pt
+                ]);
+            }
         }
 
-        $week1op_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$firstdate, $seconddate])
-                    ->count();
-
-        $week2op_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$seconddate, $thirddate])
-                    ->count();
-
-        $week3op_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$thirddate, $fourthdate])
-                    ->count();
-
-        $week4op_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','OUT-PATIENT')
-                    ->where('units','=','UKMSC')
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$fourthdate, $fiftthdate])
-                    ->count();
-
-        $patsumepis = DB::table('patsumepis')
-                        ->where('month','=',$month)
-                        ->where('type','=','epis')
-                        ->where('patient','=','OP');
-
-        if($patsumepis->exists()){
-            $patsumepis->update([
-                'week1' => $week1op_pt,
-                'week2' => $week2op_pt,
-                'week3' => $week3op_pt,
-                'week4' => $week4op_pt
-            ]);
-        }else{
-            $patsumepis->insert([
-                'month' => $month,
-                'year' => $year,
-                'type' => 'epis',
-                'patient' => 'OP',
-                'week1' => $week1op_pt,
-                'week2' => $week2op_pt,
-                'week3' => $week3op_pt,
-                'week4' => $week4op_pt
-            ]);
-        }
-
+        $units = DB::table('pateis_rev')->select('units')->distinct()->get();
         $groupdesc_ = DB::table('pateis_rev')->distinct()->get(['groupdesc']);
 
-        $groupdesc = [];
-        $groupdesc_val_op = [];
-        $groupdesc_val_ip = [];
-        $groupdesc_val = [];
-        foreach ($groupdesc_ as $key => $value) {
-            $groupdesc[$key] = $value->groupdesc;
-            $groupdesc_op = DB::table('pateis_rev')
-                            ->where('year','=','Y'.$year)
-                            ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                            ->where('epistype','=','OP')
-                            ->where('groupdesc','=',$value->groupdesc)
-                            ->where('units','=','UKMSC')
-                            ->where('datetype','=','DIS');
+        foreach ($units as $key_units => $unit) {
 
-            $groupdesc_op_sum = $groupdesc_op->sum('amount');
-            $groupdesc_op_cnt = $groupdesc_op->count();
+            $groupdesc_val_op = [];
+            $groupdesc_val_ip = [];
+            $groupdesc_val = [];
 
-            $groupdesc_val_op[$key] = $groupdesc_op_sum;
-            $groupdesc_cnt_op[$key] = $groupdesc_op_cnt;
+            foreach ($groupdesc_ as $key => $value) {
+                $groupdesc_op = DB::table('pateis_rev')
+                                ->where('year','=','Y'.$year)
+                                ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                                ->where('epistype','=','OP')
+                                ->where('groupdesc','=',$value->groupdesc)
+                                ->where('units','=', $unit->units)
+                                ->where('datetype','=','DIS');
 
-            $groupdesc_ip = DB::table('pateis_rev')
-                            ->where('year','=','Y'.$year)
-                            ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                            ->where('epistype','=','IP')
-                            ->where('groupdesc','=',$value->groupdesc)
-                            ->where('units','=','UKMSC')
-                            ->where('datetype','=','DIS');
+                $groupdesc_op_sum = $groupdesc_op->sum('amount');
+                $groupdesc_op_cnt = $groupdesc_op->count();
 
-            $groupdesc_ip_sum = $groupdesc_ip->sum('amount');
-            $groupdesc_ip_cnt = $groupdesc_ip->count();
+                $groupdesc_val_op[$key] = $groupdesc_op_sum;
+                $groupdesc_cnt_op[$key] = $groupdesc_op_cnt;
 
-            $groupdesc_val_ip[$key] = $groupdesc_ip_sum;
-            $groupdesc_cnt_ip[$key] = $groupdesc_ip_cnt;
-            $groupdesc_val[$key] = $groupdesc_op_sum + $groupdesc_ip_sum;
+                $groupdesc_ip = DB::table('pateis_rev')
+                                ->where('year','=','Y'.$year)
+                                ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                                ->where('epistype','=','IP')
+                                ->where('groupdesc','=',$value->groupdesc)
+                                ->where('units','=', $unit->units)
+                                ->where('datetype','=','DIS');
 
-        }
+                $groupdesc_ip_sum = $groupdesc_ip->sum('amount');
+                $groupdesc_ip_cnt = $groupdesc_ip->count();
 
-        $patsumrev = DB::table('patsumrev')
-                        ->where('month','=',$month)
-                        ->where('year','=',$year);
+                $groupdesc_val_ip[$key] = $groupdesc_ip_sum;
+                $groupdesc_cnt_ip[$key] = $groupdesc_ip_cnt;
+                $groupdesc_val[$key] = $groupdesc_op_sum + $groupdesc_ip_sum;
 
-        if($patsumrev->exists()){
+            }
+
             $patsumrev = DB::table('patsumrev')
                             ->where('month','=',$month)
-                            ->where('year','=',$year);
+                            ->where('year','=',$year)
+                            ->where('units','=', $unit->units);
 
-            foreach ($groupdesc_ as $key => $value) {
-                $patsumrev->where('group','=',$value->groupdesc)
-                            ->update([
-                                'ipcnt' => $groupdesc_cnt_ip[$key],
-                                'opcnt' => $groupdesc_cnt_op[$key],
-                                'ipsum' => $groupdesc_val_ip[$key],
-                                'opsum' => $groupdesc_val_op[$key],
-                                'totalsum' => $groupdesc_val[$key],
-                            ]);
-            }
-        }else{
-            foreach ($groupdesc_ as $key => $value) {
-                $patsumrev->insert([
-                                'month' => $month,
-                                'year' => $year,
-                                'group' => $value->groupdesc,
-                                'ipcnt' => $groupdesc_cnt_ip[$key],
-                                'opcnt' => $groupdesc_cnt_op[$key],
-                                'ipsum' => $groupdesc_val_ip[$key],
-                                'opsum' => $groupdesc_val_op[$key],
-                                'totalsum' => $groupdesc_val[$key],
-                            ]);
+            if($patsumrev->exists()){
+                $patsumrev = DB::table('patsumrev')
+                                ->where('month','=',$month)
+                                ->where('year','=',$year)
+                                ->where('units','=', $unit->units);
+
+                foreach ($groupdesc_ as $key => $value) {
+                    $patsumrev->where('group','=',$value->groupdesc)
+                                ->update([
+                                    'ipcnt' => $groupdesc_cnt_ip[$key],
+                                    'opcnt' => $groupdesc_cnt_op[$key],
+                                    'ipsum' => $groupdesc_val_ip[$key],
+                                    'opsum' => $groupdesc_val_op[$key],
+                                    'totalsum' => $groupdesc_val[$key],
+                                ]);
+                }
+            }else{
+                foreach ($groupdesc_ as $key => $value) {
+                    $patsumrev->insert([
+                                    'month' => $month,
+                                    'year' => $year,
+                                    'units' => $unit->units,
+                                    'group' => $value->groupdesc,
+                                    'ipcnt' => $groupdesc_cnt_ip[$key],
+                                    'opcnt' => $groupdesc_cnt_op[$key],
+                                    'ipsum' => $groupdesc_val_ip[$key],
+                                    'opsum' => $groupdesc_val_op[$key],
+                                    'totalsum' => $groupdesc_val[$key],
+                                ]);
+                }
             }
         }
 

@@ -179,14 +179,23 @@ class eisController extends Controller
 
     public function dashboard(Request $request)
     {
-        $now = Carbon::now();
-        $year = $now->year;
-        $month = $now->month;
+        if(!empty($request->date) && !empty($request->units)){
+            $now = explode('-', $request->date);
+            $year = $now[0];
+            $month = ltrim($now[1], '0');
+            $units = $request->units;
+        }else{
+            $now = Carbon::now();
+            $year = $now->year;
+            $month = $now->month;
+            $units = 'UKMSC';
+        }
 
         $ip_rev = DB::table('patsumepis')
                     ->where('month','=',$month)
                     ->where('year','=',$year)
                     ->where('patient','=',"IP")
+                    ->where('units','=', $units)
                     ->where('type','=',"REV");
 
         if(!$ip_rev->exists()){
@@ -197,18 +206,32 @@ class eisController extends Controller
                 $month = $month-1;
             }
 
+            if(!empty($request->date)){
+                $request->date = $year.'-'.$month;
+            }
+
             $ip_rev = DB::table('patsumepis')
                     ->where('month','=',$month)
                     ->where('year','=',$year)
                     ->where('patient','=',"IP")
-                    ->where('type','=',"REV")
-                    ->first();
+                    ->where('units','=', $units)
+                    ->where('type','=',"REV");
+
+            if(!$ip_rev->exists()){
+                return $this->return_null();
+            }else{
+                $ip_rev = $ip_rev->first();
+            }
+        }else{
+            $ip_rev = $ip_rev->first();
         }
+
 
         $op_rev = DB::table('patsumepis')
                     ->where('month','=',$month)
                     ->where('year','=',$year)
                     ->where('patient','=',"OP")
+                    ->where('units','=', $units)
                     ->where('type','=',"REV")
                     ->first();
 
@@ -216,6 +239,7 @@ class eisController extends Controller
                     ->where('month','=',$month)
                     ->where('year','=',$year)
                     ->where('patient','=',"IP")
+                    ->where('units','=', $units)
                     ->where('type','=',"epis")
                     ->first();
 
@@ -223,6 +247,7 @@ class eisController extends Controller
                     ->where('month','=',$month)
                     ->where('year','=',$year)
                     ->where('patient','=',"OP")
+                    ->where('units','=', $units)
                     ->where('type','=',"epis")
                     ->first();
 
@@ -233,6 +258,7 @@ class eisController extends Controller
         $op_month_epis = [$op_epis->week1,$op_epis->week2,$op_epis->week3,$op_epis->week4];
 
         $groupdesc_ = DB::table('pateis_rev')->distinct()->get(['groupdesc']);
+        $units_ = DB::table('pateis_rev')->select('units')->distinct()->get();
 
         $groupdesc = [];
         $groupdesc_val_op = [];
@@ -244,6 +270,7 @@ class eisController extends Controller
         $patsumrev = DB::table('patsumrev')
                         ->where('month','=',$month)
                         ->where('year','=',$year)
+                        ->where('units','=', $units)
                         ->get();
 
         foreach ($patsumrev as $key => $value) {
@@ -255,7 +282,28 @@ class eisController extends Controller
             array_push($groupdesc_val,$value->totalsum);
         }
 
-        return view('dashboard.dashboard',compact('ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
+        return view('dashboard.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
+    }
+
+    public function return_null(){
+
+        $groupdesc_ = DB::table('pateis_rev')->distinct()->get(['groupdesc']);
+        $units_ = DB::table('pateis_rev')->select('units')->distinct()->get();
+
+        $ip_month = [];
+        $op_month = [];
+
+        $ip_month_epis =  [];
+        $op_month_epis = [];
+
+        $groupdesc = [];
+        $groupdesc_val_op = [];
+        $groupdesc_val_ip = [];
+        $groupdesc_cnt_op = [];
+        $groupdesc_cnt_ip = [];
+        $groupdesc_val = [];
+
+        return view('dashboard.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
     }
 
 

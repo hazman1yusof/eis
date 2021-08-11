@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/','eisController@dashboard');
+Route::get('/','eisController@dashboard')->name('home');
 
 Route::get('/study/{idno}','StudyController@show')->name('study');
 Route::post('/study','StudyController@study_post');//xguna

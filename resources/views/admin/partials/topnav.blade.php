@@ -3,11 +3,22 @@
     <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
     <!-- <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li> -->
   </ul>
-  <!-- <div class="search-element">
-    <input class="form-control" value="{{ Request::get('query') }}" name="query" type="search" placeholder="Search" aria-label="Search" data-width="250">
+
+  @if(Request::route()->getName() == 'dashboard' || Request::route()->getName() == 'home')
+  <div class="form-group">
+    <select class="form-control" name="units">
+      @foreach ($units_ as $key_units => $obj_units)
+      <option @if( request()->get('units') ==  $obj_units->units) {{'selected'}} @endif>{{$obj_units->units}}</option>
+      @endforeach
+    </select>
+  </div>
+
+  <div class="search-element">
+    <input class="form-control" value="@if( !empty(request()->get('date')) ){{request()->get('date')}}@else{{ Carbon\Carbon::now('Asia/Kuala_Lumpur')->format('Y-m')}}@endif" name="date" type="month" >
     <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-    <div class="search-backdrop"></div>
-  </div> -->
+    <!-- <div class="search-backdrop"></div> -->
+  </div>
+  @endif
 </form>
 <ul class="navbar-nav navbar-right">
   <li class="dropdown">
