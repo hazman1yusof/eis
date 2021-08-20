@@ -136,6 +136,35 @@ $(document).ready(function () {
     });
 
 
+    var datapie = {
+      labels: ['In-Patient', 'Out-Patient'],
+      datasets: [
+        {
+          label: 'Dataset 1',
+          backgroundColor: ["#47aeff", "#f44336"],
+          data: [2478,5267]
+        }
+      ]
+    };
+
+
+    var ctx = document.getElementById("myChart4").getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: datapie,
+        options: {
+          responsive: true,
+          aspectRatio: 3,
+          plugins: {
+            legend: false,
+            title: false
+          }
+        },
+      }
+    );
+
+
   var delay = (function(){
     var timer = 0;
     return function(callback, ms){

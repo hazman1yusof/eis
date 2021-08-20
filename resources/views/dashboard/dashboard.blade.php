@@ -8,6 +8,7 @@ Dashboard
 @endsection
 
 @section('header')
+
 <script>
   var ip_month = [{{implode(",",$ip_month)}}];
   var op_month = [{{implode(",",$op_month)}}];
@@ -20,6 +21,19 @@ Dashboard
 @endsection
 
 @section('css')
+  
+  @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@100&display=swap');
+
+  #totaltbl h3{
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 550;
+  }
+
+  #totaltbl small{
+    font-weight: 700;
+    color: #6777ef;
+  }
+
   .blue{
     color:#47aeff;
     text-align:right;
@@ -56,7 +70,7 @@ Dashboard
 
   <div class="row justify-content-center">
 
-    <div class="col-6">
+    <div class="col-5">
       <div class="card">
         <div class="card-header">
           <h4>Revenue By Services - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
@@ -67,7 +81,7 @@ Dashboard
       </div>
     </div>
 
-    <div class="col-6">
+    <div class="col-5">
       <div class="card">
         <div class="card-header">
           <h4>Patient Statistics - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
@@ -75,6 +89,35 @@ Dashboard
         <div class="card-body">
           <canvas id="myChart3" style="display: block; width: 732px; height: 266px;" class="chartjs-render-monitor"></canvas>
         </div>
+        
+            <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div class="card">
+        <div class="card-header">
+          <h4>Year 2020</h4>
+        </div>
+          <div class="table-responsive table-invoice">
+            <table class="table table-striped" id="totaltbl">
+              <tbody>
+              <tr>
+                <td><small>Total Patient</small><h3>50,001</h3>
+                </td>
+              </tr>
+              <tr>
+                <td><small>Total In-Patient</small><h3>50,001</h3></td>
+              </tr>
+              <tr>
+                <td><small>Total Out-Patient</small><h3>50,001</h3></td>
+              </tr>
+              <tr>
+                <td><small>Total Revenue</small><h3>50,001</h3></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
       </div>
     </div>
 
