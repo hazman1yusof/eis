@@ -19,7 +19,7 @@ class WebserviceController extends Controller
     }
 
     public function store_dashb(Request $request){
-        $month = $request->month;
+        $month = ltrim($request->month, '0');
         $year = $request->year;
 
         $firstdate = Carbon::createFromDate($year, $month, 1);

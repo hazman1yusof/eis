@@ -1,5 +1,10 @@
 
 
+$(document).ready(function () {    
+    Chart.defaults.plugins.legend.display = true;
+    Chart.defaults.plugins.legend.position = 'bottom';
+
+
     var ctx = document.getElementById("myChart2").getContext('2d');
     var myChart = new Chart(ctx, {
       plugins: [ChartDataLabels],
@@ -9,7 +14,6 @@
         datasets: [{
           label: 'In Patients',
           data: ip_month,
-          borderWidth: 1,
           backgroundColor: '#47aeff',
           borderColor: '#47aeff',
           borderWidth: 1.5,
@@ -18,7 +22,6 @@
         },{
           label: 'Out Patients',
           data: op_month,
-          borderWidth: 1,
           backgroundColor: '#f44336',
           borderColor: '#f44336',
           borderWidth: 1.5,
@@ -29,9 +32,6 @@
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
         scales: {
           yAxes: [{
             gridLines: {
@@ -39,7 +39,7 @@
               color: '#f2f2f2',
             },
             ticks: {
-              beginAtZero: true,
+              beginAtZero: false,
               stepSize: 20
             }
           }],
@@ -56,9 +56,9 @@
           // Change options for ALL labels of THIS CHART
           datalabels: {
             rotation: 0,
-            display: 'auto',
+            display: true ,
             align :'top',
-            clip:true,
+            clip:false,
             anchor:'end',
             formatter: function(value, context) {
               return new Intl.NumberFormat().format(value);
@@ -98,9 +98,6 @@
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
         scales: {
           yAxes: [{
             gridLines: {
@@ -127,7 +124,7 @@
             rotation: 0,
             display: 'auto',
             align :'top',
-            clip:true,
+            clip:false,
             anchor:'end',
             formatter: function(value, context) {
               return new Intl.NumberFormat().format(value);
@@ -138,8 +135,6 @@
       }
     });
 
-
-$(document).ready(function () {
 
   var delay = (function(){
     var timer = 0;
