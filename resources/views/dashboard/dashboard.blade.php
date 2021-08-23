@@ -29,11 +29,16 @@ Dashboard
   #totaltbl h3{
     font-family: 'Urbanist', sans-serif;
     font-weight: 550;
+    font-size: 1.6em;
   }
 
   #totaltbl small{
     font-weight: 700;
     color: #6777ef;
+  }
+
+  div.tp{
+    overflow:hidden;
   }
 
   .blue{
@@ -43,9 +48,6 @@ Dashboard
   .red{
     color:#f44336;
     text-align:right;
-  }
-  .container_sem{
-    padding-top: 60px !important;
   }
   .table:not(.table-sm):not(.table-md):not(.dataTable) td, .table:not(.table-sm):not(.table-md):not(.dataTable) th {
     padding: 0 25px;
@@ -77,11 +79,9 @@ Dashboard
         <div class="card-header">
           <h4>Revenue By Services - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
-        <div class="card-body">
-          <canvas id="myChart2" style="display: block; width: 732px; height: 522px;" class="chartjs-render-monitor"></canvas>
+        <div class="card-body col5">
+          <canvas id="myChart2" style="display: block; width: 732px; height: 620px;" class="chartjs-render-monitor"></canvas>
         </div>
-<!-- 
-            <canvas id="myChart5" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas> -->
       </div>
     </div>
 
@@ -91,19 +91,19 @@ Dashboard
           <h4>Patient Statistics - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
         <div class="card-body">
-          <canvas id="myChart3" style="display: block; width: 732px; height: 522px;" class="chartjs-render-monitor"></canvas>
+          <canvas id="myChart3" style="display: block; width: 732px; height: 620px;" class="chartjs-render-monitor"></canvas>
         </div>
         <!-- 
             <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas> -->
       </div>
     </div>
 
-    <div class="col-2">
+    <div class="col-2 col2">
       <div class="card">
         <div class="card-header">
           <h4>Year {{$year}}</h4>
         </div>
-          <div class="table-responsive table-invoice niceScroll">
+          <div class="table-responsive table-invoice tp">
             <table class="table table-striped" id="totaltbl">
               <tbody>
               <tr>
@@ -117,11 +117,34 @@ Dashboard
                 <td><small>Total Out-Patient</small><h3 id="total_outpt">{{$total_outpt}}</h3></td>
               </tr>
               <tr>
-                <td><small>Total Revenue</small><h3 id="total_rev">{{$total_rev}}</h3></td>
+                <td><small>Total IP Revenue</small><h3 id="total_rev">{{$total_rev_inpt}}</h3></td>
+              </tr>
+              <tr>
+                <td><small>Total OP Revenue</small><h3 id="total_rev">{{$total_rev_outpt}}</h3></td>
+              </tr>
+              <tr style="padding: 10px;">
+                <td><small>Total Patient (IP vs OP)</small><h3 id="total_rev">
+                  <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
+                </td>
+              </tr>
+              <tr style="padding: 10px;">
+                <td><small>Total Revenue (IP vs OP)</small><h3 id="total_rev">
+                  <canvas id="myChart5" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
+                </td>
               </tr>
               </tbody>
             </table>
           </div>
+        <div class="card-footer pt-3 d-flex justify-content-center">
+          <div class="budget-price justify-content-center">
+            <div class="budget-price-square bg-primary" data-width="20" style="width: 20px;"></div>
+            <div class="budget-price-label">IN PATIENT</div>
+          </div>
+          <div class="budget-price justify-content-center">
+            <div class="budget-price-square bg-danger" data-width="20" style="width: 20px;"></div>
+            <div class="budget-price-label">OUT PATIENT</div>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -141,77 +141,77 @@ $(document).ready(function () {
     });
 
 
-    // var datapie1 = {
-    //   labels: ['In-Patient', 'Out-Patient'],
-    //   datasets: [
-    //     {
-    //       label: 'Dataset 1',
-    //       backgroundColor: ["#47aeff", "#f44336"],
-    //       data: pt_cnt
-    //     }
-    //   ]
-    // };
+    var datapie1 = {
+      labels: ['In-Patient', 'Out-Patient'],
+      datasets: [
+        {
+          label: 'Dataset 1',
+          backgroundColor: ["#47aeff", "#f44336"],
+          data: pt_cnt
+        }
+      ]
+    };
 
 
-    // var ctx = document.getElementById("myChart4").getContext('2d');
+    var ctx = document.getElementById("myChart4").getContext('2d');
 
-    // var myChart = new Chart(ctx, {
-    //     plugins: [ChartDataLabels],
-    //     type: 'pie',
-    //     data: datapie1,
-    //     options: {
-    //       responsive: true,
-    //       aspectRatio: 3,
-    //       plugins: {
-    //         legend: false,
-    //         title: false,
-    //         datalabels: {
-    //           color:'white',
-    //           anchor:'center',
-    //           formatter: function(value, context) {
-    //             return new Intl.NumberFormat().format(value);
-    //           }
-    //         }
-    //       }
-    //     },
-    //   }
-    // );
+    var myChart = new Chart(ctx, {
+        plugins: [ChartDataLabels],
+        type: 'pie',
+        data: datapie1,
+        options: {
+          responsive: true,
+          aspectRatio: 1,
+          plugins: {
+            legend: false,
+            title: false,
+            datalabels: {
+              color:'white',
+              anchor:'center',
+              formatter: function(value, context) {
+                return new Intl.NumberFormat().format(value);
+              }
+            }
+          }
+        },
+      }
+    );
 
-    // var datapie2 = {
-    //   labels: ['In-Patient', 'Out-Patient'],
-    //   datasets: [
-    //     {
-    //       label: 'Dataset 1',
-    //       backgroundColor: ["#47aeff", "#f44336"],
-    //       data: pt_rev
-    //     }
-    //   ]
-    // };
+    var datapie2 = {
+      labels: ['In-Patient', 'Out-Patient'],
+      datasets: [
+        {
+          label: 'Dataset 1',
+          backgroundColor: ["#47aeff", "#f44336"],
+          data: pt_rev
+        }
+      ]
+    };
 
 
-    // var ctx = document.getElementById("myChart5").getContext('2d');
+    var ctx = document.getElementById("myChart5").getContext('2d');
 
-    // var myChart = new Chart(ctx, {
-    //     plugins: [ChartDataLabels],
-    //     type: 'pie',
-    //     data: datapie2,
-    //     options: {
-    //       responsive: true,
-    //       aspectRatio: 3,
-    //       plugins: {
-    //         legend: false,
-    //         title: false,
-    //         datalabels: {
-    //           color:'white',
-    //           anchor:'center',
-    //           formatter: function(value, context) {
-    //             return new Intl.NumberFormat().format(value);
-    //           }
-    //         }
-    //       }
-    //     },
-    //   }
-    // );
+    var myChart = new Chart(ctx, {
+        plugins: [ChartDataLabels],
+        type: 'pie',
+        data: datapie2,
+        options: {
+          responsive: true,
+          aspectRatio: 1,
+          plugins: {
+            legend: false,
+            title: false,
+            datalabels: {
+              color:'white',
+              anchor:'center',
+              formatter: function(value, context) {
+                return new Intl.NumberFormat().format(value);
+              }
+            }
+          }
+        },
+      }
+    );
 
 
   var delay = (function(){
@@ -222,8 +222,15 @@ $(document).ready(function () {
     };
   })();
 
+  var height = $('div.col5').height();
+  console.log(height);
+
+
+  $("div.tp").css( "height", height+'px');
   $("div.btm").css( "height", "215px" );
+
   delay(function(){
+    $("div.tp").css( "height", height+'px');
     $("div.btm").css( "height", "215px" );
   }, 500 );
 
