@@ -225,8 +225,7 @@ $(document).ready(function () {
     };
   })();
 
-  var height = $('div.col5').height();
-  console.log(height);
+  var height = $('div.col5').height()+30;
 
 
   $("div.tp").css( "height", height+'px');
