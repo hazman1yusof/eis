@@ -282,7 +282,38 @@ class eisController extends Controller
             array_push($groupdesc_val,$value->totalsum);
         }
 
-        return view('dashboard.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
+        $total_pt = DB::table('pateis_epis')
+                    ->where('units','=', $units)
+                    ->where('year','=','Y'.$year)->count();
+
+        $total_inpt = DB::table('pateis_epis')
+                    ->where('units','=', $units)
+                    ->where('year','=','Y'.$year)
+                    ->where('epistype','=','IN-PATIENT')->count();
+
+        $total_outpt = DB::table('pateis_epis')
+                    ->where('units','=', $units)
+                    ->where('year','=','Y'.$year)
+                    ->where('epistype','=','OUT-PATIENT')->count();
+
+        $total_rev = DB::table('pateis_rev')
+                    ->where('units','=', $units)
+                    ->where('year','=','Y'.$year)
+                    ->sum('amount');
+
+        $total_rev_inpt = DB::table('pateis_rev')
+                    ->where('units','=', $units)
+                    ->where('year','=','Y'.$year)
+                    ->where('epistype','=','IP')
+                    ->sum('amount');
+
+        $total_rev_outpt = DB::table('pateis_rev')
+                    ->where('units','=', $units)
+                    ->where('year','=','Y'.$year)
+                    ->where('epistype','=','OP')
+                    ->sum('amount');
+
+        return view('dashboard.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val','total_pt','total_inpt','total_outpt','total_rev','total_rev_inpt','total_rev_outpt','year'));
     }
 
     public function return_null(){

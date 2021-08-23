@@ -4,6 +4,11 @@ $(document).ready(function () {
     Chart.defaults.plugins.legend.display = true;
     Chart.defaults.plugins.legend.position = 'bottom';
 
+    $('#total_pt').text(new Intl.NumberFormat().format($('#total_pt').text()));
+    $('#total_inpt').text(new Intl.NumberFormat().format($('#total_inpt').text()));
+    $('#total_outpt').text(new Intl.NumberFormat().format($('#total_outpt').text()));
+    $('#total_rev').text(new Intl.NumberFormat().format($('#total_rev').text()));
+
 
     var ctx = document.getElementById("myChart2").getContext('2d');
     var myChart = new Chart(ctx, {
@@ -136,13 +141,13 @@ $(document).ready(function () {
     });
 
 
-    var datapie = {
+    var datapie1 = {
       labels: ['In-Patient', 'Out-Patient'],
       datasets: [
         {
           label: 'Dataset 1',
           backgroundColor: ["#47aeff", "#f44336"],
-          data: [2478,5267]
+          data: pt_cnt
         }
       ]
     };
@@ -151,14 +156,58 @@ $(document).ready(function () {
     var ctx = document.getElementById("myChart4").getContext('2d');
 
     var myChart = new Chart(ctx, {
+        plugins: [ChartDataLabels],
         type: 'pie',
-        data: datapie,
+        data: datapie1,
         options: {
           responsive: true,
           aspectRatio: 3,
           plugins: {
             legend: false,
-            title: false
+            title: false,
+            datalabels: {
+              color:'white',
+              anchor:'center',
+              formatter: function(value, context) {
+                return new Intl.NumberFormat().format(value);
+              }
+            }
+          }
+        },
+      }
+    );
+
+    var datapie2 = {
+      labels: ['In-Patient', 'Out-Patient'],
+      datasets: [
+        {
+          label: 'Dataset 1',
+          backgroundColor: ["#47aeff", "#f44336"],
+          data: pt_rev
+        }
+      ]
+    };
+
+
+    var ctx = document.getElementById("myChart5").getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        plugins: [ChartDataLabels],
+        type: 'pie',
+        data: datapie2,
+        options: {
+          responsive: true,
+          aspectRatio: 3,
+          plugins: {
+            legend: false,
+            title: false,
+            datalabels: {
+              color:'white',
+              anchor:'center',
+              formatter: function(value, context) {
+                return new Intl.NumberFormat().format(value);
+              }
+            }
           }
         },
       }

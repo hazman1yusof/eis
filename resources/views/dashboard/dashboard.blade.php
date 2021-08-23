@@ -17,6 +17,8 @@ Dashboard
   var groupdesc_val_op = [{{implode(",",$groupdesc_val_op)}}];
   var groupdesc_val_ip = [{{implode(",",$groupdesc_val_ip)}}];
   var groupdesc_val = [{{implode(",",$groupdesc_val)}}];
+  var pt_cnt = [{{$total_inpt}},{{$total_outpt}}];
+  var pt_rev = [{{$total_rev_inpt}},{{$total_rev_outpt}}];
 </script>
 @endsection
 
@@ -78,6 +80,8 @@ Dashboard
         <div class="card-body">
           <canvas id="myChart2" style="display: block; width: 732px; height: 266px;" class="chartjs-render-monitor"></canvas>
         </div>
+
+            <canvas id="myChart5" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
       </div>
     </div>
 
@@ -97,23 +101,23 @@ Dashboard
     <div class="col-2">
       <div class="card">
         <div class="card-header">
-          <h4>Year 2020</h4>
+          <h4>Year {{$year}}</h4>
         </div>
           <div class="table-responsive table-invoice">
             <table class="table table-striped" id="totaltbl">
               <tbody>
               <tr>
-                <td><small>Total Patient</small><h3>50,001</h3>
+                <td><small>Total Patient</small><h3 id="total_pt">{{$total_pt}}</h3>
                 </td>
               </tr>
               <tr>
-                <td><small>Total In-Patient</small><h3>50,001</h3></td>
+                <td><small>Total In-Patient</small><h3 id="total_inpt">{{$total_inpt}}</h3></td>
               </tr>
               <tr>
-                <td><small>Total Out-Patient</small><h3>50,001</h3></td>
+                <td><small>Total Out-Patient</small><h3 id="total_outpt">{{$total_outpt}}</h3></td>
               </tr>
               <tr>
-                <td><small>Total Revenue</small><h3>50,001</h3></td>
+                <td><small>Total Revenue</small><h3 id="total_rev">{{$total_rev}}</h3></td>
               </tr>
               </tbody>
             </table>
