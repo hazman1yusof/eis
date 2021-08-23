@@ -103,7 +103,7 @@ Dashboard
         <div class="card-header">
           <h4>Year {{$year}}</h4>
         </div>
-          <div class="table-responsive table-invoice">
+          <div class="table-responsive table-invoice niceScroll">
             <table class="table table-striped" id="totaltbl">
               <tbody>
               <tr>
@@ -137,7 +137,7 @@ Dashboard
           </div>
           <h3>Revenues</h3>
         </div> -->
-        <div class="card-body niceScroll" style="height: 315px; overflow: hidden; outline: none;">
+        <div class="card-body niceScroll btm" style="height: 315px; overflow: hidden; outline: none;">
           <div class="table-responsive table-invoice">
             <table class="table table-striped">
               <tbody>

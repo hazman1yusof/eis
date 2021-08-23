@@ -222,9 +222,9 @@ $(document).ready(function () {
     };
   })();
 
-  $("div.niceScroll").css( "height", "215px" );
+  $("div.btm").css( "height", "215px" );
   delay(function(){
-    $("div.niceScroll").css( "height", "215px" );
+    $("div.btm").css( "height", "215px" );
   }, 500 );
 
 });
