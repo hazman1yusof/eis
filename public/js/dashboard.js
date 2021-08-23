@@ -161,13 +161,14 @@ $(document).ready(function () {
         data: datapie1,
         options: {
           responsive: true,
-          aspectRatio: 1,
+          aspectRatio: 1.5,
           plugins: {
             legend: false,
             title: false,
             datalabels: {
-              color:'white',
+              color:'black',
               anchor:'center',
+              font:{size:'10px'},
               formatter: function(value, context) {
                 return new Intl.NumberFormat().format(value);
               }
@@ -197,13 +198,14 @@ $(document).ready(function () {
         data: datapie2,
         options: {
           responsive: true,
-          aspectRatio: 1,
+          aspectRatio: 1.5,
           plugins: {
             legend: false,
             title: false,
             datalabels: {
-              color:'white',
+              color:'black',
               anchor:'center',
+              font:{size:'10px'},
               formatter: function(value, context) {
                 return new Intl.NumberFormat().format(value);
               }

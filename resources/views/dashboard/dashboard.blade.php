@@ -29,7 +29,8 @@ Dashboard
   #totaltbl h3{
     font-family: 'Urbanist', sans-serif;
     font-weight: 550;
-    font-size: 1.6em;
+    font-size: 1em;
+    margin: 0px;
   }
 
   #totaltbl small{
@@ -80,7 +81,7 @@ Dashboard
           <h4>Revenue By Services - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
         <div class="card-body col5">
-          <canvas id="myChart2" style="display: block; width: 732px; height: 620px;" class="chartjs-render-monitor"></canvas>
+          <canvas id="myChart2" style="display: block; width: 732px; height: 420px;" class="chartjs-render-monitor"></canvas>
         </div>
       </div>
     </div>
@@ -91,7 +92,7 @@ Dashboard
           <h4>Patient Statistics - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
         <div class="card-body">
-          <canvas id="myChart3" style="display: block; width: 732px; height: 620px;" class="chartjs-render-monitor"></canvas>
+          <canvas id="myChart3" style="display: block; width: 732px; height: 420px;" class="chartjs-render-monitor"></canvas>
         </div>
         <!-- 
             <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas> -->
