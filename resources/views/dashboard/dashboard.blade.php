@@ -78,10 +78,10 @@ Dashboard
           <h4>Revenue By Services - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
         <div class="card-body">
-          <canvas id="myChart2" style="display: block; width: 732px; height: 266px;" class="chartjs-render-monitor"></canvas>
+          <canvas id="myChart2" style="display: block; width: 732px; height: 522px;" class="chartjs-render-monitor"></canvas>
         </div>
-
-            <canvas id="myChart5" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
+<!-- 
+            <canvas id="myChart5" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas> -->
       </div>
     </div>
 
@@ -91,10 +91,10 @@ Dashboard
           <h4>Patient Statistics - <i>@if( !empty(request()->get('units'))){{request()->get('units')}}@else{{'UKMSC'}}@endif</i></h4>
         </div>
         <div class="card-body">
-          <canvas id="myChart3" style="display: block; width: 732px; height: 266px;" class="chartjs-render-monitor"></canvas>
+          <canvas id="myChart3" style="display: block; width: 732px; height: 522px;" class="chartjs-render-monitor"></canvas>
         </div>
-        
-            <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
+        <!-- 
+            <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas> -->
       </div>
     </div>
 
