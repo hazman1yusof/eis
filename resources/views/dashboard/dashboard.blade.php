@@ -28,7 +28,6 @@ Dashboard
 
   #totaltbl h3{
     font-family: 'Urbanist', sans-serif;
-    font-weight: 550;
     font-size: 1em;
     margin: 0px;
   }
@@ -118,18 +117,18 @@ Dashboard
                 <td><small>Total Out-Patient</small><h3 id="total_outpt">{{$total_outpt}}</h3></td>
               </tr>
               <tr>
-                <td><small>Total IP Revenue</small><h3 id="total_rev">{{$total_rev_inpt}}</h3></td>
+                <td><small>Total IP Revenue</small><h3 id="total_rev_inpt">{{$total_rev_inpt}}</h3></td>
               </tr>
               <tr>
-                <td><small>Total OP Revenue</small><h3 id="total_rev">{{$total_rev_outpt}}</h3></td>
+                <td><small>Total OP Revenue</small><h3 id="total_rev_outpt">{{$total_rev_outpt}}</h3></td>
               </tr>
               <tr style="padding: 10px;">
-                <td><small>Total Patient (IP vs OP)</small><h3 id="total_rev">
+                <td><small>Total Patient (IP vs OP)</small>
                   <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
                 </td>
               </tr>
               <tr style="padding: 10px;">
-                <td><small>Total Revenue (IP vs OP)</small><h3 id="total_rev">
+                <td><small>Total Revenue (IP vs OP)</small>
                   <canvas id="myChart5" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
                 </td>
               </tr>

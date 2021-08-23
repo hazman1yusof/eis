@@ -7,7 +7,8 @@ $(document).ready(function () {
     $('#total_pt').text(new Intl.NumberFormat().format($('#total_pt').text()));
     $('#total_inpt').text(new Intl.NumberFormat().format($('#total_inpt').text()));
     $('#total_outpt').text(new Intl.NumberFormat().format($('#total_outpt').text()));
-    $('#total_rev').text(new Intl.NumberFormat().format($('#total_rev').text()));
+    $('#total_rev_inpt').text(new Intl.NumberFormat().format($('#total_rev_inpt').text()));
+    $('#total_rev_outpt').text(new Intl.NumberFormat().format($('#total_rev_outpt').text()));
 
 
     var ctx = document.getElementById("myChart2").getContext('2d');
