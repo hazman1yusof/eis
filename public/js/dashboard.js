@@ -162,7 +162,7 @@ $(document).ready(function () {
         data: datapie1,
         options: {
           responsive: true,
-          aspectRatio: 1.5,
+          aspectRatio: getViewport(),
           plugins: {
             legend: false,
             title: false,
@@ -199,7 +199,7 @@ $(document).ready(function () {
         data: datapie2,
         options: {
           responsive: true,
-          aspectRatio: 1.5,
+          aspectRatio: getViewport(),
           plugins: {
             legend: false,
             title: false,
@@ -226,7 +226,6 @@ $(document).ready(function () {
   })();
 
   var height = $('div.col5').height()+30;
-  console.log(getViewport());
 
 
   $("div.tp").css( "height", height+'px');
@@ -243,11 +242,13 @@ $(document).ready(function () {
       document.documentElement.clientWidth,
       window.innerWidth || 0
     )
-    if (width <= 576) return 'xs'
-    if (width <= 768) return 'sm'
-    if (width <= 992) return 'md'
-    if (width <= 1200) return 'lg'
-    if (width <= 1600) return 'xlg'
+    if (width <= 576){return 1.5}
+    else if (width <= 768){return 1.5} 
+    else if (width <= 992){return 1.5}
+    else if (width <= 1300){return 1.5} 
+    else if (width <= 1500){return 1.5} 
+    else if (width <= 1700){return 1.5} 
+    else if (width <= 1900){return 2}
   }
 
 });

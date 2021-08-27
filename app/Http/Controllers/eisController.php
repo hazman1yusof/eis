@@ -285,45 +285,56 @@ class eisController extends Controller
         $total_pt = DB::table('patsumtotal')
                     ->where('units','=', $units)
                     ->where('year','=',$year)
-                    ->where('type','=','total_pt')
-                    ->first();
-        $total_pt = $total_pt->value;
+                    ->where('type','=','total_pt');
+        if($total_pt->exists()){
+            $total_pt = $total_pt->first();  
+            $total_pt = $total_pt->value;
+        }
 
         $total_inpt = DB::table('patsumtotal')
                     ->where('units','=', $units)
                     ->where('year','=',$year)
-                    ->where('type','=','total_inpt')
-                    ->first();
-        $total_inpt = $total_inpt->value;
+                    ->where('type','=','total_inpt');
+        if($total_inpt->exists()){
+            $total_inpt = $total_inpt->first();  
+            $total_inpt = $total_inpt->value;
+        }
 
         $total_outpt = DB::table('patsumtotal')
                     ->where('units','=', $units)
                     ->where('year','=',$year)
-                    ->where('type','=','total_outpt')
-                    ->first();
-        $total_outpt = $total_outpt->value;
+                    ->where('type','=','total_outpt');
+        if($total_outpt->exists()){
+            $total_outpt = $total_outpt->first();  
+            $total_outpt = $total_outpt->value;
+        }
 
         $total_rev = DB::table('patsumtotal')
                     ->where('units','=', $units)
                     ->where('year','=',$year)
-                    ->where('type','=','total_rev')
-                    ->first();
-        $total_rev = $total_rev->value;
+                    ->where('type','=','total_rev');
+        if($total_rev->exists()){
+            $total_rev = $total_rev->first();  
+            $total_rev = $total_rev->value;
+        }
 
         $total_rev_inpt = DB::table('patsumtotal')
                     ->where('units','=', $units)
                     ->where('year','=',$year)
-                    ->where('type','=','total_rev_inpt')
-                    ->first();
-        $total_rev_inpt = $total_rev_inpt->value;
+                    ->where('type','=','total_rev_inpt');
+        if($total_rev_inpt->exists()){
+            $total_rev_inpt = $total_rev_inpt->first();  
+            $total_rev_inpt = $total_rev_inpt->value;
+        }
 
         $total_rev_outpt = DB::table('patsumtotal')
                     ->where('units','=', $units)
                     ->where('year','=',$year)
-                    ->where('type','=','total_rev_outpt')
-                    ->first();
-
-        $total_rev_outpt = $total_rev_outpt->value;
+                    ->where('type','=','total_rev_outpt');
+        if($total_rev_outpt->exists()){
+            $total_rev_outpt = $total_rev_outpt->first();  
+            $total_rev_outpt = $total_rev_outpt->value;
+        }
 
         return view('dashboard.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val','total_pt','total_inpt','total_outpt','total_rev','total_rev_inpt','total_rev_outpt','year'));
     }
