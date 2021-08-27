@@ -226,6 +226,7 @@ $(document).ready(function () {
   })();
 
   var height = $('div.col5').height()+30;
+  console.log(getViewport());
 
 
   $("div.tp").css( "height", height+'px');
@@ -235,5 +236,18 @@ $(document).ready(function () {
     $("div.tp").css( "height", height+'px');
     $("div.btm").css( "height", "215px" );
   }, 500 );
+
+  function getViewport () {
+    // https://stackoverflow.com/a/8876069
+    const width = Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0
+    )
+    if (width <= 576) return 'xs'
+    if (width <= 768) return 'sm'
+    if (width <= 992) return 'md'
+    if (width <= 1200) return 'lg'
+    if (width <= 1600) return 'xlg'
+  }
 
 });
