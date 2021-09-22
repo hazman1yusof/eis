@@ -510,6 +510,140 @@ class WebserviceController extends Controller
             }
         }
 
+        foreach ($units as $key_units => $unit) {
+
+            $total_pt = DB::table('pateis_epis')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=','Y'.$year)->count();
+
+            $total_inpt = DB::table('pateis_epis')
+                        ->where('units','=', $unit->units)
+                        ->where('year','=','Y'.$year)
+                        ->where('epistype','=','IN-PATIENT')->count();
+
+            $total_outpt = DB::table('pateis_epis')
+                        ->where('units','=', $unit->units)
+                        ->where('year','=','Y'.$year)
+                        ->where('epistype','=','OUT-PATIENT')->count();
+
+            $total_rev = DB::table('pateis_rev')
+                        ->where('units','=', $unit->units)
+                        ->where('year','=','Y'.$year)
+                        ->sum('amount');
+
+            $total_rev_inpt = DB::table('pateis_rev')
+                        ->where('units','=', $unit->units)
+                        ->where('year','=','Y'.$year)
+                        ->where('epistype','=','IP')
+                        ->sum('amount');
+
+            $total_rev_outpt = DB::table('pateis_rev')
+                        ->where('units','=', $unit->units)
+                        ->where('year','=','Y'.$year)
+                        ->where('epistype','=','OP')
+                        ->sum('amount');
+
+            //inserting
+            $checkexists = DB::table('patsumtotal')
+                            ->where('units','=', $unit->units)
+                            ->where('year','=','Y'.$year);
+
+            if($checkexists->exists()){
+                DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_pt')
+                    ->update(['value' => $total_pt]);
+
+                 DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_inpt')
+                    ->update(['value' => $total_inpt]);
+                    
+                 DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_outpt')
+                    ->update(['value' => $total_outpt]);
+                    
+                 DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_rev')
+                    ->update(['value' => $total_rev]);
+                    
+                 DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_rev_inpt')
+                    ->update(['value' => $total_rev_inpt]);
+                    
+                 DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_rev_outpt')
+                    ->update(['value' => $total_rev_outpt]);
+
+            }else{
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
+                        'type' => 'total_pt',
+                        'value' => $total_pt
+                    ]);
+
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
+                        'type' => 'total_inpt',
+                        'value' => $total_inpt
+                    ]);
+                    
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
+                        'type' => 'total_outpt',
+                        'value' => $total_outpt
+                    ]);
+                    
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
+                        'type' => 'total_rev',
+                        'value' => $total_rev
+                    ]);
+                    
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
+                        'type' => 'total_rev_inpt',
+                        'value' => $total_rev_inpt
+                    ]);
+                    
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
+                        'type' => 'total_rev_outpt',
+                        'value' => $total_rev_outpt
+                    ]);
+            }
+
+        }
+
+        
+
+
+
+        
+
+
     }
     
 }

@@ -179,7 +179,7 @@ $(document).ready(function () {
         data: datapie1,
         options: {
           responsive: true,
-          aspectRatio: 1.5,
+          aspectRatio: getViewport(),
           plugins: {
             legend: false,
             title: false,
@@ -216,7 +216,7 @@ $(document).ready(function () {
         data: datapie2,
         options: {
           responsive: true,
-          aspectRatio: 1.5,
+          aspectRatio: getViewport(),
           plugins: {
             legend: false,
             title: false,
@@ -252,5 +252,20 @@ $(document).ready(function () {
     $("div.tp").css( "height", height+'px');
     $("div.btm").css( "height", "215px" );
   }, 500 );
+
+  function getViewport () {
+    // https://stackoverflow.com/a/8876069
+    const width = Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0
+    )
+    if (width <= 576){return 1.5}
+    else if (width <= 768){return 1.5} 
+    else if (width <= 992){return 1.5}
+    else if (width <= 1300){return 1.5} 
+    else if (width <= 1500){return 1.5} 
+    else if (width <= 1700){return 1.5} 
+    else if (width <= 1900){return 2}
+  }
 
 });
