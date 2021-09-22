@@ -7,8 +7,8 @@ $(document).ready(function () {
     $('#total_pt').text(new Intl.NumberFormat().format($('#total_pt').text()));
     $('#total_inpt').text(new Intl.NumberFormat().format($('#total_inpt').text()));
     $('#total_outpt').text(new Intl.NumberFormat().format($('#total_outpt').text()));
-    $('#total_rev_inpt').text(new Intl.NumberFormat().format($('#total_rev_inpt').text()));
-    $('#total_rev_outpt').text(new Intl.NumberFormat().format($('#total_rev_outpt').text()));
+    $('#total_rev_inpt').text(new Intl.NumberFormat("en", { maximumFractionDigits: 2, minimumFractionDigits: 2,}).format($('#total_rev_inpt').text()));
+    $('#total_rev_outpt').text(new Intl.NumberFormat("en", { maximumFractionDigits: 2, minimumFractionDigits: 2,}).format($('#total_rev_outpt').text()));
 
 
     var ctx = document.getElementById("myChart2").getContext('2d');
@@ -30,6 +30,14 @@ $(document).ready(function () {
           data: op_month,
           backgroundColor: '#f44336',
           borderColor: '#f44336',
+          borderWidth: 1.5,
+          pointBackgroundColor: '#ffffff',
+          pointRadius: 2
+        },{
+          label: 'Over The Counter',
+          data: otc_month,
+          backgroundColor: '#f47736',
+          borderColor: '#f47736',
           borderWidth: 1.5,
           pointBackgroundColor: '#ffffff',
           pointRadius: 2
@@ -67,7 +75,7 @@ $(document).ready(function () {
             clip:false,
             anchor:'end',
             formatter: function(value, context) {
-              return new Intl.NumberFormat().format(value);
+              return new Intl.NumberFormat("en", { maximumFractionDigits: 2, minimumFractionDigits: 2,}).format(value);
             }
 
           }
@@ -96,6 +104,15 @@ $(document).ready(function () {
           borderWidth: 1,
           backgroundColor: '#f44336',
           borderColor: '#f44336',
+          borderWidth: 1.5,
+          pointBackgroundColor: '#ffffff',
+          pointRadius: 2
+        },{
+          label: 'Over The Counter',
+          data: otc_month_epis,
+          borderWidth: 1,
+          backgroundColor: '#f47736',
+          borderColor: '#f47736',
           borderWidth: 1.5,
           pointBackgroundColor: '#ffffff',
           pointRadius: 2

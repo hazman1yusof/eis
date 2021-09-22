@@ -12,8 +12,10 @@ Dashboard
 <script>
   var ip_month = [{{implode(",",$ip_month)}}];
   var op_month = [{{implode(",",$op_month)}}];
+  var otc_month = [{{implode(",",$otc_month)}}];
   var ip_month_epis = [{{implode(",",$ip_month_epis)}}];
   var op_month_epis = [{{implode(",",$op_month_epis)}}];
+  var otc_month_epis = [{{implode(",",$otc_month_epis)}}];
   var groupdesc_val_op = [{{implode(",",$groupdesc_val_op)}}];
   var groupdesc_val_ip = [{{implode(",",$groupdesc_val_ip)}}];
   var groupdesc_val = [{{implode(",",$groupdesc_val)}}];
@@ -39,6 +41,10 @@ Dashboard
 
   div.tp{
     overflow:hidden;
+  }
+
+  .right{
+    text-align:right;
   }
 
   .blue{
@@ -106,20 +112,20 @@ Dashboard
           <div class="table-responsive table-invoice tp">
             <table class="table table-striped" id="totaltbl">
               <tbody>
-              <tr>
+              <tr class="right">
                 <td><small>Total Patient</small><h3 id="total_pt">{{$total_pt}}</h3>
                 </td>
               </tr>
-              <tr>
+              <tr class="right">
                 <td><small>Total In-Patient</small><h3 id="total_inpt">{{$total_inpt}}</h3></td>
               </tr>
-              <tr>
+              <tr class="right">
                 <td><small>Total Out-Patient</small><h3 id="total_outpt">{{$total_outpt}}</h3></td>
               </tr>
-              <tr>
+              <tr class="right">
                 <td><small>Total IP Revenue</small><h3 id="total_rev_inpt">{{$total_rev_inpt}}</h3></td>
               </tr>
-              <tr>
+              <tr class="right">
                 <td><small>Total OP Revenue</small><h3 id="total_rev_outpt">{{$total_rev_outpt}}</h3></td>
               </tr>
               <tr style="padding: 10px;">

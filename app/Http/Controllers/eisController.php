@@ -235,6 +235,14 @@ class eisController extends Controller
                     ->where('type','=',"REV")
                     ->first();
 
+        $otc_rev = DB::table('patsumepis')
+                    ->where('month','=',$month)
+                    ->where('year','=',$year)
+                    ->where('patient','=',"OTC")
+                    ->where('units','=', $units)
+                    ->where('type','=',"REV")
+                    ->first();
+
         $ip_epis = DB::table('patsumepis')
                     ->where('month','=',$month)
                     ->where('year','=',$year)
@@ -251,11 +259,21 @@ class eisController extends Controller
                     ->where('type','=',"epis")
                     ->first();
 
+        $otc_epis = DB::table('patsumepis')
+                    ->where('month','=',$month)
+                    ->where('year','=',$year)
+                    ->where('patient','=',"OVER THE COUNTER")
+                    ->where('units','=', $units)
+                    ->where('type','=',"epis")
+                    ->first();
+
         $ip_month = [$ip_rev->week1,$ip_rev->week2,$ip_rev->week3,$ip_rev->week4];
         $op_month = [$op_rev->week1,$op_rev->week2,$op_rev->week3,$op_rev->week4];
+        $otc_month = [$otc_rev->week1,$otc_rev->week2,$otc_rev->week3,$otc_rev->week4];
 
         $ip_month_epis =  [$ip_epis->week1,$ip_epis->week2,$ip_epis->week3,$ip_epis->week4];
         $op_month_epis = [$op_epis->week1,$op_epis->week2,$op_epis->week3,$op_epis->week4];
+        $otc_month_epis = [$otc_epis->week1,$otc_epis->week2,$otc_epis->week3,$otc_epis->week4];
 
         $groupdesc_ = DB::table('pateis_rev')->distinct()->get(['groupdesc']);
         $units_ = DB::table('pateis_rev')->select('units')->distinct()->get();
@@ -313,7 +331,7 @@ class eisController extends Controller
                     ->where('epistype','=','OP')
                     ->sum('amount');
 
-        return view('dashboard.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val','total_pt','total_inpt','total_outpt','total_rev','total_rev_inpt','total_rev_outpt','year'));
+        return view('dashboard.dashboard',compact('units_','ip_month','otc_month','op_month','ip_month_epis','op_month_epis','otc_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val','total_pt','total_inpt','total_outpt','total_rev','total_rev_inpt','total_rev_outpt','year'));
     }
 
     public function return_null(){

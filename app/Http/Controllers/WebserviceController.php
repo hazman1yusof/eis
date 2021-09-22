@@ -22,11 +22,11 @@ class WebserviceController extends Controller
         $month = ltrim($request->month, '0');
         $year = $request->year;
 
-        $firstdate = Carbon::createFromDate($year, $month, 1);
-        $seconddate = Carbon::createFromDate($year, $month, 1)->addDays(6);
-        $thirddate = Carbon::createFromDate($year, $month, 1)->addDays(12+1);
-        $fourthdate = Carbon::createFromDate($year, $month, 1)->addDays(18+2);
-        $fiftthdate = Carbon::createFromDate($year, $month, 1)->endOfMonth();
+        $firstdate = Carbon::createFromDate($year, $month, 1)->toDateString();
+        $seconddate = Carbon::createFromDate($year, $month, 1)->addDays(6)->toDateString();
+        $thirddate = Carbon::createFromDate($year, $month, 1)->addDays(12+1)->toDateString();
+        $fourthdate = Carbon::createFromDate($year, $month, 1)->addDays(18+2)->toDateString();
+        $fiftthdate = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
 
         $units = DB::table('pateis_rev')->select('units')->distinct()->get();
 
@@ -37,7 +37,7 @@ class WebserviceController extends Controller
                     ->where('epistype','=','IP')
                     ->where('units','=', $unit->units)
                     ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$firstdate, $seconddate])
+                    ->whereRaw("(disdate >= ? AND disdate < ?)", [$firstdate, $seconddate])
                     ->sum('amount');
 
             $week2ip = DB::table('pateis_rev')
@@ -46,7 +46,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','IP')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('disdate', [$seconddate, $thirddate])
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$seconddate, $thirddate])
                         ->sum('amount');
 
             $week3ip = DB::table('pateis_rev')
@@ -55,7 +55,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','IP')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('disdate', [$thirddate, $fourthdate])
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$thirddate, $fourthdate])
                         ->sum('amount');
 
             $week4ip = DB::table('pateis_rev')
@@ -64,7 +64,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','IP')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('disdate', [$fourthdate, $fiftthdate])
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$fourthdate, $fiftthdate])
                         ->sum('amount');
 
             $patsumepis = DB::table('patsumepis')
@@ -104,7 +104,7 @@ class WebserviceController extends Controller
                     ->where('epistype','=','OP')
                     ->where('units','=', $unit->units)
                     ->where('datetype','=','DIS')
-                    ->whereBetween('disdate', [$firstdate, $seconddate])
+                    ->whereRaw("(disdate >= ? AND disdate < ?)", [$firstdate, $seconddate])
                     ->sum('amount');
 
             $week2op = DB::table('pateis_rev')
@@ -113,7 +113,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','OP')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('disdate', [$seconddate, $thirddate])
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$seconddate, $thirddate])
                         ->sum('amount');
 
             $week3op = DB::table('pateis_rev')
@@ -122,7 +122,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','OP')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('disdate', [$thirddate, $fourthdate])
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$thirddate, $fourthdate])
                         ->sum('amount');
 
             $week4op = DB::table('pateis_rev')
@@ -131,7 +131,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','OP')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('disdate', [$fourthdate, $fiftthdate])
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$fourthdate, $fiftthdate])
                         ->sum('amount');
 
 
@@ -163,20 +163,84 @@ class WebserviceController extends Controller
                 ]);
             }
         }
-        
 
+        foreach ($units as $key => $unit) {
+            $week1otc = DB::table('pateis_rev')
+                    ->where('year','=','Y'.$year)
+                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                    ->where('epistype','=','OTC')
+                    ->where('units','=', $unit->units)
+                    ->where('datetype','=','DIS')
+                    ->whereRaw("(disdate >= ? AND disdate < ?)", [$firstdate, $seconddate])
+                    ->sum('amount');
+
+            $week2otc = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OTC')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$seconddate, $thirddate])
+                        ->sum('amount');
+
+            $week3otc = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OTC')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$thirddate, $fourthdate])
+                        ->sum('amount');
+
+            $week4otc = DB::table('pateis_rev')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OTC')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(disdate >= ? AND disdate < ?)", [$fourthdate, $fiftthdate])
+                        ->sum('amount');
+
+            $patsumepis = DB::table('patsumepis')
+                            ->where('month','=',$month)
+                            ->where('year','=',$year)
+                            ->where('units','=', $unit->units)
+                            ->where('type','=','REV')
+                            ->where('patient','=','OTC');
+
+            if($patsumepis->exists()){
+                $patsumepis->update([
+                    'week1' => $week1otc,
+                    'week2' => $week2otc,
+                    'week3' => $week3otc,
+                    'week4' => $week4otc
+                ]);
+            }else{
+                $patsumepis->insert([
+                    'month' => $month,
+                    'year' => $year,
+                    'units' => $unit->units,
+                    'type' => 'REV',
+                    'patient' => 'OTC',
+                    'week1' => $week1otc,
+                    'week2' => $week2otc,
+                    'week3' => $week3otc,
+                    'week4' => $week4otc
+                ]);
+            }
+        }
 
         $units = DB::table('pateis_epis')->select('units')->distinct()->get();
 
         foreach ($units as $key => $unit) {
             $week1ip_pt = DB::table('pateis_epis')
-                    ->where('year','=','Y'.$year)
-                    ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
-                    ->where('epistype','=','IN-PATIENT')
-                    ->where('units','=', $unit->units)
-                    ->where('datetype','=','DIS')
-                    ->whereBetween('admdate', [$firstdate, $seconddate])
-                    ->count();
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','IN-PATIENT')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$firstdate, $seconddate])
+                        ->count();
 
             $week2ip_pt = DB::table('pateis_epis')
                         ->where('year','=','Y'.$year)
@@ -184,7 +248,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','IN-PATIENT')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('admdate', [$seconddate, $thirddate])
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$seconddate, $thirddate])
                         ->count();
 
             $week3ip_pt = DB::table('pateis_epis')
@@ -193,7 +257,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','IN-PATIENT')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('admdate', [$thirddate, $fourthdate])
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$thirddate, $fourthdate])
                         ->count();
 
             $week4ip_pt = DB::table('pateis_epis')
@@ -202,7 +266,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','IN-PATIENT')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('admdate', [$fourthdate, $fiftthdate])
+                        ->whereRaw("(discdate >= ? AND discdate <= ?)", [$fourthdate, $fiftthdate])
                         ->count();
 
             $patsumepis = DB::table('patsumepis')
@@ -242,7 +306,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','OUT-PATIENT')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('admdate', [$firstdate, $seconddate])
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$firstdate, $seconddate])
                         ->count();
 
             $week2op_pt = DB::table('pateis_epis')
@@ -251,7 +315,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','OUT-PATIENT')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('admdate', [$seconddate, $thirddate])
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$seconddate, $thirddate])
                         ->count();
 
             $week3op_pt = DB::table('pateis_epis')
@@ -260,7 +324,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','OUT-PATIENT')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('admdate', [$thirddate, $fourthdate])
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$thirddate, $fourthdate])
                         ->count();
 
             $week4op_pt = DB::table('pateis_epis')
@@ -269,7 +333,7 @@ class WebserviceController extends Controller
                         ->where('epistype','=','OUT-PATIENT')
                         ->where('units','=', $unit->units)
                         ->where('datetype','=','DIS')
-                        ->whereBetween('admdate', [$fourthdate, $fiftthdate])
+                        ->whereRaw("(discdate >= ? AND discdate <= ?)", [$fourthdate, $fiftthdate])
                         ->count();
 
             $patsumepis = DB::table('patsumepis')
@@ -297,6 +361,72 @@ class WebserviceController extends Controller
                     'week2' => $week2op_pt,
                     'week3' => $week3op_pt,
                     'week4' => $week4op_pt
+                ]);
+            }
+        }
+
+        foreach ($units as $key => $unit) {
+            $week1otc_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OVER THE COUNTER')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$firstdate, $seconddate])
+                        ->count();
+
+            $week2otc_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OVER THE COUNTER')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$seconddate, $thirddate])
+                        ->count();
+
+            $week3otc_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OVER THE COUNTER')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(discdate >= ? AND discdate < ?)", [$thirddate, $fourthdate])
+                        ->count();
+
+            $week4otc_pt = DB::table('pateis_epis')
+                        ->where('year','=','Y'.$year)
+                        ->where('month','=','M'.str_pad($month,2,"0",STR_PAD_LEFT))
+                        ->where('epistype','=','OVER THE COUNTER')
+                        ->where('units','=', $unit->units)
+                        ->where('datetype','=','DIS')
+                        ->whereRaw("(discdate >= ? AND discdate <= ?)", [$fourthdate, $fiftthdate])
+                        ->count();
+
+            $patsumepis = DB::table('patsumepis')
+                            ->where('year','=',$year)
+                            ->where('month','=',$month)
+                            ->where('units','=', $unit->units)
+                            ->where('type','=','epis')
+                            ->where('patient','=','OVER THE COUNTER');
+
+            if($patsumepis->exists()){
+                $patsumepis->update([
+                    'week1' => $week1otc_pt,
+                    'week2' => $week2otc_pt,
+                    'week3' => $week3otc_pt,
+                    'week4' => $week4otc_pt
+                ]);
+            }else{
+                $patsumepis->insert([
+                    'month' => $month,
+                    'year' => $year,
+                    'units' => $unit->units,
+                    'type' => 'epis',
+                    'patient' => 'OVER THE COUNTER',
+                    'week1' => $week1otc_pt,
+                    'week2' => $week2otc_pt,
+                    'week3' => $week3otc_pt,
+                    'week4' => $week4otc_pt
                 ]);
             }
         }
