@@ -160,11 +160,11 @@ $(document).ready(function () {
 
 
     var datapie1 = {
-      labels: ['In-Patient', 'Out-Patient'],
+      labels: ['In-Patient', 'Out-Patient', 'OTC'],
       datasets: [
         {
           label: 'Dataset 1',
-          backgroundColor: ["#47aeff", "#f44336"],
+          backgroundColor: ["#47aeff", "#f44336", "#f47736"],
           data: pt_cnt
         }
       ]
@@ -197,11 +197,11 @@ $(document).ready(function () {
     );
 
     var datapie2 = {
-      labels: ['In-Patient', 'Out-Patient'],
+      labels: ['In-Patient', 'Out-Patient', 'OTC'],
       datasets: [
         {
           label: 'Dataset 1',
-          backgroundColor: ["#47aeff", "#f44336"],
+          backgroundColor: ["#47aeff", "#f44336", "#f47736"],
           data: pt_rev
         }
       ]
@@ -245,11 +245,11 @@ $(document).ready(function () {
   var height = $('div.col5').height()+30;
 
 
-  $("div.tp").css( "height", height+'px');
+  // $("div.tp").css( "height", height+'px');
   $("div.btm").css( "height", "215px" );
 
   delay(function(){
-    $("div.tp").css( "height", height+'px');
+    // $("div.tp").css( "height", height+'px');
     $("div.btm").css( "height", "215px" );
   }, 500 );
 

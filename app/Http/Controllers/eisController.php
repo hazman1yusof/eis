@@ -327,6 +327,15 @@ class eisController extends Controller
             $total_outpt = $total_outpt->value;
         }
 
+        $total_otc = DB::table('patsumtotal')
+                    ->where('units','=', $units)
+                    ->where('year','=',$year)
+                    ->where('type','=','total_otc');
+        if($total_otc->exists()){
+            $total_otc = $total_otc->first();  
+            $total_otc = $total_otc->value;
+        }
+
         $total_rev = DB::table('patsumtotal')
                     ->where('units','=', $units)
                     ->where('year','=',$year)
@@ -354,7 +363,16 @@ class eisController extends Controller
             $total_rev_outpt = $total_rev_outpt->value;
         }
 
-        return view('dashboard.dashboard',compact('units_','ip_month','otc_month','op_month','ip_month_epis','op_month_epis','otc_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val','total_pt','total_inpt','total_outpt','total_rev','total_rev_inpt','total_rev_outpt','year'));
+        $total_rev_otc = DB::table('patsumtotal')
+                    ->where('units','=', $units)
+                    ->where('year','=',$year)
+                    ->where('type','=','total_rev_otc');
+        if($total_rev_otc->exists()){
+            $total_rev_otc = $total_rev_otc->first();  
+            $total_rev_otc = $total_rev_otc->value;
+        }
+
+        return view('dashboard.dashboard',compact('units_','ip_month','otc_month','op_month','ip_month_epis','op_month_epis','otc_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val','total_pt','total_inpt','total_outpt','total_otc','total_rev','total_rev_inpt','total_rev_outpt','total_rev_otc','year'));
     }
 
     public function return_null(){

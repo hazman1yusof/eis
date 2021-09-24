@@ -526,6 +526,13 @@ class WebserviceController extends Controller
                         ->where('year','=','Y'.$year)
                         ->where('epistype','=','OUT-PATIENT')->count();
 
+
+            $total_otc = DB::table('pateis_epis')
+                        ->where('units','=', $unit->units)
+                        ->where('year','=','Y'.$year)
+                        ->where('epistype','=','OVER THE COUNTER')->count();
+
+
             $total_rev = DB::table('pateis_rev')
                         ->where('units','=', $unit->units)
                         ->where('year','=','Y'.$year)
@@ -541,6 +548,12 @@ class WebserviceController extends Controller
                         ->where('units','=', $unit->units)
                         ->where('year','=','Y'.$year)
                         ->where('epistype','=','OP')
+                        ->sum('amount');
+
+            $total_rev_otc = DB::table('pateis_rev')
+                        ->where('units','=', $unit->units)
+                        ->where('year','=','Y'.$year)
+                        ->where('epistype','=','OTC')
                         ->sum('amount');
 
             //inserting
@@ -566,6 +579,12 @@ class WebserviceController extends Controller
                     ->where('year','=', $year)
                     ->where('type','=', 'total_outpt')
                     ->update(['value' => $total_outpt]);
+
+                 DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_otc')
+                    ->update(['value' => $total_otc]);
                     
                  DB::table('patsumtotal')
                     ->where('units','=', $unit->units)
@@ -584,6 +603,12 @@ class WebserviceController extends Controller
                     ->where('year','=', $year)
                     ->where('type','=', 'total_rev_outpt')
                     ->update(['value' => $total_rev_outpt]);
+                    
+                 DB::table('patsumtotal')
+                    ->where('units','=', $unit->units)
+                    ->where('year','=', $year)
+                    ->where('type','=', 'total_rev_otc')
+                    ->update(['value' => $total_rev_otc]);
 
             }else{
                 DB::table('patsumtotal')
@@ -614,6 +639,14 @@ class WebserviceController extends Controller
                     ->insert([
                         'units' => $unit->units,
                         'year' => $year,
+                        'type' => 'total_otc',
+                        'value' => $total_otc
+                    ]);
+                    
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
                         'type' => 'total_rev',
                         'value' => $total_rev
                     ]);
@@ -632,6 +665,14 @@ class WebserviceController extends Controller
                         'year' => $year,
                         'type' => 'total_rev_outpt',
                         'value' => $total_rev_outpt
+                    ]);
+                    
+                DB::table('patsumtotal')
+                    ->insert([
+                        'units' => $unit->units,
+                        'year' => $year,
+                        'type' => 'total_rev_otc',
+                        'value' => $total_rev_otc
                     ]);
             }
 

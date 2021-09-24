@@ -19,8 +19,8 @@ Dashboard
   var groupdesc_val_op = [{{implode(",",$groupdesc_val_op)}}];
   var groupdesc_val_ip = [{{implode(",",$groupdesc_val_ip)}}];
   var groupdesc_val = [{{implode(",",$groupdesc_val)}}];
-  var pt_cnt = [{{$total_inpt}},{{$total_outpt}}];
-  var pt_rev = [{{$total_rev_inpt}},{{$total_rev_outpt}}];
+  var pt_cnt = [{{$total_inpt}},{{$total_outpt}},{{$total_otc}}];
+  var pt_rev = [{{$total_rev_inpt}},{{$total_rev_outpt}},{{$total_rev_otc}}];
 </script>
 @endsection
 
@@ -36,7 +36,19 @@ Dashboard
 
   #totaltbl small{
     font-weight: 700;
-    color: #6777ef;
+    <!-- color: #6777ef; -->
+  }
+
+  small.ip{
+    color:#47aeff;
+  }
+
+  small.op{
+    color:#f44336;
+  }
+
+  small.otc{
+    color:#f47736;
   }
 
   div.tp{
@@ -117,31 +129,37 @@ Dashboard
                 </td>
               </tr>
               <tr class="right">
-                <td><small>Total In-Patient</small><h3 id="total_inpt">{{$total_inpt}}</h3></td>
+                <td><small class="ip">Total In-Patient</small><h3 id="total_inpt">{{$total_inpt}}</h3></td>
               </tr>
               <tr class="right">
-                <td><small>Total Out-Patient</small><h3 id="total_outpt">{{$total_outpt}}</h3></td>
+                <td><small class="op">Total Out-Patient</small><h3 id="total_outpt">{{$total_outpt}}</h3></td>
               </tr>
               <tr class="right">
-                <td><small>Total IP Revenue</small><h3 id="total_rev_inpt">{{$total_rev_inpt}}</h3></td>
+                <td><small class="otc">Total OTC</small><h3 id="total_inpt">{{$total_otc}}</h3></td>
               </tr>
               <tr class="right">
-                <td><small>Total OP Revenue</small><h3 id="total_rev_outpt">{{$total_rev_outpt}}</h3></td>
+                <td><small class="ip">Total IP Revenue</small><h3 id="total_rev_inpt">{{$total_rev_inpt}}</h3></td>
+              </tr>
+              <tr class="right">
+                <td><small class="op">Total OP Revenue</small><h3 id="total_rev_outpt">{{$total_rev_outpt}}</h3></td>
+              </tr>
+              <tr class="right">
+                <td><small class="otc">Total OTC Revenue</small><h3 id="total_rev_outpt">{{$total_rev_otc}}</h3></td>
               </tr>
               <tr style="padding: 10px;">
-                <td><small>Total Patient (IP vs OP)</small>
+                <td><small>Total Patient Pie Chart</small>
                   <canvas id="myChart4" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
                 </td>
               </tr>
               <tr style="padding: 10px;">
-                <td><small>Total Revenue (IP vs OP)</small>
+                <td><small>Total Revenue Pie Chart</small>
                   <canvas id="myChart5" style="display: block; width: 132px; height: 55px;" class="chartjs-render-monitor"></canvas>
                 </td>
               </tr>
               </tbody>
             </table>
           </div>
-        <div class="card-footer pt-3 d-flex justify-content-center">
+        <!-- <div class="card-footer pt-3 d-flex justify-content-center">
           <div class="budget-price justify-content-center">
             <div class="budget-price-square bg-primary" data-width="20" style="width: 20px;"></div>
             <div class="budget-price-label">IN PATIENT</div>
@@ -150,7 +168,7 @@ Dashboard
             <div class="budget-price-square bg-danger" data-width="20" style="width: 20px;"></div>
             <div class="budget-price-label">OUT PATIENT</div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
